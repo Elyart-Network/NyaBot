@@ -1,5 +1,6 @@
+import { callbackHandler } from "@/loader";
 import type { NextRequest } from "next/server";
-import { checkEnvInit, commonResponse, jsonResponse } from "@/../core/utils/common";
+import { checkEnvInit, commonResponse, jsonResponse } from "@/../core/common";
 
 export const config = {
   runtime: 'edge',
@@ -11,7 +12,7 @@ export default async function handler(req: NextRequest) {
 
   try {
     const json = await req.json()
-    console.log(json)
+    await callbackHandler(json)
     return await jsonResponse(200, json)
   } catch (error) {
     console.log(error)
