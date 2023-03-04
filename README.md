@@ -17,7 +17,7 @@
 
 ## NyaBot Roadmap
 
-##### [✔] Usable, [⚠] In Progress, [❌] Not Ready, [😈] In Plan, [🍪] Food
+#### [✔] Usable | [⚠] In Progress | [❌] Not Ready | [😈] In Plan | [🍪] Food
 
 -----
 
