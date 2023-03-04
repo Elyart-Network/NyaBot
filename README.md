@@ -45,5 +45,5 @@
 
 <details>
   <summary>This project is fully open source, and using Apache 2.0 License.</summary>
-  #### In case our cookies show up on your doorstep one day, please accept it! 😉
+  In case our cookies show up on your doorstep one day, please accept it! 😉
 </details>
