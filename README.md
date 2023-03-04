@@ -14,3 +14,19 @@
 ## NyaBot v3 Documents
 
 - Working on it...
+
+## NyaBot Roadmap
+
+- Async Process [✔]
+- Middleware [⚠]
+- HTTP Forward [✔]
+- HTTP Reserve [✔]
+- Websocket Forward [⚠]
+- Websocket Reserve [×]
+- Plugin Support [✔]
+- Full Autocomplete [⚠]
+- Zero Coupling [⚠]
+- Production Ready [×]
+- Full API Support [⚠]
+- Other Framework [□]
+- Tasty Cookies [✔]

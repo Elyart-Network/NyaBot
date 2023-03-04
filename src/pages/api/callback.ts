@@ -1,6 +1,6 @@
 import { callbackHandler } from "@/loader";
 import type { NextRequest } from "next/server";
-import { checkEnvInit, commonResponse, jsonResponse } from "@/../core/common";
+import { checkEnvInit, commonResponse, jsonResponse } from "../../../core/nextkit/common";
 
 export const config = {
   runtime: 'edge',

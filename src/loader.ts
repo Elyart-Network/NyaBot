@@ -1,23 +1,20 @@
+import * as examplePlugin from "../plugin/example"
+
 export async function callbackHandler(callback: any) {
     if (callback.post_type == 'message') {
-        return callback
+        return pluginRegistry("message", callback)
     }
     if (callback.post_type == 'request') {
-        return callback
+        return pluginRegistry("request", callback)
     }
     if (callback.post_type == 'notice') {
-        return callback
+        return pluginRegistry("notice", callback)
     }
     if (callback.post_type == 'meta_event') {
-        return 2000
+        return pluginRegistry("meta_event", callback)
     }
 }
 
-export async function responseHandler(response: any) {
-    if (response.status == 'ok') {
-        return response
-    }
-    if (response.status == 'failed') {
-        return response
-    }
+async function pluginRegistry(type: string, callback: any) {
+    await examplePlugin.handler(type, callback)
 }
