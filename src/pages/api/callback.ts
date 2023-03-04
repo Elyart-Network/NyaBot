@@ -1,4 +1,4 @@
-import { callbackHandler } from "@/../plugin/entrypoint";
+import { extendFunctions } from "@/loader";
 import type { NextRequest } from "next/server";
 import { checkEnvInit, commonResponse, jsonResponse } from "../../../core/nextkit/common";
 
@@ -12,7 +12,7 @@ export default async function handler(req: NextRequest) {
 
   try {
     const json = await req.json()
-    await callbackHandler(json)
+    await extendFunctions["callbackHandler"](json)
     return await jsonResponse(200, { status: 'ok' })
   } catch (error) {
     console.log(error)
