@@ -17,16 +17,19 @@
 
 ## NyaBot Roadmap
 
+### [✔] Usable, [⚠] In Progress, [❌] Not Ready, [😈] In Plan, [🍪] Food
+
+- Open Source [✔]
 - Async Process [✔]
-- Middleware [⚠]
+- Middleware [😈]
 - HTTP Forward [✔]
 - HTTP Reserve [✔]
-- Websocket Forward [⚠]
-- Websocket Reserve [×]
+- Websocket Forward [😈]
+- Websocket Reserve [❌]
 - Plugin Support [✔]
-- Full Autocomplete [⚠]
+- Full Autocomplete [😈]
 - Zero Coupling [⚠]
-- Production Ready [×]
+- Production Ready [❌]
 - Full API Support [⚠]
-- Other Framework [□]
-- Tasty Cookies [✔]
+- Other Framework [😈]
+- Tasty Developers [🍪]
