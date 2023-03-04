@@ -34,3 +34,16 @@
 - Fully Serverless [⚠]
 - Other Framework [😈]
 - Tasty Developers [🍪]
+
+## Support Us
+
+- Fix bugs and send PRs
+- Submit Issues
+- Star this project
+- Use this project
+- Submit some plugins
+
+<details>
+  <summary>This project is fully open source, and using Apache 2.0 License.</summary>
+  In case our cookies show up on your doorstep one day, please accept it!
+</details>
