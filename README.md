@@ -17,11 +17,14 @@
 
 ## NyaBot Roadmap
 
-#### [✔] Usable | [⚠] In Progress | [❌] Not Ready | [😈] In Plan | [🍪] Food
+#### [✔] Usable | [⚠] In Progress | [👻] Partially | [❌] Not Ready | [😈] In Plan | [🍪] Food
 
 - Open Source [✔]
 - Async Process [✔]
 - Middleware [😈]
+- Storage Support [👻]
+- Database Support [😈]
+- Cache Support [😈]
 - HTTP Forward [✔]
 - HTTP Reserve [✔]
 - Websocket Forward [😈]
@@ -31,9 +34,14 @@
 - Zero Coupling [⚠]
 - Production Ready [❌]
 - Full API Support [⚠]
-- Fully Serverless [⚠]
+- Fully Serverless [👻]*
 - Other Framework [😈]
 - Tasty Developers [🍪]
+
+```
+* Using storage / database / cache will disable Serverless Function.
+* Serverless deployment does not support file system operations yet.
+```
 
 ## Support Us
 
