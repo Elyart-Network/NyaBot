@@ -31,5 +31,6 @@
 - Zero Coupling [⚠]
 - Production Ready [❌]
 - Full API Support [⚠]
+- Fully Serverless [⚠]
 - Other Framework [😈]
 - Tasty Developers [🍪]
