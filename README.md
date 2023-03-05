@@ -35,14 +35,17 @@
 - Production Ready [❌]
 - Full API Support [⚠]
 - Fully Serverless [👻]*
-- Other Framework [😈]
-- Tasty Developers [❌]*
+- WeChat Framework [❌]*
+- QQ Core Framework [😈]*
+- Discord Framework [😈]
+- Telegram Framework [😈]
+- Tasty Developers [❌]**
 
 ```
-* Using storage / database / cache will disable Serverless Function.
+* Using storage / database / cache / qq core frame will disable Serverless Function.
 * Serverless deployment does not support file system operations yet.
 
-* All contributors got flu, and we are not able to make developers tasty.
+** All contributors got flu, and we are not able to make developers tasty.
 ```
 
 ## Support Us
