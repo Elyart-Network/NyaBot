@@ -29,6 +29,7 @@
 - HTTP Reserve [✔]
 - Websocket Forward [😈]
 - Websocket Reserve [❌]
+- Secure Connection [⚠]
 - Plugin Support [✔]
 - Full Autocomplete [😈]
 - Zero Coupling [⚠]
