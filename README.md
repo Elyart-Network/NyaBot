@@ -22,7 +22,7 @@
 - Open Source [✔]
 - Async Process [✔]
 - Middleware [😈]
-- Storage Support [👻]
+- Storage Support [👻]*
 - Database Support [😈]
 - Cache Support [😈]
 - HTTP Forward [✔]
@@ -36,14 +36,15 @@
 - Production Ready [❌]
 - Full API Support [⚠]
 - Fully Serverless [👻]*
-- WeChat Framework [❌]*
+- GoCqHttp Framework [⚠]
+- WeChat Core Framework [❌]*
 - QQ Core Framework [😈]*
 - Discord Framework [😈]
 - Telegram Framework [😈]
 - Tasty Developers [❌]**
 
 ```
-* Using storage / database / cache / qq core frame will disable Serverless Function.
+* Using 'storage' / 'core framework' will disable Serverless Function.
 * Serverless deployment does not support file system operations yet.
 
 ** All contributors got flu, and we are not able to make developers tasty.
