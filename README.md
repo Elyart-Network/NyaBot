@@ -36,11 +36,13 @@
 - Full API Support [⚠]
 - Fully Serverless [👻]*
 - Other Framework [😈]
-- Tasty Developers [🍪]
+- Tasty Developers [❌]*
 
 ```
 * Using storage / database / cache will disable Serverless Function.
 * Serverless deployment does not support file system operations yet.
+
+* All contributors got flu, and we are not able to make developers tasty.
 ```
 
 ## Support Us
