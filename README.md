@@ -41,13 +41,11 @@
 - QQ Core Framework [😈]*
 - Discord Framework [😈]
 - Telegram Framework [😈]
-- Tasty Developers [❌]**
+- Tasty Developers [🍪]
 
 ```
 * Using 'storage' / 'core framework' will disable Serverless Function.
 * Serverless deployment does not support file system operations yet.
-
-** All contributors got flu, and we are not able to make developers tasty.
 ```
 
 ## Support Us
