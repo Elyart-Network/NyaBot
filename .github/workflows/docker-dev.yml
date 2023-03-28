@@ -19,7 +19,7 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
         with:
-          endpoint: default
+          endpoint: https://lb.kubesphere.local:6443
         env:
           DOCKER_TLS_VERIFY: 0
       -
