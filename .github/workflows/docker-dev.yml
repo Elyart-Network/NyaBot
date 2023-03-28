@@ -10,8 +10,13 @@ jobs:
     runs-on: [self-hosted, linux, x64]
     steps:
       -
-        name: Checkout
+        name: Checkout Repository
         uses: actions/checkout@v3
+      -
+        name: Checkout SubModule
+        run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
