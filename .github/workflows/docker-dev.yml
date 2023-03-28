@@ -7,7 +7,7 @@ on:
 
 jobs:
   docker:
-    runs-on: [self-hosted, linux, x64]
+    runs-on: [de-k8s]
     steps:
       -
         name: Checkout
