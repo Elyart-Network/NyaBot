@@ -44,3 +44,38 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: whydesd/nyabot:dev
+  deploy:
+    runs-on: [self-hosted, linux, x64]
+    steps:
+      -
+        name: ZeroTier
+        uses: zerotier/github-action@v1
+        with:
+          network_id: ${{ secrets.ZEROTIER_NETWORK_ID }}
+          auth_token: ${{ secrets.ZEROTIER_CENTRAL_TOKEN }}
+
+      -
+        name: ping host
+        shell: bash
+        run: |
+          count=5
+          while ! ping -c 1 ${{ secrets.ZEROTIER_HOST_IP }} ; do
+            echo "waiting..." ;
+            sleep 1 ;
+            let count=count-1
+          done
+          echo "ping success"
+      -
+        name: deploy to server
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.ZEROTIER_HOST_IP }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            docker stop nyabot
+            docker rm nyabot
+            docker image rm whydesd/nyabot:dev
+            docker pull whydesd/nyabot:dev
+            docker create -p 5600:3000 -e GOCQ_HTTP_URL="http://10.0.0.2:5700" --name nyabot
+            docker start nyabot
