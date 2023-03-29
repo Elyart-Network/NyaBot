@@ -13,17 +13,6 @@ jobs:
           network_id: ${{ secrets.ZEROTIER_NETWORK_ID }}
           auth_token: ${{ secrets.ZEROTIER_CENTRAL_TOKEN }}
       -
-        name: ping host
-        shell: bash
-        run: |
-          count=5
-          while ! ping -c 1 ${{ secrets.ZEROTIER_HOST_IP }} ; do
-            echo "waiting..." ;
-            sleep 1 ;
-            let count=count-1
-          done
-          echo "ping success"
-      -
         name: deploy to docker
         uses: appleboy/ssh-action@v0.1.8
         with:
