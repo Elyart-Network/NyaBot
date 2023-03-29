@@ -13,6 +13,17 @@ jobs:
           network_id: ${{ secrets.ZEROTIER_NETWORK_ID }}
           auth_token: ${{ secrets.ZEROTIER_CENTRAL_TOKEN }}
       -
+        name: ping host
+        shell: bash
+        run: |
+          count=5
+          while ! ping -c 1 ${{ secrets.ZEROTIER_HOST_IP }} ; do
+            echo "waiting..." ;
+            sleep 1 ;
+            let count=count-1
+          done
+          echo "ping success"
+      -
         name: deploy to docker
         uses: appleboy/ssh-action@v0.1.8
         with:
@@ -24,5 +35,5 @@ jobs:
             /usr/local/bin/docker rm nyabot
             /usr/local/bin/docker image rm whydesd/nyabot:dev
             /usr/local/bin/docker pull whydesd/nyabot:dev
-            /usr/local/bin/docker create -p 5600:3000 -e GOCQ_HTTP_URL="http://10.0.0.2:5700" --name nyabot
+            /usr/local/bin/docker create -p 5600:3000 -e GOCQ_HTTP_URL="http://10.0.0.2:5700" --name nyabot whydesd/nyabot:dev
             /usr/local/bin/docker start nyabot
