@@ -46,7 +46,7 @@ jobs:
           tags: whydesd/nyabot:dev
   deploy:
     needs: docker
-    runs-on: [self-hosted, linux, x64]
+    runs-on: ubuntu-latest
     steps:
       -
         name: ZeroTier
