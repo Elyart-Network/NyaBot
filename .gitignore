@@ -10,3 +10,5 @@ NyaBot
 config.yaml
 go.work
 vendor
+plugin/*
+!plugin/entry.go
