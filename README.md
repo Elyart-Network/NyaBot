@@ -1,11 +1,6 @@
-# NyaBot v3 Framework
+# NyaBot v3
 
-- NodeJS 16+
-- Yarn Global
-- NextJS 13
-- GoCqHttp
-- NyaBot Plugin v3
-- NyaBot Core v3
+- GoLang Version: 1.16
 
 ## GoCqHttp REST API
 
@@ -22,7 +17,7 @@
 - Open Source [✔]
 - Async Process [✔]
 - Middleware [😈]
-- Storage Support [👻]*
+- Storage Support [✔]
 - Database Support [😈]
 - Cache Support [😈]
 - HTTP Forward [✔]
@@ -31,22 +26,18 @@
 - Websocket Reserve [❌]
 - Secure Connection [⚠]
 - Plugin Support [✔]
-- Full Autocomplete [😈]
-- Zero Coupling [⚠]
+- External Support [😈]
+- Full Autocomplete [✔]
+- Zero Coupling [✔]
 - Production Ready [❌]
-- Full API Support [⚠]
-- Fully Serverless [👻]*
-- GoCqHttp Framework [⚠]
-- WeChat Core Framework [❌]*
-- QQ Core Framework [😈]*
+- Full API Support [✔]
+- Stateless Deployment [✔]
+- GoCqHttp Framework [✔]
+- WeChat Core Framework [❌]
+- QQ Core Framework [😈]
 - Discord Framework [😈]
 - Telegram Framework [😈]
 - Tasty Developers [🍪]
-
-```
-* Using 'storage' / 'core framework' will disable Serverless Function.
-* Serverless deployment does not support file system operations yet.
-```
 
 ## Support Us
 
