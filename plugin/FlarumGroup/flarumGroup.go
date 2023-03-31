@@ -3,6 +3,7 @@ package FlarumGroup
 import (
 	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqapi/comMessage"
 	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqcall"
+	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqcode"
 	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
 	"github.com/Elyart-Network/NyaBot/extend/plugin"
 )
@@ -94,6 +95,18 @@ func Entry(callback cqcall.CallbackFull) {
 			if err != nil {
 				return
 			}
+		}
+	}
+	if callback.Message == ".img" {
+		var code = cqcode.ImageData{File: "Flarum", Url: "https://flarum.org/assets/img/home-screenshot.png"}
+		var data = comMessage.SendGroupMsgData{
+			GroupID:    callback.GroupID,
+			Message:    cqcode.Image(code),
+			AutoEscape: false,
+		}
+		_, err := comMessage.SendGroupMsg(data)
+		if err != nil {
+			return
 		}
 	}
 	return

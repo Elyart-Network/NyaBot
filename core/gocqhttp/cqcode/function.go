@@ -65,7 +65,7 @@ func MusicFull(data MusicData) string {
 }
 
 func Image(data ImageData) string {
-	return "[CQ:image,file=" + data.File + "url" + data.Url + "]"
+	return "[CQ:image,file=" + data.File + ",url=" + data.Url + "]"
 }
 
 func ImageFull(data ImageData) string {
