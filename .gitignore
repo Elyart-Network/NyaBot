@@ -1,0 +1,11 @@
+.idea
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+config.yaml
+go.work
+vendor
