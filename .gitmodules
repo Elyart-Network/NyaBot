@@ -1,6 +1,0 @@
-[submodule "core"]
-	path = core
-	url = https://github.com/Elyart-Network/NyaBot-Core.git
-[submodule "plugin"]
-	path = plugin
-	url = https://github.com/Elyart-Network/NyaBot-Plugin.git
