@@ -1,6 +1,6 @@
 # NyaBot v3
 
-- GoLang Version: 1.16
+- GoLang Version: 1.20+
 
 ## GoCqHttp REST API
 
