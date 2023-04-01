@@ -14,3 +14,4 @@ vendor
 plugin/*
 !plugin/.gitkeep
 !plugin/*example/
+!plugin/internal_*/

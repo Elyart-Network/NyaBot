@@ -7,6 +7,14 @@ import (
 
 func GoCqEntry(ctx *gin.Context) {
 	cqCallback = cqcall.Callback(ctx)
+	cqPlugins := make(map[string]GoCqPlugin)
+	// Filter plugins.
+	for key, value := range plugins {
+		if key.Type == "cq" {
+			cqPlugins[key.Name] = value.(GoCqPlugin)
+		}
+	}
+	// Send callback to plugin functions.
 	for _, value := range cqPlugins {
 		switch cqCallback.PostType {
 		case "message":

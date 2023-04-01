@@ -1,8 +1,12 @@
 package plugin
 
-var cqPlugins = make(map[string]GoCqPlugin)
+import (
+	"log"
+)
+
+var plugins = make(map[InfoStruct]interface{})
 
 func CqPlugRegister(plugin GoCqPlugin) {
-	cqPlugins[plugin.Info().Name] = plugin
-	return
+	plugins[plugin.Info()] = plugin
+	log.Println("[Nya-GoCq] Plugin", plugin.Info().Name, "registered.")
 }

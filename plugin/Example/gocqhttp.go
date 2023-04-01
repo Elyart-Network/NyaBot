@@ -1,5 +1,5 @@
-// Package CqExample is a example plugin for GoCqHttp protocol.
-package CqExample
+// Package Example is an example plugin.
+package Example
 
 import (
 	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqcall"
@@ -20,31 +20,36 @@ func (p *Plugin) Info() plugin.InfoStruct {
 		License:     "",
 		Homepage:    "",
 		Repository:  "",
-		Type:        "",
+		Type:        "cq",
 	}
 }
 
-// Message process message event from callback.
+// Message process message event from callback. (required)
 func (p *Plugin) Message(callback cqcall.CallbackFull) {
 	log.Println("Message")
 }
 
-// Request process request event from callback.
+// Request process request event from callback. (required)
 func (p *Plugin) Request(callback cqcall.CallbackFull) {
 	log.Println("Request")
 }
 
-// Notice process notice event from callback.
+// Notice process notice event from callback. (required)
 func (p *Plugin) Notice(callback cqcall.CallbackFull) {
 	log.Println("Notice")
 }
 
-// MetaEvent process meta event from callback.
+// MetaEvent process meta event from callback. (required)
 func (p *Plugin) MetaEvent(callback cqcall.CallbackFull) {
 	log.Println("MetaEvent")
 }
 
-// init register plugin to plugin manager (frame).
+// DependOn return a list of plugins that this plugin depends on.
+func (p *Plugin) DependOn() []string {
+	return []string{}
+}
+
+// init register plugin and depends to plugin manager (frame).
 func init() {
 	plugin.CqPlugRegister(&Plugin{})
 }
