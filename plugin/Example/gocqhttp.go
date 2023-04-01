@@ -44,11 +44,6 @@ func (p *Plugin) MetaEvent(callback cqcall.CallbackFull) {
 	log.Println("MetaEvent")
 }
 
-// DependOn return a list of plugins that this plugin depends on.
-func (p *Plugin) DependOn() []string {
-	return []string{}
-}
-
 // init register plugin and depends to plugin manager (frame).
 func init() {
 	plugin.CqPlugRegister(&Plugin{})
