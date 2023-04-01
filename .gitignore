@@ -6,9 +6,11 @@
 *.dylib
 *.test
 *.out
+test.go
 NyaBot
 config.yaml
 go.work
 vendor
 plugin/*
-!plugin/entry.go
+!plugin/.gitkeep
+!plugin/*example/
