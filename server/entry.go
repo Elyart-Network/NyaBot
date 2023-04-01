@@ -16,5 +16,5 @@ func Entry(server *gin.Engine) {
 			"status": "OK",
 		})
 	})
-	server.POST("/api/gocqhttp", plugin.GoCqEntry)
+	server.POST("/api/gocqhttp", plugin.CqEntry)
 }

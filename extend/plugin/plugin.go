@@ -4,9 +4,9 @@ import (
 	"log"
 )
 
-var plugins = make(map[InfoStruct]interface{})
+var plugins = make(map[string]interface{})
 
-func CqPlugRegister(plugin GoCqPlugin) {
-	plugins[plugin.Info()] = plugin
-	log.Println("[Nya-GoCq] Plugin", plugin.Info().Name, "registered.")
+func CqRegister(plugin CqPlugin) {
+	plugins[plugin.(CommonInfo).Info().Name] = plugin
+	log.Println("[Nya-Plugin] Plugin", plugin.(CommonInfo).Info().Name, "registered.")
 }

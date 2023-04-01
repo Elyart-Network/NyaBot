@@ -21,7 +21,7 @@ type CommonInfo interface {
 
 var cqCallback cqcall.CallbackFull
 
-type GoCqPlugin interface {
+type CqPlugin interface {
 	CommonInfo
 	Message(callback cqcall.CallbackFull)
 	Request(callback cqcall.CallbackFull)

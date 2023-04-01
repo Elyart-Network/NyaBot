@@ -20,7 +20,7 @@ func (p *Plugin) Info() plugin.InfoStruct {
 		License:     "",
 		Homepage:    "",
 		Repository:  "",
-		Type:        "cq",
+		Type:        "GoCqHttp",
 	}
 }
 
@@ -46,5 +46,5 @@ func (p *Plugin) MetaEvent(callback cqcall.CallbackFull) {
 
 // init register plugin and depends to plugin manager (frame).
 func init() {
-	plugin.CqPlugRegister(&Plugin{})
+	plugin.CqRegister(&Plugin{})
 }

@@ -5,13 +5,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GoCqEntry(ctx *gin.Context) {
+func CqEntry(ctx *gin.Context) {
+	// Get callback from request.
 	cqCallback = cqcall.Callback(ctx)
-	cqPlugins := make(map[string]GoCqPlugin)
+	cqPlugins := make(map[string]CqPlugin)
 	// Filter plugins.
-	for key, value := range plugins {
-		if key.Type == "cq" {
-			cqPlugins[key.Name] = value.(GoCqPlugin)
+	for _, value := range plugins {
+		if value.(CommonInfo).Info().Type == "GoCqHttp" {
+			cqPlugins[value.(CommonInfo).Info().Name] = value.(CqPlugin)
 		}
 	}
 	// Send callback to plugin functions.
