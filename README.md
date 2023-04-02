@@ -1,13 +1,10 @@
 ![NyaBot](https://socialify.git.ci/Elyart-Network/NyaBot/image?description=1&descriptionEditable=A%20ChatBot%20Framework%20based%20on%20GoLang&language=1&name=1&owner=1&theme=Auto)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ### NyaBot v3
 
 -----
 
-![GitHub](https://img.shields.io/github/license/Elyart-Network/NyaBot?style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/commit-check.yml?label=check&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/docker-dev.yml?label=image&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/build-release.yml?label=build&style=flat-square) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Elyart-Network/NyaBot?include_prereleases&style=flat-square)
+![GitHub](https://img.shields.io/github/license/Elyart-Network/NyaBot?style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/commit-check.yml?label=check&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/codeql.yml?label=security&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/dependency-review.yml?label=dependency&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/docker-dev.yml?label=image&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/build-release.yml?label=build&style=flat-square) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Elyart-Network/NyaBot?include_prereleases&style=flat-square)
 
 - GoLang Version: 1.20+
 
@@ -66,6 +63,10 @@
 </details>
 
 ## Contributors
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
