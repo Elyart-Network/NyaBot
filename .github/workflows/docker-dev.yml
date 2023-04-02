@@ -1,4 +1,4 @@
-name: docker-dev
+name: Docker Dev
 
 on: workflow_dispatch
   # push:
@@ -12,11 +12,6 @@ jobs:
       -
         name: Checkout Repository
         uses: actions/checkout@v3
-      -
-        name: Checkout SubModule
-        run: |
-          git submodule update --init --recursive
-          git submodule update --recursive --remote
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -44,38 +39,3 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: whydesd/nyabot:dev
-  deploy:
-    needs: docker
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: ZeroTier
-        uses: zerotier/github-action@v1
-        with:
-          network_id: ${{ secrets.ZEROTIER_NETWORK_ID }}
-          auth_token: ${{ secrets.ZEROTIER_CENTRAL_TOKEN }}
-      -
-        name: ping host
-        shell: bash
-        run: |
-          count=5
-          while ! ping -c 1 ${{ secrets.ZEROTIER_HOST_IP }} ; do
-            echo "waiting..." ;
-            sleep 1 ;
-            let count=count-1
-          done
-          echo "ping success"
-      -
-        name: deploy to docker
-        uses: appleboy/ssh-action@v0.1.8
-        with:
-          host: ${{ secrets.ZEROTIER_HOST_IP }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            /usr/local/bin/docker stop nyabot
-            /usr/local/bin/docker rm nyabot
-            /usr/local/bin/docker image rm whydesd/nyabot:dev
-            /usr/local/bin/docker pull whydesd/nyabot:dev
-            /usr/local/bin/docker create -p 5600:3000 -e GOCQ_HTTP_URL="http://10.0.0.2:5700" --name nyabot whydesd/nyabot:dev
-            /usr/local/bin/docker start nyabot

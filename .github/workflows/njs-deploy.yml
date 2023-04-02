@@ -1,4 +1,4 @@
-name: deploy
+name: NodeJS Deploy
 
 on: workflow_dispatch
       
