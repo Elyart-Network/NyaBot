@@ -1,4 +1,4 @@
-![NyaBot](https://socialify.git.ci/Elyart-Network/NyaBot/image?description=1&language=1&name=1&owner=1&theme=Auto)
+![NyaBot](https://socialify.git.ci/Elyart-Network/NyaBot/image?description=1&descriptionEditable=A%20ChatBot%20Framework%20based%20on%20GoLang&language=1&name=1&owner=1&theme=Auto)
 
 ### NyaBot v3
 
