@@ -1,4 +1,7 @@
 ![NyaBot](https://socialify.git.ci/Elyart-Network/NyaBot/image?description=1&descriptionEditable=A%20ChatBot%20Framework%20based%20on%20GoLang&language=1&name=1&owner=1&theme=Auto)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ### NyaBot v3
 
@@ -65,6 +68,20 @@
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://baiyi.moe"><img src="https://avatars.githubusercontent.com/u/25338540?v=4?s=100" width="100px;" alt="BaiYi"/><br /><sub><b>BaiYi</b></sub></a><br /><a href="https://github.com/Elyart-Network/NyaBot/commits?author=WhiteElytra" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
