@@ -1,5 +1,7 @@
 # .github/workflows/release.yaml
 
+name: Build Release
+
 on:
   release:
     types: [created]
