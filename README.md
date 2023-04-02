@@ -1,6 +1,6 @@
 # NyaBot v3
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/commit-check.yml?label=check&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/docker-dev.yml?label=image&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/build-release.yml?label=build&style=flat-square) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Elyart-Network/NyaBot?include_prereleases&style=flat-square)
+![GitHub](https://img.shields.io/github/license/Elyart-Network/NyaBot?style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/commit-check.yml?label=check&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/docker-dev.yml?label=image&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/build-release.yml?label=build&style=flat-square) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Elyart-Network/NyaBot?include_prereleases&style=flat-square)
 
 - GoLang Version: 1.20+
 
