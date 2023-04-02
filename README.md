@@ -1,4 +1,8 @@
-# NyaBot v3
+![NyaBot](https://socialify.git.ci/Elyart-Network/NyaBot/image?description=1&forks=1&issues=1&language=1&name=1&owner=1&pulls=1&stargazers=1&theme=Auto)
+
+### NyaBot v3
+
+-----
 
 ![GitHub](https://img.shields.io/github/license/Elyart-Network/NyaBot?style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/commit-check.yml?label=check&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/docker-dev.yml?label=image&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/build-release.yml?label=build&style=flat-square) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Elyart-Network/NyaBot?include_prereleases&style=flat-square)
 
@@ -57,3 +61,24 @@
   <summary>This project is fully open source, and using Apache 2.0 License.</summary>
   In case our cookies show up on your doorstep one day, please accept it! 😉
 </details>
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## LICENSE
+
+Apache License 2.0
+
+## Thanks
+
+#### [JetBrains](https://www.jetbrains.com/?from=NyaBot) for providing us with free licenses for their awesome IDEs.
+
+![JetBrains](https://www.jetbrains.com/company/brand/img/jetbrains_logo.png)
