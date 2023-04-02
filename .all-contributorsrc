@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "WhiteElytra",
+      "name": "BaiYi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25338540?v=4",
+      "profile": "http://baiyi.moe",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "NyaBot",
+  "projectOwner": "Elyart-Network"
+}

@@ -4,7 +4,7 @@
 
 -----
 
-![GitHub](https://img.shields.io/github/license/Elyart-Network/NyaBot?style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/commit-check.yml?label=check&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/docker-dev.yml?label=image&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/build-release.yml?label=build&style=flat-square) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Elyart-Network/NyaBot?include_prereleases&style=flat-square)
+![GitHub](https://img.shields.io/github/license/Elyart-Network/NyaBot?style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/commit-check.yml?label=check&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/codeql.yml?label=security&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/dependency-review.yml?label=dependency&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/docker-dev.yml?label=image&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Elyart-Network/NyaBot/build-release.yml?label=build&style=flat-square) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Elyart-Network/NyaBot?include_prereleases&style=flat-square)
 
 - GoLang Version: 1.20+
 
@@ -64,7 +64,25 @@
 
 ## Contributors
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://baiyi.moe"><img src="https://avatars.githubusercontent.com/u/25338540?v=4?s=100" width="100px;" alt="BaiYi"/><br /><sub><b>BaiYi</b></sub></a><br /><a href="https://github.com/Elyart-Network/NyaBot/commits?author=WhiteElytra" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
