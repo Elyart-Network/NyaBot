@@ -10,17 +10,17 @@ type config struct {
 }
 
 type server struct {
-	HttpPort   string `yaml:"http_port"`
-	WsPort     string `yaml:"ws_port"`
-	EnableWs   bool   `yaml:"enable_ws"`
+	ListenPort string `yaml:"listen_port"`
 	DebugMode  bool   `yaml:"debug_mode"`
 	FileLogger bool   `yaml:"file_logger"`
 }
 
 type goCqHttp struct {
-	Enable   bool   `yaml:"enable"`
-	HttpHost string `yaml:"http_host"`
-	WsListen bool   `yaml:"ws_listen"`
+	Enable    bool   `yaml:"enable"`
+	HostUrl   string `yaml:"host_url"`
+	Delay     int    `yaml:"delay"`
+	EnableWs  bool   `yaml:"enable_ws"`
+	WsForward bool   `yaml:"ws_forward"`
 }
 
 type database struct {
@@ -56,17 +56,17 @@ type search struct {
 }
 
 var serverDef = server{
-	HttpPort:   "3000",
-	WsPort:     "4000",
-	EnableWs:   false,
+	ListenPort: "3000",
 	DebugMode:  true,
 	FileLogger: false,
 }
 
 var goCqHttpDef = goCqHttp{
-	Enable:   true,
-	HttpHost: "http://127.0.0.1:5700",
-	WsListen: false,
+	Enable:    true,
+	HostUrl:   "http://127.0.0.1:5700",
+	Delay:     3000,
+	EnableWs:  false,
+	WsForward: false,
 }
 
 var databaseDef = database{

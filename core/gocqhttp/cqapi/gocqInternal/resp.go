@@ -1,6 +1,8 @@
 package gocqInternal
 
-import "github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+import (
+	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+)
 
 type GetCookiesResp struct {
 	cqutil.Response

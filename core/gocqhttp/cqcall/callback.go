@@ -1,15 +1,16 @@
 package cqcall
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"log"
 )
 
-func Callback(ctx *gin.Context) CallbackFull {
-	full := CallbackFull{}
-	err := ctx.BindJSON(&full)
-	if err != nil {
-		log.Println(err)
+func CallbackEncode(ctx interface{}, ws bool) (full CallbackFull, err error) {
+	if ws {
+		wsContext := ctx.([]byte)
+		err = json.Unmarshal(wsContext, &full)
+	} else {
+		err = ctx.(*gin.Context).BindJSON(&full)
 	}
-	return full
+	return
 }

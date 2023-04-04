@@ -1,6 +1,8 @@
 package botAccount
 
-import "github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+import (
+	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+)
 
 type GetModelShowResp struct {
 	cqutil.Response
