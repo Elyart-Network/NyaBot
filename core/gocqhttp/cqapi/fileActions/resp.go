@@ -1,6 +1,8 @@
 package fileActions
 
-import "github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+import (
+	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+)
 
 type GetGroupFileSystemInfoResp struct {
 	cqutil.Response

@@ -10,10 +10,9 @@ import (
 )
 
 func Start() {
-	config.Init()
 	FileLogger := config.Get("server.file_logger").(bool)
 	DebugMode := config.Get("server.debug_mode").(bool)
-	ServerPort := config.Get("server.http_port").(string)
+	ServerPort := config.Get("server.listen_port").(string)
 
 	if FileLogger {
 		gin.DisableConsoleColor()
@@ -31,6 +30,7 @@ func Start() {
 	}
 
 	engine := gin.Default()
+	engine.Use(gin.Recovery())
 	Entry(engine)
 
 	err := http.ListenAndServe(":"+ServerPort, engine)

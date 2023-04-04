@@ -1,6 +1,8 @@
 package friendMessage
 
-import "github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+import (
+	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+)
 
 type GetStrangerInfoResp struct {
 	cqutil.Response

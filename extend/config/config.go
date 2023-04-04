@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-func Init() {
+func init() {
 	viper.SetConfigFile("config.yaml")
 	viper.SetDefault("Server", serverDef)
 	viper.SetDefault("GoCqHttp", goCqHttpDef)

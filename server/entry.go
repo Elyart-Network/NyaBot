@@ -1,6 +1,7 @@
 package server
 
 import (
+	"github.com/Elyart-Network/NyaBot/extend/config"
 	"github.com/Elyart-Network/NyaBot/extend/plugin"
 	"github.com/gin-gonic/gin"
 )
@@ -16,5 +17,10 @@ func Entry(server *gin.Engine) {
 			"status": "OK",
 		})
 	})
-	server.POST("/api/gocqhttp", plugin.CqEntry)
+	if config.Get("gocqhttp.enable").(bool) {
+		if config.Get("gocqhttp.enable_ws").(bool) && !config.Get("gocqhttp.ws_forward").(bool) {
+			server.GET("/api/gocqhttp", plugin.CqWebSocket)
+		}
+		server.POST("/api/gocqhttp", plugin.CqEntry)
+	}
 }

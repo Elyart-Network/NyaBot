@@ -15,3 +15,6 @@ plugin/*
 !plugin/.gitkeep
 !plugin/*example/
 !plugin/internal_*/
+script/*
+!script/.gitkeep
+!script/example.lua

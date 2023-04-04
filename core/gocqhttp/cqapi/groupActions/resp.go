@@ -1,6 +1,8 @@
 package groupActions
 
-import "github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+import (
+	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+)
 
 type GetGroupNoticeResp struct {
 	cqutil.Response

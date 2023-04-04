@@ -1,6 +1,8 @@
 package voiceActions
 
-import "github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+import (
+	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqutil"
+)
 
 type GetRecordResp struct {
 	cqutil.Response

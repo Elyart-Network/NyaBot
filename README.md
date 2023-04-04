@@ -31,7 +31,7 @@
 - HTTP Forward [✔]
 - HTTP Reserve [✔]
 - Websocket Forward [😈]
-- Websocket Reserve [❌]
+- Websocket Reverse [✔]
 - Secure Connection [⚠]
 - Plugin Support [✔]
 - gRPC Plugin [😈]
