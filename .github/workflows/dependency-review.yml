@@ -21,4 +21,3 @@ jobs:
         uses: actions/dependency-review-action@v2
         with:
           fail-on-severity: moderate
-          deny-licenses: LGPL-2.0, BSD-2-Clause
