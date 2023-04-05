@@ -14,12 +14,10 @@ import (
 func GetRequest(Endpoint string, RespStruct interface{}) (err error) {
 	// Delay
 	time.Sleep(time.Duration(rand.Intn(config.Get("gocqhttp.delay").(int))) * time.Millisecond)
-	// Websocket Forward
-	CqHttpHost := config.Get("gocqhttp.host_url").(string)
-	cqws.WsRequestForward(CqHttpHost, Endpoint, nil, &RespStruct)
 	// Websocket Reverse
-	cqws.WsRequestReverse(Endpoint, nil, &RespStruct)
+	cqws.WsSendRequest(Endpoint, nil, &RespStruct)
 	// HTTP Reverse
+	CqHttpHost := config.Get("gocqhttp.host_url").(string)
 	go func() {
 		Request, err := http.Get(CqHttpHost + Endpoint)
 		if err != nil {
@@ -46,12 +44,10 @@ func GetRequest(Endpoint string, RespStruct interface{}) (err error) {
 func PostRequest(Endpoint string, Params interface{}, RespStruct interface{}) (err error) {
 	// Delay
 	time.Sleep(time.Duration(rand.Intn(config.Get("gocqhttp.delay").(int))) * time.Millisecond)
-	// Websocket Forward
-	CqHttpHost := config.Get("gocqhttp.host_url").(string)
-	cqws.WsRequestForward(CqHttpHost, Endpoint, Params, &RespStruct)
 	// Websocket Reverse
-	cqws.WsRequestReverse(Endpoint, Params, &RespStruct)
+	cqws.WsSendRequest(Endpoint, Params, &RespStruct)
 	// HTTP Reverse
+	CqHttpHost := config.Get("gocqhttp.host_url").(string)
 	go func() {
 		byteSlice, err := json.Marshal(Params)
 		if err != nil {

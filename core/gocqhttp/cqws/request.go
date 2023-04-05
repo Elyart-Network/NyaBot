@@ -17,15 +17,8 @@ type wsRequestData struct {
 
 var requestChan = make(chan wsRequestData)
 
-func WsRequestForward(Host string, Endpoint string, Params interface{}, RespStruct interface{}) {
-	if !config.Get("gocqhttp.enable_ws").(bool) || !config.Get("gocqhttp.ws_forward").(bool) {
-		return
-	}
-}
-
-func WsRequestReverse(Endpoint string, Params interface{}, RespStruct interface{}) {
-	// Check if ws is enabled and ws_forward is disabled.
-	if !config.Get("gocqhttp.enable_ws").(bool) || config.Get("gocqhttp.ws_forward").(bool) {
+func WsSendRequest(Endpoint string, Params interface{}, RespStruct interface{}) {
+	if !config.Get("gocqhttp.enable").(bool) || !config.Get("gocqhttp.enable_ws").(bool) {
 		return
 	}
 	// Prepare request data.
