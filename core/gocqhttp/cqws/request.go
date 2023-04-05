@@ -39,7 +39,7 @@ func WsSendRequest(Endpoint string, Params interface{}, RespStruct interface{}) 
 			jsonData, err := json.Marshal(data)
 			err = json.Unmarshal(jsonData, &RespStruct)
 			if err != nil {
-				log.Println("ws response decode error: ", err)
+				log.Println("[WebSocket] ws response decode error: ", err)
 				return
 			}
 			return

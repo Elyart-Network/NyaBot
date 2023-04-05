@@ -22,20 +22,20 @@ func wsHandler(ws *websocket.Conn, callback CqCallback) {
 		// Read Message
 		_, wsContext, err := ws.ReadMessage()
 		if err != nil {
-			log.Println("ws read error: ", err)
+			log.Println("[WebSocket] ws read error: ", err)
 			break
 		}
 		// Encode Message to wsActionData.
 		resp, isResp, err := wsResponseEncode(wsContext)
 		if err != nil {
-			log.Println("ws response encode error: ", err)
+			log.Println("[WebSocket] ws response encode error: ", err)
 			break
 		}
 		// Send callback to plugin functions.
 		if !isResp {
 			data, err := cqcall.CallbackEncode(wsContext, true)
 			if err != nil {
-				log.Println("callback encode error: ", err)
+				log.Println("[WebSocket] callback encode error: ", err)
 				break
 			}
 			callback(data)
@@ -45,7 +45,7 @@ func wsHandler(ws *websocket.Conn, callback CqCallback) {
 			for data := range requestChan {
 				err := ws.WriteJSON(data)
 				if err != nil {
-					log.Println("ws write json error: ", err)
+					log.Println("[WebSocket] ws write json error: ", err)
 					break
 				}
 			}
@@ -62,13 +62,13 @@ func WebSocketClient(callback CqCallback) {
 	wsHost := config.Get("gocqhttp.host_url").(string)
 	ws, _, err := dialer.Dial(wsHost, nil)
 	if err != nil {
-		log.Println("ws dial error: ", err)
+		log.Println("[WebSocket] ws dial error: ", err)
 		return
 	}
 	defer func(ws *websocket.Conn) {
 		err := ws.Close()
 		if err != nil {
-			log.Println("ws close error: ", err)
+			log.Println("[WebSocket] ws close error: ", err)
 			return
 		}
 	}(ws)
@@ -78,13 +78,13 @@ func WebSocketClient(callback CqCallback) {
 func WebSocketServer(ctx *gin.Context, callback CqCallback) {
 	ws, err := up.Upgrade(ctx.Writer, ctx.Request, nil)
 	if err != nil {
-		log.Println("ws upgrade error: ", err)
+		log.Println("[WebSocket] ws upgrade error: ", err)
 		return
 	}
 	defer func(ws *websocket.Conn) {
 		err := ws.Close()
 		if err != nil {
-			log.Println("ws close error: ", err)
+			log.Println("[WebSocket] ws close error: ", err)
 			return
 		}
 	}(ws)
