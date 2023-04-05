@@ -1,4 +1,4 @@
-package lua
+package grpc
 
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcall"
@@ -12,7 +12,7 @@ type Plugin struct{}
 // Info set plugin info, `Name` has to be unique!
 func (p *Plugin) Info() plugin.InfoStruct {
 	return plugin.InfoStruct{
-		Name:        "Cq_Internal_Lua",
+		Name:        "Cq_Internal_gRPC",
 		Version:     "",
 		Author:      "",
 		Description: "",
