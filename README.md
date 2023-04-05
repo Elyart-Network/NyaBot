@@ -30,7 +30,7 @@
 - Cache Support [😈]
 - HTTP Forward [✔]
 - HTTP Reserve [✔]
-- Websocket Forward [😈]
+- Websocket Forward [✔]
 - Websocket Reverse [✔]
 - Secure Connection [⚠]
 - Plugin Support [✔]
