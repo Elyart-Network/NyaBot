@@ -1,5 +1,5 @@
 // Package Example is an example plugin.
-package Example
+package example
 
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcall"
