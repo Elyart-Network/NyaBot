@@ -8,7 +8,7 @@
 *.out
 test.go
 NyaBot
-configs/config.yaml
+config.yaml
 go.work
 vendor
 plugin/*

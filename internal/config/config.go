@@ -6,7 +6,9 @@ import (
 )
 
 func init() {
-	viper.SetConfigFile("configs/config.yaml")
+	viper.SetConfigName("config")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
 	viper.SetDefault("Server", serverDef)
 	viper.SetDefault("GoCqHttp", goCqHttpDef)
 	viper.SetDefault("Database", databaseDef)
