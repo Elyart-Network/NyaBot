@@ -12,7 +12,7 @@ type Plugin struct{}
 // Info set plugin info, `Name` has to be unique!
 func (p *Plugin) Info() plugin.InfoStruct {
 	return plugin.InfoStruct{
-		Name:        "Cq_Internal_gRPC",
+		Name:        "cq_internal_grpc",
 		Version:     "",
 		Author:      "",
 		Description: "",

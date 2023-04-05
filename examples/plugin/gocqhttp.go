@@ -1,4 +1,3 @@
-// Package Example is an example plugin.
 package plugin
 
 import (
@@ -13,7 +12,7 @@ type Plugin struct{}
 // Info set plugin info, `Name` has to be unique!
 func (p *Plugin) Info() plugin.InfoStruct {
 	return plugin.InfoStruct{
-		Name:        "CqExample",
+		Name:        "cq_example",
 		Version:     "",
 		Author:      "",
 		Description: "",
