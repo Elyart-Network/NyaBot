@@ -15,8 +15,11 @@ func CqEntry(ctx *gin.Context) {
 	}
 	CqCallBack(callback)
 }
-func CqWebSocket(ctx *gin.Context) {
-	go cqws.WebSocket(ctx, CqCallBack)
+func CqWebSocketForward() {
+	go cqws.WebSocketClient(CqCallBack)
+}
+func CqWebSocketReverse(ctx *gin.Context) {
+	go cqws.WebSocketServer(ctx, CqCallBack)
 }
 func DiscordEntry(ctx *gin.Context)  {}
 func TelegramEntry(ctx *gin.Context) {}

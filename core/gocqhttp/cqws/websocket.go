@@ -2,6 +2,7 @@ package cqws
 
 import (
 	"github.com/Elyart-Network/NyaBot/core/gocqhttp/cqcall"
+	"github.com/Elyart-Network/NyaBot/extend/config"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"log"
@@ -16,19 +17,7 @@ var up = websocket.Upgrader{
 	},
 }
 
-func WebSocket(ctx *gin.Context, callback CqCallback) {
-	ws, err := up.Upgrade(ctx.Writer, ctx.Request, nil)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	defer func(ws *websocket.Conn) {
-		err := ws.Close()
-		if err != nil {
-			log.Println(err)
-			return
-		}
-	}(ws)
+func wsHandler(ws *websocket.Conn, callback CqCallback) {
 	for {
 		// Read Message
 		_, wsContext, err := ws.ReadMessage()
@@ -66,4 +55,38 @@ func WebSocket(ctx *gin.Context, callback CqCallback) {
 			wsResponse(resp)
 		}
 	}
+}
+
+func WebSocketClient(callback CqCallback) {
+	dialer := websocket.DefaultDialer
+	wsHost := config.Get("gocqhttp.host_url").(string)
+	ws, _, err := dialer.Dial(wsHost, nil)
+	if err != nil {
+		log.Println("ws dial error: ", err)
+		return
+	}
+	defer func(ws *websocket.Conn) {
+		err := ws.Close()
+		if err != nil {
+			log.Println("ws close error: ", err)
+			return
+		}
+	}(ws)
+	wsHandler(ws, callback)
+}
+
+func WebSocketServer(ctx *gin.Context, callback CqCallback) {
+	ws, err := up.Upgrade(ctx.Writer, ctx.Request, nil)
+	if err != nil {
+		log.Println("ws upgrade error: ", err)
+		return
+	}
+	defer func(ws *websocket.Conn) {
+		err := ws.Close()
+		if err != nil {
+			log.Println("ws close error: ", err)
+			return
+		}
+	}(ws)
+	wsHandler(ws, callback)
 }

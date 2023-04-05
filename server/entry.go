@@ -18,8 +18,13 @@ func Entry(server *gin.Engine) {
 		})
 	})
 	if config.Get("gocqhttp.enable").(bool) {
-		if config.Get("gocqhttp.enable_ws").(bool) && !config.Get("gocqhttp.ws_forward").(bool) {
-			server.GET("/api/gocqhttp", plugin.CqWebSocket)
+		if config.Get("gocqhttp.enable_ws").(bool) {
+			switch config.Get("gocqhttp.ws_forward").(bool) {
+			case true:
+				plugin.CqWebSocketForward()
+			case false:
+				server.GET("/api/gocqhttp", plugin.CqWebSocketReverse)
+			}
 		}
 		server.POST("/api/gocqhttp", plugin.CqEntry)
 	}
