@@ -12,6 +12,6 @@ config.yaml
 go.work
 vendor
 plugin/*
-!plugin/example/
 scripts/*
-!scripts/example.lua
+!plugin/.gitkeep
+!scripts/.gitkeep
