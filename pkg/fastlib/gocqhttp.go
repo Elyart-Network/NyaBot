@@ -1,15 +1,8 @@
 package fastlib
 
 import (
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqapi/comMessage"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqapi/friendMessage"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqapi/groupActions"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqapi/groupMessage"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqapi/groupSettings"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqapi/imageActions"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqapi/processRequests"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqapi/voiceActions"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqutil"
+	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp"
+	models2 "github.com/Elyart-Network/NyaBot/pkg/gocqhttp/models"
 	"log"
 )
 
@@ -20,24 +13,24 @@ import (
 func CqSendMsg(Message string, Id int64, IsGroup bool) int32 {
 	switch IsGroup {
 	case true:
-		data := comMessage.SendGroupMsgData{
+		data := models2.SendGroupMsgData{
 			GroupID:    Id,
 			Message:    Message,
 			AutoEscape: false,
 		}
-		msg, err := comMessage.SendGroupMsg(data)
+		msg, err := gocqhttp.SendGroupMsg(data)
 		if err != nil {
 			log.Println("[FastLib] CqSendMsg Error: ", err)
 			return 0
 		}
 		return msg.Data.MessageID
 	case false:
-		data := comMessage.SendPrivateMsgData{
+		data := models2.SendPrivateMsgData{
 			UserID:     Id,
 			Message:    Message,
 			AutoEscape: false,
 		}
-		msg, err := comMessage.SendPrivateMsg(data)
+		msg, err := gocqhttp.SendPrivateMsg(data)
 		if err != nil {
 			log.Println("[FastLib] CqSendMsg Error: ", err)
 			return 0
@@ -48,37 +41,37 @@ func CqSendMsg(Message string, Id int64, IsGroup bool) int32 {
 }
 
 // CqGetMsg get message from message ID.
-func CqGetMsg(MessageID int32) comMessage.GetMsgResp {
-	data := comMessage.GetMsgData{
+func CqGetMsg(MessageID int32) models2.GetMsgResp {
+	data := models2.GetMsgData{
 		MessageID: MessageID,
 	}
-	msg, err := comMessage.GetMsg(data)
+	msg, err := gocqhttp.GetMsg(data)
 	if err != nil {
 		log.Println("[FastLib] CqGetMsg Error: ", err)
-		return comMessage.GetMsgResp{}
+		return models2.GetMsgResp{}
 	}
 	return msg
 }
 
 // CqGetForwardMsg get forward message from message ID.
-func CqGetForwardMsg(MessageID string) comMessage.GetForwardMsgResp {
-	data := comMessage.GetForwardMsgData{
+func CqGetForwardMsg(MessageID string) models2.GetForwardMsgResp {
+	data := models2.GetForwardMsgData{
 		MessageID: MessageID,
 	}
-	msg, err := comMessage.GetForwardMsg(data)
+	msg, err := gocqhttp.GetForwardMsg(data)
 	if err != nil {
 		log.Println("[FastLib] CqGetForwardMsg Error: ", err)
-		return comMessage.GetForwardMsgResp{}
+		return models2.GetForwardMsgResp{}
 	}
 	return msg
 }
 
 // CqGenIdForward generate forward node from message ID.
-func CqGenIdForward(MessageID string) cqutil.ForwardIdNode {
-	var data = cqutil.ForwardIdData{
+func CqGenIdForward(MessageID string) models2.ForwardIdNode {
+	var data = models2.ForwardIdData{
 		Id: MessageID,
 	}
-	var forward = cqutil.ForwardIdNode{
+	var forward = models2.ForwardIdNode{
 		Type: "node",
 		Data: data,
 	}
@@ -89,13 +82,13 @@ func CqGenIdForward(MessageID string) cqutil.ForwardIdNode {
 // Name: Name of the sender.
 // ID: QQ ID of the sender.
 // Content: Content of the message.
-func CqGenCustomForward(Name string, Id string, Content string) cqutil.ForwardCustomNode {
-	var data = cqutil.ForwardCustomData{
+func CqGenCustomForward(Name string, Id string, Content string) models2.ForwardCustomNode {
+	var data = models2.ForwardCustomData{
 		Name:    Name,
 		Uin:     Id,
 		Content: Content,
 	}
-	var forward = cqutil.ForwardCustomNode{
+	var forward = models2.ForwardCustomNode{
 		Type: "node",
 		Data: data,
 	}
@@ -109,22 +102,22 @@ func CqGenCustomForward(Name string, Id string, Content string) cqutil.ForwardCu
 func CqSendForwardMsg(Messages interface{}, Id int64, IsGroup bool) int64 {
 	switch IsGroup {
 	case true:
-		data := comMessage.SendGroupForwardMsgData{
+		data := models2.SendGroupForwardMsgData{
 			GroupID:  Id,
 			Messages: Messages,
 		}
-		msg, err := comMessage.SendGroupForwardMsg(data)
+		msg, err := gocqhttp.SendGroupForwardMsg(data)
 		if err != nil {
 			log.Println("[FastLib] CqSendForwardMsg Error: ", err)
 			return 0
 		}
 		return msg.Data.MessageID
 	case false:
-		data := comMessage.SendPrivateForwardMsgData{
+		data := models2.SendPrivateForwardMsgData{
 			UserID:   Id,
 			Messages: Messages,
 		}
-		msg, err := comMessage.SendPrivateForwardMsg(data)
+		msg, err := gocqhttp.SendPrivateForwardMsg(data)
 		if err != nil {
 			log.Println("[FastLib] CqSendForwardMsg Error: ", err)
 			return 0
@@ -136,10 +129,10 @@ func CqSendForwardMsg(Messages interface{}, Id int64, IsGroup bool) int64 {
 
 // CqDeleteMsg delete message from message ID.
 func CqDeleteMsg(MessageID int32) bool {
-	data := comMessage.DeleteMsgData{
+	data := models2.DeleteMsgData{
 		MessageID: MessageID,
 	}
-	_, err := comMessage.DeleteMsg(data)
+	_, err := gocqhttp.DeleteMsg(data)
 	if err != nil {
 		log.Println("[FastLib] CqDeleteMsg Error: ", err)
 		return false
@@ -148,27 +141,27 @@ func CqDeleteMsg(MessageID int32) bool {
 }
 
 // CqGetImage get image from cached file name.
-func CqGetImage(FileName string) imageActions.GetImageResp {
-	data := imageActions.GetImageData{
+func CqGetImage(FileName string) models2.GetImageResp {
+	data := models2.GetImageData{
 		File: FileName,
 	}
-	msg, err := imageActions.GetImage(data)
+	msg, err := gocqhttp.GetImage(data)
 	if err != nil {
 		log.Println("[FastLib] CqGetImage Error: ", err)
-		return imageActions.GetImageResp{}
+		return models2.GetImageResp{}
 	}
 	return msg
 }
 
 // CqGetRecord get record cached from file name.
-func CqGetRecord(FileName string) voiceActions.GetRecordResp {
-	data := voiceActions.GetRecordData{
+func CqGetRecord(FileName string) models2.GetRecordResp {
+	data := models2.GetRecordData{
 		File: FileName,
 	}
-	msg, err := voiceActions.GetRecord(data)
+	msg, err := gocqhttp.GetRecord(data)
 	if err != nil {
 		log.Println("[FastLib] CqGetRecord Error: ", err)
-		return voiceActions.GetRecordResp{}
+		return models2.GetRecordResp{}
 	}
 	return msg
 }
@@ -178,12 +171,12 @@ func CqGetRecord(FileName string) voiceActions.GetRecordResp {
 // Approve: true for approve, false for reject.
 // Remark: Remark for friend.
 func CqFriendReq(Flag string, Approve bool, Remark string) bool {
-	data := processRequests.SetFriendAddRequestData{
+	data := models2.SetFriendAddRequestData{
 		Flag:    Flag,
 		Approve: Approve,
 		Remark:  Remark,
 	}
-	_, err := processRequests.SetFriendAddRequest(data)
+	_, err := gocqhttp.SetFriendAddRequest(data)
 	if err != nil {
 		log.Println("[FastLib] CqFriendAdd Error: ", err)
 		return false
@@ -197,13 +190,13 @@ func CqFriendReq(Flag string, Approve bool, Remark string) bool {
 // Approve: true for approve, false for reject.
 // RejectReason: Reject reason.
 func CqGroupReq(Flag string, Type string, Approve bool, RejectReason string) bool {
-	data := processRequests.SetGroupAddRequestData{
+	data := models2.SetGroupAddRequestData{
 		Flag:    Flag,
 		SubType: Type,
 		Approve: Approve,
 		Reason:  RejectReason,
 	}
-	_, err := processRequests.SetGroupAddRequest(data)
+	_, err := gocqhttp.SetGroupAddRequest(data)
 	if err != nil {
 		log.Println("[FastLib] CqGroupAdd Error: ", err)
 		return false
@@ -212,81 +205,81 @@ func CqGroupReq(Flag string, Type string, Approve bool, RejectReason string) boo
 }
 
 // CqGetStrangerInfo get stranger info.
-func CqGetStrangerInfo(UserID int64) friendMessage.GetStrangerInfoResp {
-	data := friendMessage.GetStrangerInfoData{
+func CqGetStrangerInfo(UserID int64) models2.GetStrangerInfoResp {
+	data := models2.GetStrangerInfoData{
 		UserID:  UserID,
 		NoCache: false,
 	}
-	msg, err := friendMessage.GetStrangerInfo(data)
+	msg, err := gocqhttp.GetStrangerInfo(data)
 	if err != nil {
 		log.Println("[FastLib] CqGetStrangerInfo Error: ", err)
-		return friendMessage.GetStrangerInfoResp{}
+		return models2.GetStrangerInfoResp{}
 	}
 	return msg
 }
 
 // CqGetGroupMemberInfo get group member info.
-func CqGetGroupMemberInfo(GroupID int64, UserID int64) groupMessage.GetGroupMemberInfoResp {
-	data := groupMessage.GetGroupMemberInfoData{
+func CqGetGroupMemberInfo(GroupID int64, UserID int64) models2.GetGroupMemberInfoResp {
+	data := models2.GetGroupMemberInfoData{
 		GroupID: GroupID,
 		UserID:  UserID,
 		NoCache: false,
 	}
-	msg, err := groupMessage.GetGroupMemberInfo(data)
+	msg, err := gocqhttp.GetGroupMemberInfo(data)
 	if err != nil {
 		log.Println("[FastLib] CqGetGroupMembers Error: ", err)
-		return groupMessage.GetGroupMemberInfoResp{}
+		return models2.GetGroupMemberInfoResp{}
 	}
 	return msg
 }
 
 // CqGetGroupMembers get group member list.
-func CqGetGroupMembers(GroupID int64) groupMessage.GetGroupMemberListResp {
-	data := groupMessage.GetGroupMemberListData{
+func CqGetGroupMembers(GroupID int64) models2.GetGroupMemberListResp {
+	data := models2.GetGroupMemberListData{
 		GroupID: GroupID,
 		NoCache: false,
 	}
-	msg, err := groupMessage.GetGroupMemberList(data)
+	msg, err := gocqhttp.GetGroupMemberList(data)
 	if err != nil {
 		log.Println("[FastLib] CqGetGroupMembers Error: ", err)
-		return groupMessage.GetGroupMemberListResp{}
+		return models2.GetGroupMemberListResp{}
 	}
 	return msg
 }
 
 // CqGetFriends get friend list.
-func CqGetFriends() friendMessage.GetFriendListResp {
-	msg, err := friendMessage.GetFriendList()
+func CqGetFriends() models2.GetFriendListResp {
+	msg, err := gocqhttp.GetFriendList()
 	if err != nil {
 		log.Println("[FastLib] CqGetFriends Error: ", err)
-		return friendMessage.GetFriendListResp{}
+		return models2.GetFriendListResp{}
 	}
 	return msg
 }
 
 // CqGetGroups get group list.
-func CqGetGroups() groupMessage.GetGroupListResp {
-	data := groupMessage.GetGroupListData{
+func CqGetGroups() models2.GetGroupListResp {
+	data := models2.GetGroupListData{
 		NoCache: false,
 	}
-	msg, err := groupMessage.GetGroupList(data)
+	msg, err := gocqhttp.GetGroupList(data)
 	if err != nil {
 		log.Println("[FastLib] CqGetGroups Error: ", err)
-		return groupMessage.GetGroupListResp{}
+		return models2.GetGroupListResp{}
 	}
 	return msg
 }
 
 // CqGetGroupInfo get group info.
-func CqGetGroupInfo(GroupID int64) groupMessage.GetGroupInfoResp {
-	data := groupMessage.GetGroupInfoData{
+func CqGetGroupInfo(GroupID int64) models2.GetGroupInfoResp {
+	data := models2.GetGroupInfoData{
 		GroupID: GroupID,
 		NoCache: false,
 	}
-	msg, err := groupMessage.GetGroupInfo(data)
+	msg, err := gocqhttp.GetGroupInfo(data)
 	if err != nil {
 		log.Println("[FastLib] CqGetGroupInfo Error: ", err)
-		return groupMessage.GetGroupInfoResp{}
+		return models2.GetGroupInfoResp{}
 	}
 	return msg
 }
@@ -299,47 +292,47 @@ func CqGetGroupInfo(GroupID int64) groupMessage.GetGroupInfoResp {
 func CqSetGroupInfo(GroupID int64, GroupName string, Avatar string, UserId int64, Card string, SpecialTitle string, Type int) bool {
 	switch Type {
 	case 1:
-		data := groupSettings.SetGroupNameData{
+		data := models2.SetGroupNameData{
 			GroupID:   GroupID,
 			GroupName: GroupName,
 		}
-		_, err := groupSettings.SetGroupName(data)
+		_, err := gocqhttp.SetGroupName(data)
 		if err != nil {
 			log.Println("[FastLib] CqSetGroupInfo Error: ", err)
 			return false
 		}
 		return true
 	case 2:
-		data := groupSettings.SetGroupPortraitData{
+		data := models2.SetGroupPortraitData{
 			GroupID: GroupID,
 			File:    Avatar,
 			Cache:   1,
 		}
-		_, err := groupSettings.SetGroupPortrait(data)
+		_, err := gocqhttp.SetGroupPortrait(data)
 		if err != nil {
 			log.Println("[FastLib] CqSetGroupInfo Error: ", err)
 			return false
 		}
 		return true
 	case 3:
-		data := groupSettings.SetGroupCardData{
+		data := models2.SetGroupCardData{
 			GroupID: GroupID,
 			UserID:  UserId,
 			Card:    Card,
 		}
-		_, err := groupSettings.SetGroupCard(data)
+		_, err := gocqhttp.SetGroupCard(data)
 		if err != nil {
 			log.Println("[FastLib] CqSetGroupInfo Error: ", err)
 			return false
 		}
 		return true
 	case 4:
-		data := groupSettings.SetGroupSpecialTitleData{
+		data := models2.SetGroupSpecialTitleData{
 			GroupID:      GroupID,
 			UserID:       UserId,
 			SpecialTitle: SpecialTitle,
 		}
-		_, err := groupSettings.SetGroupSpecialTitle(data)
+		_, err := gocqhttp.SetGroupSpecialTitle(data)
 		if err != nil {
 			log.Println("[FastLib] CqSetGroupInfo Error: ", err)
 			return false
@@ -351,12 +344,12 @@ func CqSetGroupInfo(GroupID int64, GroupName string, Avatar string, UserId int64
 
 // CqSetGroupAdmin set group admin.
 func CqSetGroupAdmin(GroupID int64, UserID int64, Enable bool) bool {
-	data := groupSettings.SetGroupAdminData{
+	data := models2.SetGroupAdminData{
 		GroupID: GroupID,
 		UserID:  UserID,
 		Enable:  Enable,
 	}
-	_, err := groupSettings.SetGroupAdmin(data)
+	_, err := gocqhttp.SetGroupAdmin(data)
 	if err != nil {
 		log.Println("[FastLib] CqSetGroupAdmin Error: ", err)
 		return false
@@ -372,12 +365,12 @@ func CqGroupBan(GroupID int64, UserID int64, Duration uint32, DeBan bool) bool {
 	if DeBan {
 		Duration = 0
 	}
-	data := groupActions.SetGroupBanData{
+	data := models2.SetGroupBanData{
 		GroupID:  GroupID,
 		UserID:   UserID,
 		Duration: Duration,
 	}
-	_, err := groupActions.SetGroupBan(data)
+	_, err := gocqhttp.SetGroupBan(data)
 	if err != nil {
 		log.Println("[FastLib] CqGroupBan Error: ", err)
 		return false
@@ -387,11 +380,11 @@ func CqGroupBan(GroupID int64, UserID int64, Duration uint32, DeBan bool) bool {
 
 // CqGroupMute mute group.
 func CqGroupMute(GroupID int64, UnMute bool) bool {
-	data := groupActions.SetGroupWholeBanData{
+	data := models2.SetGroupWholeBanData{
 		GroupID: GroupID,
 		Enable:  UnMute,
 	}
-	_, err := groupActions.SetGroupWholeBan(data)
+	_, err := gocqhttp.SetGroupWholeBan(data)
 	if err != nil {
 		log.Println("[FastLib] CqGroupBan Error: ", err)
 		return false
@@ -403,20 +396,20 @@ func CqGroupMute(GroupID int64, UnMute bool) bool {
 func CqGroupEssenceMsg(MessageID int32, Remove bool) bool {
 	switch Remove {
 	case true:
-		data := groupActions.DeleteEssenceMsgData{
+		data := models2.DeleteEssenceMsgData{
 			MessageID: MessageID,
 		}
-		_, err := groupActions.DeleteEssenceMsg(data)
+		_, err := gocqhttp.DeleteEssenceMsg(data)
 		if err != nil {
 			log.Println("[FastLib] CqGroupEssenceMsg Error: ", err)
 			return false
 		}
 		return true
 	case false:
-		data := groupActions.SetEssenceMsgData{
+		data := models2.SetEssenceMsgData{
 			MessageID: MessageID,
 		}
-		_, err := groupActions.SetEssenceMsg(data)
+		_, err := gocqhttp.SetEssenceMsg(data)
 		if err != nil {
 			log.Println("[FastLib] CqGroupEssenceMsg Error: ", err)
 			return false
@@ -427,12 +420,12 @@ func CqGroupEssenceMsg(MessageID int32, Remove bool) bool {
 }
 
 func CqGroupSendNotice(GroupID int64, Content string, Image string) bool {
-	data := groupActions.SendGroupNoticeData{
+	data := models2.SendGroupNoticeData{
 		GroupID: GroupID,
 		Content: Content,
 		Image:   Image,
 	}
-	_, err := groupActions.SendGroupNotice(data)
+	_, err := gocqhttp.SendGroupNotice(data)
 	if err != nil {
 		log.Println("[FastLib] CqGroupSendNotice Error: ", err)
 		return false
@@ -442,12 +435,12 @@ func CqGroupSendNotice(GroupID int64, Content string, Image string) bool {
 
 // CqGroupKick kick group member.
 func CqGroupKick(GroupID int64, UserID int64, RejectAddRequest bool) bool {
-	data := groupActions.SetGroupKickData{
+	data := models2.SetGroupKickData{
 		GroupID: GroupID,
 		UserID:  UserID,
 		Reject:  RejectAddRequest,
 	}
-	_, err := groupActions.SetGroupKick(data)
+	_, err := gocqhttp.SetGroupKick(data)
 	if err != nil {
 		log.Println("[FastLib] CqGroupKick Error: ", err)
 		return false
@@ -456,11 +449,11 @@ func CqGroupKick(GroupID int64, UserID int64, RejectAddRequest bool) bool {
 }
 
 func CqLeaveGroup(GroupID int64) bool {
-	data := groupActions.SetGroupLeaveData{
+	data := models2.SetGroupLeaveData{
 		GroupID:   GroupID,
 		IsDismiss: false,
 	}
-	_, err := groupActions.SetGroupLeave(data)
+	_, err := gocqhttp.SetGroupLeave(data)
 	if err != nil {
 		log.Println("[FastLib] CqLeaveGroup Error: ", err)
 		return false
@@ -469,11 +462,11 @@ func CqLeaveGroup(GroupID int64) bool {
 }
 
 func CqDismissGroup(GroupID int64) bool {
-	data := groupActions.SetGroupLeaveData{
+	data := models2.SetGroupLeaveData{
 		GroupID:   GroupID,
 		IsDismiss: true,
 	}
-	_, err := groupActions.SetGroupLeave(data)
+	_, err := gocqhttp.SetGroupLeave(data)
 	if err != nil {
 		log.Println("[FastLib] CqDismissGroup Error: ", err)
 		return false

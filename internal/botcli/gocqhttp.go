@@ -3,7 +3,7 @@ package Example
 
 import (
 	"github.com/Elyart-Network/NyaBot/internal/botcli/botcli"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcall"
+	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/plugin"
 	"log"
 	"strings"
@@ -27,26 +27,26 @@ func (p *Plugin) Info() plugin.InfoStruct {
 }
 
 // Message process message event from callback. (required)
-func (p *Plugin) Message(callback cqcall.CallbackFull) {
-	cmd := strings.Split(callback.Message, " ")
+func (p *Plugin) Message(call callback.Full) {
+	cmd := strings.Split(call.MessageData, " ")
 	if cmd[0] != ".botcli" {
 		return
 	}
-	botcli.Entry(callback, cmd[1:], "GoCqHttp")
+	botcli.Entry(call, cmd[1:], "GoCqHttp")
 }
 
 // Request process request event from callback. (required)
-func (p *Plugin) Request(callback cqcall.CallbackFull) {
+func (p *Plugin) Request(callback callback.Full) {
 	log.Println("Request")
 }
 
 // Notice process notice event from callback. (required)
-func (p *Plugin) Notice(callback cqcall.CallbackFull) {
+func (p *Plugin) Notice(callback callback.Full) {
 	log.Println("Notice")
 }
 
 // MetaEvent process meta event from callback. (required)
-func (p *Plugin) MetaEvent(callback cqcall.CallbackFull) {
+func (p *Plugin) MetaEvent(callback callback.Full) {
 	log.Println("MetaEvent")
 }
 

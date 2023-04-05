@@ -1,7 +1,7 @@
 package plugin
 
 import (
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcall"
+	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"log"
 )
 
@@ -12,7 +12,7 @@ func CqRegister(plugin CqPlugin) {
 	log.Println("[Nya-Plugin] Plugin", plugin.(CommonInfo).Info().Name, "registered.")
 }
 
-func CqCallBack(callback cqcall.CallbackFull) {
+func CqCallBack(callback callback.Full) {
 	// Send callback to plugin functions.
 	for _, value := range plugins {
 		value := value

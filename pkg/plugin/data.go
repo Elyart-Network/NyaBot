@@ -1,6 +1,8 @@
 package plugin
 
-import "github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcall"
+import (
+	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
+)
 
 type InfoStruct struct {
 	Name        string
@@ -19,8 +21,8 @@ type CommonInfo interface {
 
 type CqPlugin interface {
 	CommonInfo
-	Message(callback cqcall.CallbackFull)
-	Request(callback cqcall.CallbackFull)
-	Notice(callback cqcall.CallbackFull)
-	MetaEvent(callback cqcall.CallbackFull)
+	Message(callback callback.Full)
+	Request(callback callback.Full)
+	Notice(callback callback.Full)
+	MetaEvent(callback callback.Full)
 }

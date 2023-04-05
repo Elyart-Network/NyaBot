@@ -3,17 +3,18 @@ package botcli
 import (
 	"github.com/Elyart-Network/NyaBot/internal/botcli/botcli/cmds"
 	"github.com/Elyart-Network/NyaBot/pkg/fastlib"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcall"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcode"
+	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp"
+	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
+	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/models"
 	"strconv"
 )
 
-func cqReturn(callback interface{}, msg string) {
-	data := callback.(cqcall.CallbackFull)
+func cqReturn(call interface{}, msg string) {
+	data := call.(callback.Full)
 	switch data.MessageType {
 	case "group":
-		atCode := cqcode.AtData{QQ: strconv.FormatInt(data.UserID, 10)}
-		fastlib.CqSendMsg(cqcode.At(atCode)+msg, data.GroupID, true)
+		atCode := models.AtData{QQ: strconv.FormatInt(data.UserID, 10)}
+		fastlib.CqSendMsg(gocqhttp.At(atCode)+msg, data.GroupID, true)
 	case "private":
 		fastlib.CqSendMsg(msg, data.UserID, false)
 	}
