@@ -2,9 +2,11 @@
 package Example
 
 import (
+	"github.com/Elyart-Network/NyaBot/internal/botcli/botcli"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcall"
 	"github.com/Elyart-Network/NyaBot/pkg/plugin"
 	"log"
+	"strings"
 )
 
 // Plugin a struct for all functions below.
@@ -13,7 +15,7 @@ type Plugin struct{}
 // Info set plugin info, `Name` has to be unique!
 func (p *Plugin) Info() plugin.InfoStruct {
 	return plugin.InfoStruct{
-		Name:        "CqExample",
+		Name:        "Cq_Internal_BotCLI",
 		Version:     "",
 		Author:      "",
 		Description: "",
@@ -26,7 +28,11 @@ func (p *Plugin) Info() plugin.InfoStruct {
 
 // Message process message event from callback. (required)
 func (p *Plugin) Message(callback cqcall.CallbackFull) {
-	log.Println("Message")
+	cmd := strings.Split(callback.Message, " ")
+	if cmd[0] != ".botcli" {
+		return
+	}
+	botcli.Entry(callback, cmd[1:], "GoCqHttp")
 }
 
 // Request process request event from callback. (required)

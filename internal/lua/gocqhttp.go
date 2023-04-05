@@ -1,5 +1,4 @@
-// Package Example is an example plugin.
-package Example
+package lua
 
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcall"
@@ -13,7 +12,7 @@ type Plugin struct{}
 // Info set plugin info, `Name` has to be unique!
 func (p *Plugin) Info() plugin.InfoStruct {
 	return plugin.InfoStruct{
-		Name:        "CqExample",
+		Name:        "Internal_ExLua",
 		Version:     "",
 		Author:      "",
 		Description: "",
