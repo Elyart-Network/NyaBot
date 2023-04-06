@@ -1,4 +1,4 @@
-package models
+package types
 
 type GetImageData struct {
 	File string `json:"file"`

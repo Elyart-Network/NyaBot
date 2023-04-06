@@ -1,4 +1,4 @@
-package models
+package types
 
 type GetModelShowData struct {
 	Model string `json:"model"`

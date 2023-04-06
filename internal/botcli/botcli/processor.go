@@ -5,7 +5,7 @@ import (
 	"github.com/Elyart-Network/NyaBot/pkg/fastlib"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/models"
+	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/types"
 	"strconv"
 )
 
@@ -13,7 +13,7 @@ func cqReturn(call interface{}, msg string) {
 	data := call.(callback.Full)
 	switch data.MessageType {
 	case "group":
-		atCode := models.AtData{QQ: strconv.FormatInt(data.UserID, 10)}
+		atCode := types.AtData{QQ: strconv.FormatInt(data.UserID, 10)}
 		fastlib.CqSendMsg(gocqhttp.At(atCode)+msg, data.GroupID, true)
 	case "private":
 		fastlib.CqSendMsg(msg, data.UserID, false)

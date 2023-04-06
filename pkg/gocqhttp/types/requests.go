@@ -1,4 +1,4 @@
-package models
+package types
 
 type SetFriendAddRequestData struct {
 	Flag    string `json:"flag"`

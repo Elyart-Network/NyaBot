@@ -1,4 +1,4 @@
-package models
+package types
 
 type ForwardIdNode struct {
 	Type string        `json:"type"`

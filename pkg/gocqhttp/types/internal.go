@@ -1,4 +1,4 @@
-package models
+package types
 
 type GetCookiesData struct {
 	Domain string `json:"domain"`

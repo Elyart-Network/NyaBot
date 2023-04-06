@@ -1,4 +1,4 @@
-package models
+package types
 
 type Response struct {
 	Status  string `json:"status"`

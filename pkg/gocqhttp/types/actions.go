@@ -1,7 +1,17 @@
-package models
+package types
 
 import "github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 
+// Friend Actions
+type DeleteFriendData struct {
+	UserID int64 `json:"user_id"`
+}
+
+type DeleteUnidirectionalFriendData struct {
+	UserID int64 `json:"user_id"`
+}
+
+// Group Actions
 type SetGroupBanData struct {
 	GroupID  int64  `json:"group_id"`
 	UserID   int64  `json:"user_id"`

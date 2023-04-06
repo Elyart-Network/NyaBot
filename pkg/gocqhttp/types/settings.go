@@ -1,4 +1,4 @@
-package models
+package types
 
 type SetGroupNameData struct {
 	GroupID   int64  `json:"group_id"`

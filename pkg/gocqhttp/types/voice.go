@@ -1,4 +1,4 @@
-package models
+package types
 
 type GetRecordData struct {
 	File      string `json:"file"`
