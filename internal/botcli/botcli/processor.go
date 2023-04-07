@@ -2,22 +2,14 @@ package botcli
 
 import (
 	"github.com/Elyart-Network/NyaBot/internal/botcli/botcli/cmds"
-	"github.com/Elyart-Network/NyaBot/pkg/fastlib"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp"
+	"github.com/Elyart-Network/NyaBot/pkg/fastlib/fastcq"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/types"
-	"strconv"
 )
 
 func cqReturn(call interface{}, msg string) {
 	data := call.(callback.Full)
-	switch data.MessageType {
-	case "group":
-		atCode := types.AtData{QQ: strconv.FormatInt(data.UserID, 10)}
-		fastlib.CqSendMsg(gocqhttp.At(atCode)+msg, data.GroupID, true)
-	case "private":
-		fastlib.CqSendMsg(msg, data.UserID, false)
-	}
+	c := fastcq.MessageFunc{}
+	c.Message(data, c.Reply(msg))
 }
 
 func cqProcessor(callback interface{}, cmd []string) {

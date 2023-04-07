@@ -34,14 +34,10 @@ func (p *Plugin) Request(callback callback.Full) {
 }
 
 // Notice process notice event from callback. (required)
-func (p *Plugin) Notice(callback callback.Full) {
-	log.Println("Notice")
-}
+func (p *Plugin) Notice(callback callback.Full) {}
 
 // MetaEvent process meta event from callback. (required)
-func (p *Plugin) MetaEvent(callback callback.Full) {
-	log.Println("MetaEvent")
-}
+func (p *Plugin) MetaEvent(callback callback.Full) {}
 
 // init register plugin and depends to plugin manager (frame).
 func init() {
