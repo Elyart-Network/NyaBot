@@ -2,6 +2,8 @@ module github.com/Elyart-Network/NyaBot
 
 go 1.20
 
+replace layeh.com/gopher-luar v1.0.10 => github.com/layeh/gopher-luar v1.0.10
+
 require (
 	github.com/gin-gonic/gin v1.9.0
 	github.com/gorilla/websocket v1.5.0
