@@ -1,9 +1,9 @@
 package lua
 
 import (
+	"github.com/Elyart-Network/NyaBot/internal/lua/runtime"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/plugin"
-	"log"
 )
 
 // Plugin a struct for all functions below.
@@ -24,20 +24,20 @@ func (p *Plugin) Info() plugin.InfoStruct {
 }
 
 // Message process message event from callback. (required)
-func (p *Plugin) Message(callback callback.Full) {
-	log.Println("Message")
+func (p *Plugin) Message(ctx callback.Full) {
+	runtime.CqLoader(ctx)
 }
 
 // Request process request event from callback. (required)
-func (p *Plugin) Request(callback callback.Full) {
-	log.Println("Request")
+func (p *Plugin) Request(ctx callback.Full) {
+	runtime.CqLoader(ctx)
 }
 
 // Notice process notice event from callback. (required)
-func (p *Plugin) Notice(callback callback.Full) {}
+func (p *Plugin) Notice(ctx callback.Full) {}
 
 // MetaEvent process meta event from callback. (required)
-func (p *Plugin) MetaEvent(callback callback.Full) {}
+func (p *Plugin) MetaEvent(ctx callback.Full) {}
 
 // init register plugin and depends to plugin manager (frame).
 func init() {
