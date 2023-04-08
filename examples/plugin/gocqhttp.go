@@ -24,22 +24,22 @@ func (p *Plugin) Info() plugin.InfoStruct {
 }
 
 // Message process message event from callback. (required)
-func (p *Plugin) Message(callback callback.Full) {
+func (p *Plugin) Message(ctx callback.Full) {
 	log.Println("Message")
 }
 
 // Request process request event from callback. (required)
-func (p *Plugin) Request(callback callback.Full) {
+func (p *Plugin) Request(ctx callback.Full) {
 	log.Println("Request")
 }
 
 // Notice process notice event from callback. (required)
-func (p *Plugin) Notice(callback callback.Full) {
+func (p *Plugin) Notice(ctx callback.Full) {
 	log.Println("Notice")
 }
 
 // MetaEvent process meta event from callback. (required)
-func (p *Plugin) MetaEvent(callback callback.Full) {
+func (p *Plugin) MetaEvent(ctx callback.Full) {
 	log.Println("MetaEvent")
 }
 

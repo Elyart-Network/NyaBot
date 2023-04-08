@@ -52,7 +52,7 @@ func wsHandler(ws *websocket.Conn, call CqCallback) {
 		}()
 		// Send response.
 		if isResp {
-			wsResponse(resp)
+			responseChan <- resp
 		}
 	}
 }

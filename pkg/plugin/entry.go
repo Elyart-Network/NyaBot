@@ -8,12 +8,12 @@ import (
 )
 
 func CqEntry(ctx *gin.Context) {
-	callback, err := callback.Encode(ctx, false)
+	data, err := callback.Encode(ctx, false)
 	if err != nil {
 		log.Println("callback encode error: ", err)
 		return
 	}
-	CqCallBack(callback)
+	CqCallBack(data)
 }
 func CqWebSocketForward() {
 	go websocket.Client(CqCallBack)

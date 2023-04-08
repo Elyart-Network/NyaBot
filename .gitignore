@@ -11,7 +11,7 @@ NyaBot
 config.yaml
 go.work
 vendor
-plugin/*
+plugins/*
 scripts/*
-!plugin/.gitkeep
+!plugins/.gitkeep
 !scripts/.gitkeep

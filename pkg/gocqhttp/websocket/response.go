@@ -24,8 +24,3 @@ func wsResponseEncode(wsContext []byte) (resp wsResponseData, isResp bool, err e
 	}
 	return wsResponseData{}, false, err
 }
-
-func wsResponse(Response wsResponseData) {
-	// Send response to channel.
-	responseChan <- Response
-}

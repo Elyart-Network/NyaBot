@@ -4,6 +4,7 @@ import (
 	"github.com/Elyart-Network/NyaBot/internal/config"
 	"github.com/Elyart-Network/NyaBot/pkg/plugin"
 	"github.com/gin-gonic/gin"
+	"strings"
 )
 
 func Entry(server *gin.Engine) {
@@ -19,7 +20,7 @@ func Entry(server *gin.Engine) {
 	})
 	if config.Get("gocqhttp.enable").(bool) {
 		if config.Get("gocqhttp.enable_ws").(bool) {
-			switch config.Get("gocqhttp.ws_forward").(bool) {
+			switch strings.HasPrefix(config.Get("gocqhttp.host_url").(string), "ws") {
 			case true:
 				plugin.CqWebSocketForward()
 			case false:

@@ -4,10 +4,10 @@ package main
 import (
 	"github.com/Elyart-Network/NyaBot/internal/server"
 	// === Import plugins here ===
-	_ "github.com/Elyart-Network/NyaBot/examples/plugin" // Example Plugin
+	// _ "github.com/Elyart-Network/NyaBot/examples/plugin" // Example Plugin
 	// === Internal Plugins ===
 	// _ "github.com/Elyart-Network/NyaBot/internal/botcli"      // Bot CLI
-	// _ "github.com/Elyart-Network/NyaBot/internal/lua"         // Lua Plugin
+	_ "github.com/Elyart-Network/NyaBot/internal/lua" // Lua Plugin
 	// _ "github.com/Elyart-Network/NyaBot/internal/grpc"        // gRPC Plugin
 	// _ "github.com/Elyart-Network/NyaBot/internal/javascript"  // JavaScript Plugin
 )
