@@ -16,11 +16,10 @@ type server struct {
 }
 
 type goCqHttp struct {
-	Enable    bool   `yaml:"enable"`
-	HostUrl   string `yaml:"host_url"`
-	Delay     int    `yaml:"delay"`
-	EnableWs  bool   `yaml:"enable_ws"`
-	WsForward bool   `yaml:"ws_forward"`
+	Enable   bool   `yaml:"enable"`
+	HostUrl  string `yaml:"host_url"`
+	Delay    int    `yaml:"delay"`
+	EnableWs bool   `yaml:"enable_ws"`
 }
 
 type database struct {

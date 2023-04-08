@@ -10,6 +10,7 @@ import (
 
 type MessageFunc struct {
 	Cmd     string
+	Raw     bool
 	UserId  int64
 	GroupId int64
 	Msg     string
@@ -51,22 +52,27 @@ func (c *MessageFunc) Command(cmd string) MsgMiddleware {
 	}
 }
 
+func (c *MessageFunc) Direct() MsgMiddleware {
+	return func(c *MessageFunc) error {
+		c.Raw = true
+		return nil
+	}
+}
+
 func (c *MessageFunc) Send(ctx string) MsgMiddleware {
 	return func(c *MessageFunc) error {
-		if c.Cmd == c.Msg {
-			goto Send
-		}
-	Send:
-		switch c.IsGroup {
-		case true:
-			_, err := SendMsg(ctx, c.GroupId, true)
-			if err != nil {
-				return err
-			}
-		case false:
-			_, err := SendMsg(ctx, c.UserId, false)
-			if err != nil {
-				return err
+		if (c.Cmd == c.Msg) || c.Raw {
+			switch c.IsGroup {
+			case true:
+				_, err := SendMsg(ctx, c.GroupId, true)
+				if err != nil {
+					return err
+				}
+			case false:
+				_, err := SendMsg(ctx, c.UserId, false)
+				if err != nil {
+					return err
+				}
 			}
 		}
 		return nil
@@ -75,22 +81,20 @@ func (c *MessageFunc) Send(ctx string) MsgMiddleware {
 
 func (c *MessageFunc) Reply(ctx string) MsgMiddleware {
 	return func(c *MessageFunc) error {
-		if c.Cmd == c.Msg {
-			goto Reply
-		}
-	Reply:
-		ReplyCodeData := types.ReplyData{ID: strconv.Itoa(int(c.MsgId))}
-		ReplyCode := gocqhttp.Reply(ReplyCodeData)
-		switch c.IsGroup {
-		case true:
-			_, err := SendMsg(ReplyCode+ctx, c.GroupId, true)
-			if err != nil {
-				return err
-			}
-		case false:
-			_, err := SendMsg(ReplyCode+ctx, c.UserId, false)
-			if err != nil {
-				return err
+		if (c.Cmd == c.Msg) || c.Raw {
+			ReplyCodeData := types.ReplyData{ID: strconv.Itoa(int(c.MsgId))}
+			ReplyCode := gocqhttp.Reply(ReplyCodeData)
+			switch c.IsGroup {
+			case true:
+				_, err := SendMsg(ReplyCode+ctx, c.GroupId, true)
+				if err != nil {
+					return err
+				}
+			case false:
+				_, err := SendMsg(ReplyCode+ctx, c.UserId, false)
+				if err != nil {
+					return err
+				}
 			}
 		}
 		return nil
@@ -99,20 +103,18 @@ func (c *MessageFunc) Reply(ctx string) MsgMiddleware {
 
 func (c *MessageFunc) Forward(messages interface{}) MsgMiddleware {
 	return func(c *MessageFunc) error {
-		if c.Cmd == c.Msg {
-			goto Forward
-		}
-	Forward:
-		switch c.IsGroup {
-		case true:
-			_, err := SendForwardMsg(messages, c.GroupId, true)
-			if err != nil {
-				return err
-			}
-		case false:
-			_, err := SendForwardMsg(messages, c.UserId, false)
-			if err != nil {
-				return err
+		if (c.Cmd == c.Msg) || c.Raw {
+			switch c.IsGroup {
+			case true:
+				_, err := SendForwardMsg(messages, c.GroupId, true)
+				if err != nil {
+					return err
+				}
+			case false:
+				_, err := SendForwardMsg(messages, c.UserId, false)
+				if err != nil {
+					return err
+				}
 			}
 		}
 		return nil

@@ -7,11 +7,10 @@ var serverDef = server{
 }
 
 var goCqHttpDef = goCqHttp{
-	Enable:    true,
-	HostUrl:   "http://127.0.0.1:5700",
-	Delay:     3000,
-	EnableWs:  false,
-	WsForward: false,
+	Enable:   true,
+	HostUrl:  "http://127.0.0.1:5700",
+	Delay:    3000,
+	EnableWs: false,
 }
 
 var databaseDef = database{
