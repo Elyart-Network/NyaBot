@@ -17,9 +17,9 @@ type wsRequestData struct {
 
 var requestChan = make(chan wsRequestData)
 
-func WsSendRequest(Endpoint string, Params interface{}, RespStruct interface{}) {
+func WsSendRequest(Endpoint string, Params interface{}, RespStruct interface{}) bool {
 	if !config.Get("gocqhttp.enable").(bool) || !config.Get("gocqhttp.enable_ws").(bool) {
-		return
+		return false
 	}
 	// Prepare request data.
 	Endpoint = strings.TrimPrefix(Endpoint, "/")
@@ -40,9 +40,10 @@ func WsSendRequest(Endpoint string, Params interface{}, RespStruct interface{}) 
 			err = json.Unmarshal(jsonData, &RespStruct)
 			if err != nil {
 				log.Println("[WebSocket] ws response decode error: ", err)
-				return
+				return true
 			}
-			return
+			return true
 		}
 	}
+	return true
 }

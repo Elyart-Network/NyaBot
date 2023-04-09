@@ -7,6 +7,7 @@ import (
 	lua "github.com/yuin/gopher-lua"
 	luar "layeh.com/gopher-luar"
 	"log"
+	"strconv"
 )
 
 type MessageFunc struct{}
@@ -18,8 +19,8 @@ func (c *MessageFunc) SendMsg(Message string, Id int64, IsGroup bool) {
 	}
 }
 
-func (c *MessageFunc) Reply(Message string, Id int64, IsGroup bool, To string) {
-	ReplyCodeData := types.ReplyData{ID: To}
+func (c *MessageFunc) Reply(Message string, Id int64, IsGroup bool, To int) {
+	ReplyCodeData := types.ReplyData{ID: strconv.Itoa(To)}
 	ReplyCode := gocqhttp.Reply(ReplyCodeData)
 	_, err := fastcq.SendMsg(ReplyCode+Message, Id, IsGroup)
 	if err != nil {

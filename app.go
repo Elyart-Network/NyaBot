@@ -2,7 +2,7 @@ package main
 
 // import a plugin by simply add a blank import.
 import (
-	"github.com/Elyart-Network/NyaBot/internal/server"
+	"github.com/Elyart-Network/NyaBot/server"
 	// === Import plugins here ===
 	// _ "github.com/Elyart-Network/NyaBot/examples/plugin" // Example Plugin
 	// === Internal Plugins ===

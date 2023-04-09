@@ -1,6 +1,8 @@
 package types
 
-import "github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
+import (
+	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
+)
 
 // Friend Actions
 type DeleteFriendData struct {

@@ -1,13 +1,11 @@
 package gocqhttp
 
 import (
-	"bytes"
 	"encoding/json"
 	"github.com/Elyart-Network/NyaBot/internal/config"
+	"github.com/Elyart-Network/NyaBot/internal/utils"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/websocket"
-	"io"
 	"math/rand"
-	"net/http"
 	"time"
 )
 
@@ -15,29 +13,19 @@ func GetRequest(Endpoint string, RespStruct interface{}) (err error) {
 	// Delay
 	time.Sleep(time.Duration(rand.Intn(config.Get("gocqhttp.delay").(int))) * time.Millisecond)
 	// Websocket Reverse
-	websocket.WsSendRequest(Endpoint, nil, &RespStruct)
+	if websocket.WsSendRequest(Endpoint, nil, &RespStruct) {
+		return
+	}
 	// HTTP Reverse
 	CqHttpHost := config.Get("gocqhttp.host_url").(string)
-	go func() {
-		Request, err := http.Get(CqHttpHost + Endpoint)
-		if err != nil {
-			return
-		}
-		defer func(Body io.ReadCloser) {
-			err = Body.Close()
-			if err != nil {
-				return
-			}
-		}(Request.Body)
-		Context, err := io.ReadAll(Request.Body)
-		if err != nil {
-			return
-		}
-		err = json.Unmarshal(Context, &RespStruct)
-		if err != nil {
-			return
-		}
-	}()
+	request, err := utils.GetRequest(CqHttpHost+Endpoint, "")
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(request, &RespStruct)
+	if err != nil {
+		return err
+	}
 	return
 }
 
@@ -45,32 +33,18 @@ func PostRequest(Endpoint string, Params interface{}, RespStruct interface{}) (e
 	// Delay
 	time.Sleep(time.Duration(rand.Intn(config.Get("gocqhttp.delay").(int))) * time.Millisecond)
 	// Websocket Reverse
-	websocket.WsSendRequest(Endpoint, Params, &RespStruct)
+	if websocket.WsSendRequest(Endpoint, Params, &RespStruct) {
+		return
+	}
 	// HTTP Reverse
 	CqHttpHost := config.Get("gocqhttp.host_url").(string)
-	go func() {
-		byteSlice, err := json.Marshal(Params)
-		if err != nil {
-			return
-		}
-		Request, err := http.Post(CqHttpHost+Endpoint, "application/json", bytes.NewBuffer(byteSlice))
-		if err != nil {
-			return
-		}
-		defer func(Body io.ReadCloser) {
-			err := Body.Close()
-			if err != nil {
-				return
-			}
-		}(Request.Body)
-		Context, err := io.ReadAll(Request.Body)
-		if err != nil {
-			return
-		}
-		err = json.Unmarshal(Context, &RespStruct)
-		if err != nil {
-			return
-		}
-	}()
+	request, err := utils.PostRequest(CqHttpHost+Endpoint, Params)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(request, &RespStruct)
+	if err != nil {
+		return err
+	}
 	return
 }

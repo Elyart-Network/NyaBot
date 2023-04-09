@@ -8,6 +8,7 @@ import (
 func init() {
 	viper.SetConfigFile("config.yaml")
 	viper.SetDefault("Server", serverDef)
+	viper.SetDefault("Mirai", miraiDef)
 	viper.SetDefault("GoCqHttp", goCqHttpDef)
 	viper.SetDefault("Database", databaseDef)
 	viper.SetDefault("Queue", queueDef)

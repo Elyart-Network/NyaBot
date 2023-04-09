@@ -6,8 +6,12 @@ var serverDef = server{
 	FileLogger: false,
 }
 
+var miraiDef = mirai{
+	Enable: false,
+}
+
 var goCqHttpDef = goCqHttp{
-	Enable:   true,
+	Enable:   false,
 	HostUrl:  "http://127.0.0.1:5700",
 	Delay:    3000,
 	EnableWs: false,

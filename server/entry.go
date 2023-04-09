@@ -29,4 +29,7 @@ func Entry(server *gin.Engine) {
 		}
 		server.POST("/api/gocqhttp", plugin.CqEntry)
 	}
+	if config.Get("mirai.enable").(bool) {
+
+	}
 }
