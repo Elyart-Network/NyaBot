@@ -2,6 +2,7 @@ package config
 
 type config struct {
 	Server   server   `yaml:"server"`
+	Mirai    mirai    `yaml:"mirai"`
 	GoCqHttp goCqHttp `yaml:"gocqhttp"`
 	Database database `yaml:"database"`
 	Queue    queue    `yaml:"queue"`
@@ -13,6 +14,10 @@ type server struct {
 	ListenPort string `yaml:"listen_port"`
 	DebugMode  bool   `yaml:"debug_mode"`
 	FileLogger bool   `yaml:"file_logger"`
+}
+
+type mirai struct {
+	Enable bool `yaml:"enable"`
 }
 
 type goCqHttp struct {
