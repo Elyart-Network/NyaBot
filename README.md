@@ -14,40 +14,7 @@
 
 ## NyaBot v3 Documents
 
-- Working on it...
-
-## NyaBot Roadmap
-
-#### Trello Board: [NyaBot v3](https://trello.com/b/8R24wSjo/nyabot-v3)
-
-#### [✔] Usable | [⚠] In Progress | [👻] Partially | [❌] Not Ready | [😈] In Plan | [🍪] Food
-
-- Open Source [✔]
-- Async Process [✔]
-- Middleware [❌]
-- Storage Support [⚠]
-- Database Support [😈]
-- Cache Support [😈]
-- HTTP Forward [✔]
-- HTTP Reserve [✔]
-- Websocket Forward [✔]
-- Websocket Reverse [✔]
-- Secure Connection [⚠]
-- Plugin Support [✔]
-- gRPC Plugin [😈]
-- JavaScript Plugin [😈]
-- Lua Fast Script [⚠]
-- Full Autocomplete [✔]
-- Low Coupling [✔]
-- Production Ready [❌]
-- Full API Support [✔]
-- Stateless Deployment [✔]
-- GoCqHttp Framework [✔]
-- WeChat Core Framework [❌]
-- QQ Core Framework [😈]
-- Discord Framework [😈]
-- Telegram Framework [😈]
-- Tasty Developers [🍪]
+- [Click Here !](https://nyabot.elyart.org/)
 
 ## Support Us
 
