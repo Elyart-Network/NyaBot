@@ -2,6 +2,7 @@ package runtime
 
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
+	"log"
 	"strings"
 )
 
@@ -13,11 +14,15 @@ func CqLoader(ctx callback.Full) {
 	var data = CallbackData{
 		CqCall: ctx,
 	}
-	scripts, _ := GetScripts()
+	GetScripts()
 	go func() {
 		for _, script := range scripts {
-			if strings.HasSuffix(script, ".lua") {
-				LVM("scripts/"+script, data)
+			if strings.HasSuffix(script.FileName, ".lua") && script.Enable {
+				LVM("scripts/"+script.FileName, data)
+			} else if script.Name == "DEFAULT" {
+				continue
+			} else {
+				log.Println("[Lua] Script " + script.Name + " is disabled!")
 			}
 		}
 	}()
