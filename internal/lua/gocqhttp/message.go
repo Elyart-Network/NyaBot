@@ -28,6 +28,17 @@ func (c *MessageFunc) Reply(Message string, Id int64, IsGroup bool, To int) {
 	}
 }
 
+func (c *MessageFunc) SendPic(Url string, Type string, Id int64, IsGroup bool) {
+	PicData := types.ImageData{
+		File: "pic." + Type,
+		Url:  Url,
+	}
+	_, err := fastcq.SendMsg(gocqhttp.Image(PicData), Id, IsGroup)
+	if err != nil {
+		log.Println("[Lua] SendPic error: ", err)
+	}
+}
+
 var ForwardMessages []interface{}
 
 func (c *MessageFunc) SetIdForward(MessageID string) {

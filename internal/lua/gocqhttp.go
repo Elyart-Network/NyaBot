@@ -34,7 +34,9 @@ func (p *Plugin) Request(ctx callback.Full) {
 }
 
 // Notice process notice event from callback. (required)
-func (p *Plugin) Notice(ctx callback.Full) {}
+func (p *Plugin) Notice(ctx callback.Full) {
+	runtime.CqLoader(ctx)
+}
 
 // MetaEvent process meta event from callback. (required)
 func (p *Plugin) MetaEvent(ctx callback.Full) {}
