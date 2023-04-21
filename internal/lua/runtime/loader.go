@@ -2,18 +2,17 @@ package runtime
 
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
+	"github.com/Elyart-Network/NyaBot/pkg/webhook"
 	"log"
 	"strings"
 )
 
 type CallbackData struct {
+	WhCall webhook.Data
 	CqCall callback.Full
 }
 
-func CqLoader(ctx callback.Full) {
-	var data = CallbackData{
-		CqCall: ctx,
-	}
+func LoadScript(data CallbackData) {
 	GetScripts()
 	go func() {
 		for _, script := range scripts {
@@ -26,4 +25,18 @@ func CqLoader(ctx callback.Full) {
 			}
 		}
 	}()
+}
+
+func WhLoader(ctx webhook.Data) {
+	var data = CallbackData{
+		WhCall: ctx,
+	}
+	LoadScript(data)
+}
+
+func CqLoader(ctx callback.Full) {
+	var data = CallbackData{
+		CqCall: ctx,
+	}
+	LoadScript(data)
 }
