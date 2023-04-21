@@ -6,11 +6,11 @@ import (
 	"github.com/Elyart-Network/NyaBot/pkg/plugin"
 )
 
-// Plugin a struct for all functions below.
-type Plugin struct{}
+// CqPlugin a struct for all functions below.
+type CqPlugin struct{}
 
 // Info set plugin info, `Name` has to be unique!
-func (p *Plugin) Info() plugin.InfoStruct {
+func (p *CqPlugin) Info() plugin.InfoStruct {
 	return plugin.InfoStruct{
 		Name:        "cq_internal_lua",
 		Version:     "",
@@ -24,22 +24,24 @@ func (p *Plugin) Info() plugin.InfoStruct {
 }
 
 // Message process message event from callback. (required)
-func (p *Plugin) Message(ctx callback.Full) {
+func (p *CqPlugin) Message(ctx callback.Full) {
 	runtime.CqLoader(ctx)
 }
 
 // Request process request event from callback. (required)
-func (p *Plugin) Request(ctx callback.Full) {
+func (p *CqPlugin) Request(ctx callback.Full) {
 	runtime.CqLoader(ctx)
 }
 
 // Notice process notice event from callback. (required)
-func (p *Plugin) Notice(ctx callback.Full) {}
+func (p *CqPlugin) Notice(ctx callback.Full) {
+	runtime.CqLoader(ctx)
+}
 
 // MetaEvent process meta event from callback. (required)
-func (p *Plugin) MetaEvent(ctx callback.Full) {}
+func (p *CqPlugin) MetaEvent(ctx callback.Full) {}
 
 // init register plugin and depends to plugin manager (frame).
 func init() {
-	plugin.CqRegister(&Plugin{})
+	plugin.CqRegister(&CqPlugin{})
 }

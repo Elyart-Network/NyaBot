@@ -2,6 +2,7 @@ package plugin
 
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
+	"github.com/Elyart-Network/NyaBot/pkg/webhook"
 )
 
 type InfoStruct struct {
@@ -17,6 +18,11 @@ type InfoStruct struct {
 
 type CommonInfo interface {
 	Info() InfoStruct
+}
+
+type WhPlugin interface {
+	CommonInfo
+	Receive(callback webhook.Data)
 }
 
 type CqPlugin interface {

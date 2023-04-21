@@ -18,6 +18,7 @@ func Entry(server *gin.Engine) {
 			"status": "OK",
 		})
 	})
+	server.POST("/webhook", plugin.WhEntry)
 	if config.Get("gocqhttp.enable").(bool) {
 		if config.Get("gocqhttp.enable_ws").(bool) {
 			switch strings.HasPrefix(config.Get("gocqhttp.host_url").(string), "ws") {
