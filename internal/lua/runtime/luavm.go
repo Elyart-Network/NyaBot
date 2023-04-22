@@ -18,6 +18,7 @@ func LVM(path string, data CallbackData) {
 	gocqhttp.Message(L)
 	gocqhttp.Request(L)
 	gocqhttp.Action(L)
+	gocqhttp.GetData(L)
 	// load and run the script
 	if err := L.DoFile(path); err != nil {
 		log.Println("Lua script error: ", err)
