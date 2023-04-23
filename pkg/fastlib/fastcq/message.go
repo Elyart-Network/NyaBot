@@ -1,10 +1,9 @@
 package fastcq
 
 import (
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
+	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcode"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/types"
-	"log"
 	"strconv"
 )
 
@@ -16,119 +15,109 @@ type MessageFunc struct {
 	Msg     string
 	MsgId   int32
 	IsGroup bool
+	SMsg    []interface{}
+	SFwd    []interface{}
+	Errors  []error
 }
 
 type MsgMiddleware func(*MessageFunc) error
 
-func callbackDecode(callback callback.Full, message *MessageFunc) {
+func (c *MessageFunc) Message(callback callback.Full) *MessageFunc {
 	switch callback.MessageType {
 	case "group":
-		message.IsGroup = true
-		message.UserId = callback.UserID
-		message.GroupId = callback.GroupID
+		c.IsGroup = true
+		c.UserId = callback.UserID
+		c.GroupId = callback.GroupID
 	case "private":
-		message.IsGroup = false
-		message.UserId = callback.UserID
+		c.IsGroup = false
+		c.UserId = callback.UserID
 	}
-	message.Msg = callback.MessageData
-	message.MsgId = callback.MessageID
+	c.Msg = callback.MessageData
+	c.MsgId = callback.MessageID
+	return c
 }
 
-func (c *MessageFunc) Message(callback callback.Full, middlewares ...MsgMiddleware) {
-	callbackDecode(callback, c)
-	for _, middleware := range middlewares {
-		err := middleware(c)
-		if err != nil {
-			log.Println("Middleware Error: ", err)
+func (c *MessageFunc) Command(cmd string) *MessageFunc {
+	c.Cmd = cmd
+	return c
+}
+
+func (c *MessageFunc) Direct() *MessageFunc {
+	c.Raw = true
+	return c
+}
+
+func (c *MessageFunc) Send() *MessageFunc {
+	if (c.Cmd == c.Msg) || c.Raw {
+		var Id int64
+		switch c.IsGroup {
+		case true:
+			Id = c.GroupId
+		case false:
+			Id = c.UserId
 		}
-	}
-	return
-}
-
-func (c *MessageFunc) Command(cmd string) MsgMiddleware {
-	return func(c *MessageFunc) error {
-		c.Cmd = cmd
-		return nil
-	}
-}
-
-func (c *MessageFunc) Direct() MsgMiddleware {
-	return func(c *MessageFunc) error {
-		c.Raw = true
-		return nil
-	}
-}
-
-func (c *MessageFunc) Send(ctx string) MsgMiddleware {
-	return func(c *MessageFunc) error {
-		if (c.Cmd == c.Msg) || c.Raw {
-			switch c.IsGroup {
-			case true:
-				_, err := SendMsg(ctx, c.GroupId, true)
-				if err != nil {
-					return err
-				}
-			case false:
-				_, err := SendMsg(ctx, c.UserId, false)
-				if err != nil {
-					return err
-				}
-			}
-		}
-		return nil
-	}
-}
-
-func (c *MessageFunc) Reply(ctx string) MsgMiddleware {
-	return func(c *MessageFunc) error {
-		if (c.Cmd == c.Msg) || c.Raw {
-			ReplyCodeData := types.ReplyData{ID: strconv.Itoa(int(c.MsgId))}
-			ReplyCode := gocqhttp.Reply(ReplyCodeData)
-			switch c.IsGroup {
-			case true:
-				_, err := SendMsg(ReplyCode+ctx, c.GroupId, true)
-				if err != nil {
-					return err
-				}
-			case false:
-				_, err := SendMsg(ReplyCode+ctx, c.UserId, false)
-				if err != nil {
-					return err
-				}
-			}
-		}
-		return nil
-	}
-}
-
-func (c *MessageFunc) Forward(messages interface{}) MsgMiddleware {
-	return func(c *MessageFunc) error {
-		if (c.Cmd == c.Msg) || c.Raw {
-			switch c.IsGroup {
-			case true:
-				_, err := SendForwardMsg(messages, c.GroupId, true)
-				if err != nil {
-					return err
-				}
-			case false:
-				_, err := SendForwardMsg(messages, c.UserId, false)
-				if err != nil {
-					return err
-				}
-			}
-		}
-		return nil
-	}
-}
-
-func (c *MessageFunc) Delete() MsgMiddleware {
-	return func(c *MessageFunc) error {
-		if c.Cmd == c.Msg {
-			err := DeleteMsg(c.MsgId)
+		if len(c.SFwd) > 0 {
+			_, err := SendForwardMsg(c.SFwd, Id, c.IsGroup)
 			if err != nil {
-				return err
+				c.Errors = append(c.Errors, err)
 			}
 		}
-		return nil
+		if len(c.SMsg) > 1 {
+			for _, v := range c.SMsg {
+				_, err := SendMsg(v.(string), Id, c.IsGroup)
+				if err != nil {
+					c.Errors = append(c.Errors, err)
+				}
+			}
+		} else if len(c.SMsg) == 1 {
+			_, err := SendMsg(c.SMsg[0].(string), Id, c.IsGroup)
+			if err != nil {
+				c.Errors = append(c.Errors, err)
+			}
+		}
 	}
+	return c
+}
+
+func (c *MessageFunc) Text(ctx string) *MessageFunc {
+	c.SMsg = append(c.SMsg, ctx)
+	return c
+}
+
+func (c *MessageFunc) Reply(ctx string) *MessageFunc {
+	ReplyCodeData := types.ReplyData{ID: strconv.Itoa(int(c.MsgId))}
+	ReplyCode := cqcode.Reply(ReplyCodeData)
+	c.SMsg = append(c.SMsg, ReplyCode+ctx)
+	return c
+}
+
+func (c *MessageFunc) IDFwd(id string) *MessageFunc {
+	data := GenIdForward(id)
+	c.SFwd = append(c.SFwd, data)
+	return c
+}
+
+func (c *MessageFunc) CustomFwd(name string, id string, content string) *MessageFunc {
+	data := GenCustomForward(name, id, content)
+	c.SFwd = append(c.SFwd, data)
+	return c
+}
+
+func (c *MessageFunc) Pic(url string) *MessageFunc {
+	data := types.ImageData{
+		File: "img.jpg",
+		Url:  url,
+	}
+	c.SMsg = append(c.SMsg, cqcode.Image(data))
+	return c
+}
+
+func (c *MessageFunc) Delete() *MessageFunc {
+	if c.Cmd == c.Msg {
+		err := DeleteMsg(c.MsgId)
+		if err != nil {
+			c.Errors = append(c.Errors, err)
+		}
+	}
+	return c
 }

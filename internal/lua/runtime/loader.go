@@ -3,7 +3,6 @@ package runtime
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/webhook"
-	"log"
 	"strings"
 )
 
@@ -20,8 +19,6 @@ func LoadScript(data CallbackData) {
 				LVM("scripts/"+script.FileName, data)
 			} else if script.Name == "DEFAULT" {
 				continue
-			} else {
-				log.Println("[Lua] Script " + script.Name + " is disabled!")
 			}
 		}
 	}()

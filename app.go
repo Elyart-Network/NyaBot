@@ -5,6 +5,7 @@ import (
 	"github.com/Elyart-Network/NyaBot/server"
 	// === Import plugins here ===
 	// _ "github.com/Elyart-Network/NyaBot/examples/plugin" // Example Plugin
+	_ "github.com/Elyart-Network/NyaBot/plugins/test" // Test Plugin
 	// === Internal Plugins ===
 	// _ "github.com/Elyart-Network/NyaBot/internal/botcli"      // Bot CLI
 	_ "github.com/Elyart-Network/NyaBot/internal/lua" // Lua Plugin

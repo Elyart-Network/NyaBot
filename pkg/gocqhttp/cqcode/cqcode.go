@@ -1,4 +1,4 @@
-package gocqhttp
+package cqcode
 
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/types"
