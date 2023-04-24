@@ -486,4 +486,5 @@ func SetEssenceMsg(MessageID int32, Remove bool) error {
 		}
 		return nil
 	}
+	return errors.New("remove error")
 }
