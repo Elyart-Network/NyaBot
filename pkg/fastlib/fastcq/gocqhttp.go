@@ -451,3 +451,39 @@ func DismissGroup(GroupID int64) error {
 	}
 	return nil
 }
+
+// SendGroupSign send group sign.
+func SendGroupSign(GroupID int64) error {
+	data := types.SendGroupSignData{
+		GroupID: GroupID,
+	}
+	_, err := group.SendGroupSign(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// SetEssenceMsg set group essence message.
+func SetEssenceMsg(MessageID int32, Remove bool) error {
+	switch Remove {
+	case true:
+		data := types.DeleteEssenceMsgData{
+			MessageID: MessageID,
+		}
+		_, err := group.DeleteEssenceMsg(data)
+		if err != nil {
+			return err
+		}
+		return nil
+	case false:
+		data := types.SetEssenceMsgData{
+			MessageID: MessageID,
+		}
+		_, err := group.SetEssenceMsg(data)
+		if err != nil {
+			return err
+		}
+		return nil
+	}
+}
