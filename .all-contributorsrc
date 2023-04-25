@@ -15,7 +15,8 @@
         "code",
         "bug",
         "infra",
-        "design"
+        "design",
+        "projectManagement"
       ]
     },
     {
