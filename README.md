@@ -41,7 +41,7 @@
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="http://baiyi.moe"><img src="https://avatars.githubusercontent.com/u/25338540?v=4?s=100" width="100px;" alt="BaiYi"/><br /><sub><b>BaiYi</b></sub></a><br /><a href="https://github.com/Elyart-Network/NyaBot/commits?author=WhiteElytra" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://baiyi.moe"><img src="https://avatars.githubusercontent.com/u/25338540?v=4?s=100" width="100px;" alt="BaiYi"/><br /><sub><b>BaiYi</b></sub></a><br /><a href="https://github.com/Elyart-Network/NyaBot/commits?author=WhiteElytra" title="Code">💻</a> <a href="https://github.com/Elyart-Network/NyaBot/issues?q=author%3AWhiteElytra" title="Bug reports">🐛</a> <a href="#infra-WhiteElytra" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#design-WhiteElytra" title="Design">🎨</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/isNagatoYuki"><img src="https://avatars.githubusercontent.com/u/54537867?v=4?s=100" width="100px;" alt="isNagatoYuki"/><br /><sub><b>isNagatoYuki</b></sub></a><br /><a href="https://github.com/Elyart-Network/NyaBot/issues?q=author%3AisNagatoYuki" title="Bug reports">🐛</a> <a href="https://github.com/Elyart-Network/NyaBot/commits?author=isNagatoYuki" title="Code">💻</a> <a href="#a11y-isNagatoYuki" title="Accessibility">️️️️♿️</a></td>
     </tr>
   </tbody>
