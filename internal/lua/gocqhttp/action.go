@@ -72,6 +72,20 @@ func (c *ActionFunc) DismissGroup(GroupID int64) {
 	}
 }
 
+func (c *ActionFunc) SendGroupSign(GroupID int64) {
+	err := fastcq.SendGroupSign(GroupID)
+	if err != nil {
+		log.Println("[Lua] SendGroupSign error: ", err)
+	}
+}
+
+func (c *ActionFunc) SetEssenceMsg(MessageID int32, Remove bool) {
+	err := fastcq.SetEssenceMsg(MessageID, Remove)
+	if err != nil {
+		log.Println("[Lua] SetEssenceMsg error: ", err)
+	}
+}
+
 func Action(L *lua.LState) {
 	var ActionFunc = &ActionFunc{}
 	L.SetGlobal("CqAct", luar.New(L, ActionFunc))
