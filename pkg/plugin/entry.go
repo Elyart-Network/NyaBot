@@ -30,7 +30,7 @@ func CqWebSocketForward() {
 	go websocket.Client(CqCallBack)
 }
 func CqWebSocketReverse(ctx *gin.Context) {
-	go websocket.Server(ctx, CqCallBack)
+	go websocket.Server(ctx.Writer, ctx.Request, CqCallBack)
 }
 func DiscordEntry(ctx *gin.Context)  {}
 func TelegramEntry(ctx *gin.Context) {}
