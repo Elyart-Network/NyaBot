@@ -15,9 +15,11 @@ func LVM(path string, data CallbackData) {
 	L.SetGlobal("Callback", luar.New(L, data))
 	// register modules to the table
 	common.HttpReq(L)
+	common.System(L)
 	gocqhttp.Message(L)
 	gocqhttp.Request(L)
 	gocqhttp.Action(L)
+	gocqhttp.GetData(L)
 	// load and run the script
 	if err := L.DoFile(path); err != nil {
 		log.Println("Lua script error: ", err)

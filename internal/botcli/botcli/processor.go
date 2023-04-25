@@ -9,7 +9,7 @@ import (
 func cqReturn(call interface{}, msg string) {
 	data := call.(callback.Full)
 	c := fastcq.MessageFunc{}
-	c.Message(data, c.Reply(msg), c.Direct())
+	c.Message(data).Reply(msg).Direct().Send()
 }
 
 func cqProcessor(callback interface{}, cmd []string) {

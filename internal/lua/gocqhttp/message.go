@@ -2,7 +2,7 @@ package gocqhttp
 
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/fastlib/fastcq"
-	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp"
+	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcode"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/types"
 	lua "github.com/yuin/gopher-lua"
 	luar "layeh.com/gopher-luar"
@@ -21,7 +21,7 @@ func (c *MessageFunc) SendMsg(Message string, Id int64, IsGroup bool) {
 
 func (c *MessageFunc) Reply(Message string, Id int64, IsGroup bool, To int) {
 	ReplyCodeData := types.ReplyData{ID: strconv.Itoa(To)}
-	ReplyCode := gocqhttp.Reply(ReplyCodeData)
+	ReplyCode := cqcode.Reply(ReplyCodeData)
 	_, err := fastcq.SendMsg(ReplyCode+Message, Id, IsGroup)
 	if err != nil {
 		log.Println("[Lua] SendMsgWithAt error: ", err)
@@ -33,7 +33,7 @@ func (c *MessageFunc) SendPic(Url string, Type string, Id int64, IsGroup bool) {
 		File: "pic." + Type,
 		Url:  Url,
 	}
-	_, err := fastcq.SendMsg(gocqhttp.Image(PicData), Id, IsGroup)
+	_, err := fastcq.SendMsg(cqcode.Image(PicData), Id, IsGroup)
 	if err != nil {
 		log.Println("[Lua] SendPic error: ", err)
 	}

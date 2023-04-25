@@ -3,7 +3,6 @@ package websocket
 import (
 	"github.com/Elyart-Network/NyaBot/internal/config"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
-	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
@@ -75,8 +74,8 @@ func Client(callback CqCallback) {
 	wsHandler(ws, callback)
 }
 
-func Server(ctx *gin.Context, callback CqCallback) {
-	ws, err := up.Upgrade(ctx.Writer, ctx.Request, nil)
+func Server(w http.ResponseWriter, r *http.Request, callback CqCallback) {
+	ws, err := up.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println("[WebSocket] ws upgrade error: ", err)
 		return
