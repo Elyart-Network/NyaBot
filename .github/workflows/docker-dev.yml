@@ -1,9 +1,6 @@
 name: Docker Dev
 
-on:
-   push:
-     branches:
-       - "main"
+on: push
       
 jobs:
   docker:
