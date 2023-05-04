@@ -2,6 +2,7 @@ package main
 
 // import a plugin by simply add a blank import.
 import (
+	"github.com/Elyart-Network/NyaBot/internal/config"
 	"github.com/Elyart-Network/NyaBot/server"
 	// === Import plugins here ===
 	// _ "github.com/Elyart-Network/NyaBot/examples/plugin" // Example Plugin
@@ -13,5 +14,6 @@ import (
 )
 
 func main() {
-	server.Start()
+	config.EnvInit() // Initialize environment variables
+	server.Start()   // Start server (framework)
 }

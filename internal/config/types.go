@@ -5,7 +5,7 @@ type config struct {
 	Mirai    mirai    `yaml:"mirai"`
 	GoCqHttp goCqHttp `yaml:"gocqhttp"`
 	Database database `yaml:"database"`
-	Queue    queue    `yaml:"queue"`
+	Logging  logging  `yaml:"logging"`
 	Cache    cache    `yaml:"cache"`
 	Search   search   `yaml:"search"`
 }
@@ -27,6 +27,7 @@ type goCqHttp struct {
 	EnableWs bool   `yaml:"enable_ws"`
 }
 
+// SQLite or MySQL or PostgreSQL
 type database struct {
 	Type     string `yaml:"type"`
 	Host     string `yaml:"host"`
@@ -35,24 +36,28 @@ type database struct {
 	Password string `yaml:"password"`
 }
 
-type queue struct {
-	Type      string `yaml:"type"`
-	Host      string `yaml:"host"`
-	IndexName string `yaml:"index_name"`
-	Username  string `yaml:"username"`
-	Password  string `yaml:"password"`
+// MongoDB
+type logging struct {
+	External    bool   `yaml:"external"`
+	MongoUri    string `yaml:"mongo_uri"`
+	Username    string `yaml:"username"`
+	Password    string `yaml:"password"`
+	CacheNum    int    `yaml:"cache_num"`
+	InternalLog bool   `yaml:"internal_log"`
 }
 
+// InMem or Redis
 type cache struct {
-	Type      string `yaml:"type"`
+	External  bool   `yaml:"external"`
 	Host      string `yaml:"host"`
 	IndexName string `yaml:"index_name"`
 	Username  string `yaml:"username"`
 	Password  string `yaml:"password"`
 }
 
+// Elasticsearch
 type search struct {
-	Type      string `yaml:"type"`
+	Enable    bool   `yaml:"enable"`
 	Host      string `yaml:"host"`
 	IndexName string `yaml:"index_name"`
 	Username  string `yaml:"username"`

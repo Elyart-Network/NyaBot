@@ -18,17 +18,20 @@ var goCqHttpDef = goCqHttp{
 }
 
 var databaseDef = database{
-	Type: "internal",
+	Type: "sqlite",
 }
 
-var queueDef = queue{
-	Type: "internal",
+var loggingDef = logging{
+	External:    false,
+	MongoUri:    "mongodb://",
+	CacheNum:    80,
+	InternalLog: false,
 }
 
 var cacheDef = cache{
-	Type: "internal",
+	External: false,
 }
 
 var searchDef = search{
-	Type: "internal",
+	Enable: false,
 }

@@ -13,7 +13,7 @@ func init() {
 	viper.SetDefault("Mirai", miraiDef)
 	viper.SetDefault("GoCqHttp", goCqHttpDef)
 	viper.SetDefault("Database", databaseDef)
-	viper.SetDefault("Queue", queueDef)
+	viper.SetDefault("Logging", loggingDef)
 	viper.SetDefault("Cache", cacheDef)
 	viper.SetDefault("Search", searchDef)
 	conf := &config{}
