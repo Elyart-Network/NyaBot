@@ -1,18 +1,18 @@
 package plugin
 
 import (
+	"github.com/Elyart-Network/NyaBot/internal/logger"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/websocket"
 	"github.com/Elyart-Network/NyaBot/pkg/webhook"
 	"github.com/gin-gonic/gin"
-	"log"
 )
 
 func WhEntry(ctx *gin.Context) {
 	data := webhook.Data{}
 	err := ctx.BindJSON(&data)
 	if err != nil {
-		log.Println("callback encode error: ", err)
+		logger.Warningf("Plugin", "Webhook callback decode error", err)
 		return
 	}
 	WhCallBack(data)
@@ -21,7 +21,7 @@ func WhEntry(ctx *gin.Context) {
 func CqEntry(ctx *gin.Context) {
 	data, err := callback.Encode(ctx, false)
 	if err != nil {
-		log.Println("callback encode error: ", err)
+		logger.Warningf("Plugin", "GoCqHttp callback decode error", err)
 		return
 	}
 	CqCallBack(data)

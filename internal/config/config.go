@@ -1,6 +1,7 @@
 package config
 
 import (
+	"github.com/Elyart-Network/NyaBot/internal/logger"
 	"github.com/spf13/viper"
 	"log"
 )
@@ -19,18 +20,18 @@ func init() {
 	if err := viper.ReadInConfig(); err != nil {
 		log.Println("Can't read config, trying to modify!")
 		if err := viper.WriteConfig(); err != nil {
-			log.Panicln("Error writing config!")
+			logger.Errorf("Config", "Error writing config", err.Error())
 		}
 	}
 	if err := viper.Unmarshal(conf); err != nil {
-		log.Fatal(err)
+		logger.ErrorFatal(err)
 	}
 }
 
 func Get(key string) interface{} {
 	viper.SetConfigFile("config.yaml")
 	if err := viper.ReadInConfig(); err != nil {
-		log.Panicln("Error reading config!")
+		logger.Errorf("Config", "Error reading config", err.Error())
 	}
 	return viper.Get(key)
 }
@@ -38,7 +39,7 @@ func Get(key string) interface{} {
 func Set(key string, value interface{}) {
 	viper.SetConfigFile("config.yaml")
 	if err := viper.ReadInConfig(); err != nil {
-		log.Panicln("Error reading config!")
+		logger.Errorf("Config", "Error reading config", err.Error())
 	}
 	viper.Set(key, value)
 }

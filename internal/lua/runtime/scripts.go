@@ -1,6 +1,7 @@
 package runtime
 
 import (
+	"github.com/Elyart-Network/NyaBot/internal/logger"
 	"gopkg.in/ini.v1"
 	"log"
 	"os"
@@ -53,7 +54,7 @@ func GetScripts() {
 	clearScripts()
 	cfg, err := ini.Load("scripts/lua.ini")
 	if err != nil {
-		log.Println("[Lua] Error loading lua.ini: ", err)
+		logger.Errorf("Lua", "Error loading lua.ini", err.Error())
 		return
 	}
 	for _, section := range cfg.Sections() {

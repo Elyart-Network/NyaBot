@@ -1,6 +1,7 @@
 package cmds
 
 import (
+	"github.com/Elyart-Network/NyaBot/internal/logger"
 	"github.com/Elyart-Network/NyaBot/pkg/fastlib/fastcq"
 	"strconv"
 )
@@ -8,7 +9,7 @@ import (
 func CqSendGroupMessage(cmd []string) string {
 	GroupID, err := strconv.ParseInt(cmd[0], 10, 64)
 	if err != nil {
-		return "[BotCli] Invalid GroupID!"
+		logger.Errorf("BotCli", "Invalid GroupID!")
 	}
 	if msgId, _ := fastcq.SendMsg(cmd[1], GroupID, true); msgId != 0 {
 		return "[BotCli] Message sent!"
@@ -20,7 +21,7 @@ func CqSendGroupMessage(cmd []string) string {
 func CqSendPrivateMessage(cmd []string) string {
 	UserID, err := strconv.ParseInt(cmd[0], 10, 64)
 	if err != nil {
-		return "[BotCli] Invalid UserID!"
+		logger.Errorf("BotCli", "Invalid UserID!")
 	}
 	if msgId, _ := fastcq.SendMsg(cmd[1], UserID, false); msgId != 0 {
 		return "[BotCli] Message sent!"
