@@ -12,7 +12,7 @@ type WhPlugin struct{}
 // Info set plugin info, `Name` has to be unique!
 func (p *WhPlugin) Info() plugin.InfoStruct {
 	return plugin.InfoStruct{
-		Name:        "wh_example",
+		Name:        "wh_internal_lua",
 		Version:     "",
 		Author:      "",
 		Description: "",

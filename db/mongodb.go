@@ -1,4 +1,4 @@
-package drivers
+package db
 
 import (
 	"context"
