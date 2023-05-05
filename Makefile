@@ -17,6 +17,7 @@ docker:
 	@docker build -t whydesd/nyabot:test .
 help:
 	@echo "make 格式化go代码 并编译生成二进制文件"
+	@echo "make start 格式化go代码 编译生成二进制文件 并运行"
 	@echo "make build 编译go代码生成二进制文件"
 	@echo "make clean 清理中间目标文件"
 	@echo "make test 执行测试case"
