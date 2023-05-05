@@ -1,4 +1,4 @@
-.PHONY: all build clean run check cover lint docker help
+.PHONY: all build clean test check run docker help
 BIN_FILE=nyabot
 all: check build run
 build:
