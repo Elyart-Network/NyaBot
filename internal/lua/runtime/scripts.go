@@ -1,8 +1,8 @@
 package runtime
 
 import (
-	"github.com/Elyart-Network/NyaBot/internal/config"
-	"github.com/Elyart-Network/NyaBot/internal/logger"
+	"github.com/Elyart-Network/NyaBot/config"
+	"github.com/Elyart-Network/NyaBot/logger"
 	"gopkg.in/ini.v1"
 	"log"
 	"os"

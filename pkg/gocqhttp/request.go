@@ -2,9 +2,9 @@ package gocqhttp
 
 import (
 	"encoding/json"
-	"github.com/Elyart-Network/NyaBot/internal/config"
-	"github.com/Elyart-Network/NyaBot/internal/utils"
+	"github.com/Elyart-Network/NyaBot/config"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/websocket"
+	"github.com/Elyart-Network/NyaBot/utils"
 	"math/rand"
 	"time"
 )

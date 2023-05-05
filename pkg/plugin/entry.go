@@ -1,7 +1,7 @@
 package plugin
 
 import (
-	"github.com/Elyart-Network/NyaBot/internal/logger"
+	"github.com/Elyart-Network/NyaBot/logger"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/websocket"
 	"github.com/Elyart-Network/NyaBot/pkg/webhook"

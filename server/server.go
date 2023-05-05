@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/Elyart-Network/NyaBot/internal/config"
+	"github.com/Elyart-Network/NyaBot/config"
 	"github.com/gin-gonic/gin"
 	"io"
 	"log"

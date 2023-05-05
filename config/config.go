@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/Elyart-Network/NyaBot/internal/logger"
+	"github.com/Elyart-Network/NyaBot/logger"
 	"github.com/spf13/viper"
 	"log"
 )

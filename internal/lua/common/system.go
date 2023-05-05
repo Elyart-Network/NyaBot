@@ -1,7 +1,7 @@
 package common
 
 import (
-	"github.com/Elyart-Network/NyaBot/internal/logger"
+	"github.com/Elyart-Network/NyaBot/logger"
 	"github.com/Elyart-Network/NyaBot/pkg/fastlib/system"
 	lua "github.com/yuin/gopher-lua"
 	luar "layeh.com/gopher-luar"

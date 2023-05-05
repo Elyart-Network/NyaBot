@@ -1,7 +1,7 @@
 package gocqhttp
 
 import (
-	"github.com/Elyart-Network/NyaBot/internal/logger"
+	"github.com/Elyart-Network/NyaBot/logger"
 	"github.com/Elyart-Network/NyaBot/pkg/fastlib/fastcq"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcode"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/types"

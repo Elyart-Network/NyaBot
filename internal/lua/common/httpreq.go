@@ -2,8 +2,8 @@ package common
 
 import (
 	"encoding/json"
-	"github.com/Elyart-Network/NyaBot/internal/logger"
-	"github.com/Elyart-Network/NyaBot/internal/utils"
+	"github.com/Elyart-Network/NyaBot/logger"
+	"github.com/Elyart-Network/NyaBot/utils"
 	lua "github.com/yuin/gopher-lua"
 	luar "layeh.com/gopher-luar"
 )

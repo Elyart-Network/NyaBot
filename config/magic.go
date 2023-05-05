@@ -5,7 +5,7 @@ import (
 	"crypto/cipher"
 	"encoding/base64"
 	"encoding/hex"
-	"github.com/Elyart-Network/NyaBot/internal/logger"
+	"github.com/Elyart-Network/NyaBot/logger"
 )
 
 var MagicKey = hex.EncodeToString([]byte("WulYAa8M4FaSITGNUJyk6gOifgzV80uh"))

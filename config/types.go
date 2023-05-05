@@ -41,8 +41,7 @@ type database struct {
 type logging struct {
 	External    bool   `yaml:"external"`
 	MongoUri    string `yaml:"mongo_uri"`
-	Username    string `yaml:"username"`
-	Password    string `yaml:"password"`
+	MongoDB     string `yaml:"mongo_db"`
 	CacheNum    int    `yaml:"cache_num"`
 	InternalLog bool   `yaml:"internal_log"`
 }

@@ -1,9 +1,9 @@
 package runtime
 
 import (
-	"github.com/Elyart-Network/NyaBot/internal/logger"
 	"github.com/Elyart-Network/NyaBot/internal/lua/common"
 	"github.com/Elyart-Network/NyaBot/internal/lua/gocqhttp"
+	"github.com/Elyart-Network/NyaBot/logger"
 	lua "github.com/yuin/gopher-lua"
 	luar "layeh.com/gopher-luar"
 )

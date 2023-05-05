@@ -2,7 +2,7 @@ package websocket
 
 import (
 	"encoding/json"
-	"github.com/Elyart-Network/NyaBot/internal/config"
+	"github.com/Elyart-Network/NyaBot/config"
 	"log"
 	"strconv"
 	"strings"
