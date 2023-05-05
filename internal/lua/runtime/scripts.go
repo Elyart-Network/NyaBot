@@ -1,6 +1,7 @@
 package runtime
 
 import (
+	"github.com/Elyart-Network/NyaBot/internal/config"
 	"github.com/Elyart-Network/NyaBot/internal/logger"
 	"gopkg.in/ini.v1"
 	"log"
@@ -8,36 +9,36 @@ import (
 )
 
 func init() {
-	_, err := os.Stat("scripts")
+	_, err := os.Stat(luaDir)
 	if os.IsNotExist(err) {
-		log.Println("[Lua] Scripts folder not found, creating one...")
-		err := os.Mkdir("scripts", os.ModePerm)
+		logger.Warningf("Lua", "Scripts folder not found, creating one...")
+		err := os.Mkdir(luaDir, os.ModePerm)
 		if err != nil {
-			log.Println("[Lua] Error creating scripts folder: ", err)
+			logger.Warningf("Lua", "Error creating scripts folder", err)
 			return
 		}
 	} else if err != nil {
 		log.Println("[Lua] Error checking scripts folder: ", err)
 		return
 	}
-	_, err = os.Stat("scripts/lua.ini")
+	_, err = os.Stat(luaDir + "/lua.ini")
 	if os.IsNotExist(err) {
-		file, err := os.Create("scripts/lua.ini")
+		file, err := os.Create(luaDir + "/lua.ini")
 		defer func(file *os.File) {
 			err := file.Close()
 			if err != nil {
-				log.Println("[Lua] Error closing lua.ini: ", err)
+				logger.Warningf("Lua", "Error closing lua.ini", err)
 				return
 			}
 		}(file)
 		var defaultCnf = []byte("[example]\nenable = false\nscript = example.lua\n")
 		_, err = file.Write(defaultCnf)
 		if err != nil {
-			log.Println("[Lua] Error writing lua.ini: ", err)
+			logger.Warningf("Lua", "Error writing lua.ini", err)
 			return
 		}
 	} else if err != nil {
-		log.Println("[Lua] Error checking lua.ini: ", err)
+		logger.Warningf("Lua", "Error checking lua.ini", err)
 		return
 	}
 }
@@ -51,10 +52,14 @@ type luaScript struct {
 var scripts []luaScript
 
 func GetScripts() {
+	enable := config.Get("plugin.lua_enable").(bool)
+	if !enable {
+		return
+	}
 	clearScripts()
-	cfg, err := ini.Load("scripts/lua.ini")
+	cfg, err := ini.Load(luaDir + "/lua.ini")
 	if err != nil {
-		logger.Errorf("Lua", "Error loading lua.ini", err.Error())
+		logger.Warningf("Lua", "Error loading lua.ini", err)
 		return
 	}
 	for _, section := range cfg.Sections() {
