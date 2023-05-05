@@ -1,6 +1,7 @@
 .PHONY: all build clean test check run docker help
 BIN_FILE=nyabot
 all: check build
+start: check build run
 build:
 	@go build -o "${BIN_FILE}"
 clean:
