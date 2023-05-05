@@ -1,6 +1,7 @@
 package runtime
 
 import (
+	"github.com/Elyart-Network/NyaBot/internal/config"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/webhook"
 	"strings"
@@ -11,12 +12,14 @@ type CallbackData struct {
 	CqCall callback.Full
 }
 
+var luaDir = config.Get("plugin.lua_script_dir").(string)
+
 func LoadScript(data CallbackData) {
 	GetScripts()
 	go func() {
 		for _, script := range scripts {
 			if strings.HasSuffix(script.FileName, ".lua") && script.Enable {
-				LVM("scripts/"+script.FileName, data)
+				LVM(luaDir+"/"+script.FileName, data)
 			} else if script.Name == "DEFAULT" {
 				continue
 			}

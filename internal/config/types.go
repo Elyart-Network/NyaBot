@@ -8,6 +8,7 @@ type config struct {
 	Logging  logging  `yaml:"logging"`
 	Cache    cache    `yaml:"cache"`
 	Search   search   `yaml:"search"`
+	Plugin   plugin   `yaml:"plugin"`
 }
 
 type server struct {
@@ -62,4 +63,11 @@ type search struct {
 	IndexName string `yaml:"index_name"`
 	Username  string `yaml:"username"`
 	Password  string `yaml:"password"`
+}
+
+// Plugins
+type plugin struct {
+	LuaEnable    bool   `yaml:"lua_enable"`
+	LuaScriptDir string `yaml:"lua_script_dir"`
+	LuaSandbox   bool   `yaml:"lua_sandbox"`
 }

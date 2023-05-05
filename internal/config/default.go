@@ -35,3 +35,9 @@ var cacheDef = cache{
 var searchDef = search{
 	Enable: false,
 }
+
+var pluginDef = plugin{
+	LuaEnable:    true,
+	LuaScriptDir: "scripts",
+	LuaSandbox:   false,
+}

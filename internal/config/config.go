@@ -16,6 +16,7 @@ func init() {
 	viper.SetDefault("Logging", loggingDef)
 	viper.SetDefault("Cache", cacheDef)
 	viper.SetDefault("Search", searchDef)
+	viper.SetDefault("Plugin", pluginDef)
 	conf := &config{}
 	if err := viper.ReadInConfig(); err != nil {
 		log.Println("Can't read config, trying to modify!")
