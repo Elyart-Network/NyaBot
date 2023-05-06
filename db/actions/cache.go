@@ -1,5 +1,5 @@
 package actions
 
-func CacheInsert(collection string, msg any) {
+func CacheInsert(collection string, content any) {
 
 }
