@@ -6,13 +6,13 @@ import (
 )
 
 type wsResponseData struct {
-	Status   string      `json:"status"`
-	RetCode  int         `json:"retcode"`
-	Msg      string      `json:"msg"`
-	Wording  string      `json:"wording"`
-	Echo     string      `json:"echo"`
-	Data     interface{} `json:"data"`
-	PostType string      `json:"post_type"`
+	Status   string `json:"status"`
+	RetCode  int    `json:"retcode"`
+	Msg      string `json:"msg"`
+	Wording  string `json:"wording"`
+	Echo     string `json:"echo"`
+	Data     any    `json:"data"`
+	PostType string `json:"post_type"`
 }
 
 var responseChan = make(chan wsResponseData)

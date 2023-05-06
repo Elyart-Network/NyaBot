@@ -38,6 +38,17 @@ func SetEnvConf(Type string, ConfKey string) {
 			case "false":
 				Set(ConfKey, false)
 			}
+		case "array":
+			trim := strings.TrimSpace(env)
+			trim = strings.TrimPrefix(trim, "[")
+			trim = strings.TrimSuffix(trim, "]")
+			var envArray []string
+			for _, v := range strings.Split(trim, ",") {
+				trimSub := strings.TrimPrefix(v, "\"")
+				trimSub = strings.TrimSuffix(trimSub, "\"")
+				envArray = append(envArray, trimSub)
+			}
+			Set(ConfKey, envArray)
 		}
 	}
 }
@@ -46,7 +57,8 @@ func EnvInit() {
 	var dict = map[string][]string{
 		"bool":   {"server.file_logger", "server.debug_mode", "search.enable", "mirai.enable", "logging.external", "logging.internal_log", "cache.external", "gocqhttp.enable", "gocqhttp.enable_ws", "plugin.lua_enable", "plugin.lua_sandbox"},
 		"int":    {"search.index_name", "logging.cache_num", "gocqhttp.delay"},
-		"string": {"search.host", "search.username", "search.password", "logging.mongo_uri", "logging.mongo_db", "cache.host", "cache.index_name", "cache.username", "cache.password", "database.type", "database.host", "database.name", "database.username", "database.password", "gocqhttp.host_url", "plugin.lua_script_dir"},
+		"string": {"search.host", "search.username", "search.password", "logging.mongo_uri", "logging.mongo_db", "cache.master", "cache.username", "cache.password", "database.type", "database.host", "database.name", "database.username", "database.password", "gocqhttp.host_url", "plugin.lua_script_dir"},
+		"array":  {"cache.hosts"},
 	}
 	for key, value := range dict {
 		for _, sub := range value {

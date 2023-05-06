@@ -29,7 +29,7 @@ func init() {
 	}
 }
 
-func Get(key string) interface{} {
+func Get(key string) any {
 	viper.SetConfigFile("config.yaml")
 	if err := viper.ReadInConfig(); err != nil {
 		logger.Errorf("Config", "Error reading config", err.Error())
@@ -37,7 +37,7 @@ func Get(key string) interface{} {
 	return viper.Get(key)
 }
 
-func Set(key string, value interface{}) {
+func Set(key string, value any) {
 	viper.SetConfigFile("config.yaml")
 	if err := viper.ReadInConfig(); err != nil {
 		logger.Errorf("Config", "Error reading config", err.Error())

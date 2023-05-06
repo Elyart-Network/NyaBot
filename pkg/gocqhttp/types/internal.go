@@ -31,8 +31,8 @@ type GetWordSlicesData struct {
 }
 
 type HandleQuickOperationData struct {
-	Context   interface{} `json:"context"`
-	Operation interface{} `json:"operation"`
+	Context   any `json:"context"`
+	Operation any `json:"operation"`
 }
 
 type GetCookiesResp struct {

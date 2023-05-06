@@ -20,7 +20,7 @@ func WarningStr(err string) {
 	go log.Println("[Logger] Warning: " + err)
 }
 
-func Warningf(format string, args ...interface{}) {
+func Warningf(format string, args ...any) {
 	if format == "" {
 		go log.Println("[Logger] Warning: empty format.")
 		return

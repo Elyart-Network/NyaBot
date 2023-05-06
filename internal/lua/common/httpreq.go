@@ -19,8 +19,8 @@ func (h *HttpReqFunc) Get(url string, params string) string {
 	return string(resp)
 }
 
-func (h *HttpReqFunc) GetJson(url string, params string) map[string]interface{} {
-	var data map[string]interface{}
+func (h *HttpReqFunc) GetJson(url string, params string) map[string]any {
+	var data map[string]any
 	resp, err := utils.GetRequest(url, params)
 	if err != nil {
 		logger.Warningf("Lua", "Error while sending GET request", err)
@@ -34,7 +34,7 @@ func (h *HttpReqFunc) GetJson(url string, params string) map[string]interface{} 
 	return data
 }
 
-func (h *HttpReqFunc) Post(url string, params interface{}) string {
+func (h *HttpReqFunc) Post(url string, params any) string {
 	resp, err := utils.PostRequest(url, params)
 	if err != nil {
 		logger.Warningf("Lua", "Error while sending POST request", err)
@@ -43,8 +43,8 @@ func (h *HttpReqFunc) Post(url string, params interface{}) string {
 	return string(resp)
 }
 
-func (h *HttpReqFunc) PostJson(url string, params interface{}) map[string]interface{} {
-	var data map[string]interface{}
+func (h *HttpReqFunc) PostJson(url string, params any) map[string]any {
+	var data map[string]any
 	resp, err := utils.PostRequest(url, params)
 	if err != nil {
 		logger.Warningf("Lua", "Error while sending POST request", err)

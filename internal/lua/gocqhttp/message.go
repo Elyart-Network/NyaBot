@@ -39,7 +39,7 @@ func (c *MessageFunc) SendPic(Url string, Type string, Id int64, IsGroup bool) {
 	}
 }
 
-var ForwardMessages []interface{}
+var ForwardMessages []any
 
 func (c *MessageFunc) SetIdForward(MessageID string) {
 	data := fastcq.GenIdForward(MessageID)

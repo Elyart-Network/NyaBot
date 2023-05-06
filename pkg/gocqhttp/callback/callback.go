@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Encode(ctx interface{}, ws bool) (full Full, err error) {
+func Encode(ctx any, ws bool) (full Full, err error) {
 	if ws {
 		wsContext := ctx.([]byte)
 		err = json.Unmarshal(wsContext, &full)

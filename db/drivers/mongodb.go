@@ -9,10 +9,6 @@ import (
 )
 
 func MongoDB() *mongo.Client {
-	enable := config.Get("logging.external").(bool)
-	if !enable {
-		return nil
-	}
 	dsn := config.Get("logging.mongo_uri").(string)
 	ctx := context.Background()
 	conn, err := mongo.Connect(ctx, options.Client().ApplyURI(dsn))

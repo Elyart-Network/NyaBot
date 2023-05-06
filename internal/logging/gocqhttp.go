@@ -1,11 +1,9 @@
 package lua
 
 import (
-	"github.com/Elyart-Network/NyaBot/internal/logging/handlers"
-	"github.com/Elyart-Network/NyaBot/internal/logging/types"
+	"github.com/Elyart-Network/NyaBot/internal/logging/gocqhttp"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/plugin"
-	"strconv"
 )
 
 // CqPlugin a struct for all functions below.
@@ -27,19 +25,7 @@ func (p *CqPlugin) Info() plugin.InfoStruct {
 
 // Message process message event from callback. (required)
 func (p *CqPlugin) Message(ctx callback.Full) {
-	sender := types.Sender{
-		UserIdentity: strconv.FormatInt(ctx.Sender.UserID, 10),
-		UserName:     ctx.Sender.Card,
-		UserNick:     ctx.Sender.Nickname,
-	}
-	message := types.Message{
-		Sender:    sender,
-		Content:   ctx.MessageData,
-		TimeStamp: ctx.Time,
-		RawMsg:    ctx.RawMessage,
-		Raw:       ctx,
-	}
-	handlers.Message(message)
+	gocqhttp.Message(ctx)
 }
 
 // Request process request event from callback. (required)

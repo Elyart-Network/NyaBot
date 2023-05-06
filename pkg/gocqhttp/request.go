@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func GetRequest(Endpoint string, RespStruct interface{}) (err error) {
+func GetRequest(Endpoint string, RespStruct any) (err error) {
 	// Delay
 	time.Sleep(time.Duration(rand.Intn(config.Get("gocqhttp.delay").(int))) * time.Millisecond)
 	// Websocket Reverse
@@ -29,7 +29,7 @@ func GetRequest(Endpoint string, RespStruct interface{}) (err error) {
 	return
 }
 
-func PostRequest(Endpoint string, Params interface{}, RespStruct interface{}) (err error) {
+func PostRequest(Endpoint string, Params any, RespStruct any) (err error) {
 	// Delay
 	time.Sleep(time.Duration(rand.Intn(config.Get("gocqhttp.delay").(int))) * time.Millisecond)
 	// Websocket Reverse

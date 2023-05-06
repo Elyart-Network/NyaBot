@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-var plugins = make(map[string]interface{})
+var plugins = make(map[string]any)
 
 func WhRegister(plugin WhPlugin) {
 	plugins[plugin.(CommonInfo).Info().Name] = plugin

@@ -20,7 +20,7 @@ func ErrorStr(err string) {
 	go log.Panicln("[Logger] Error: " + err)
 }
 
-func Errorf(format string, args ...interface{}) {
+func Errorf(format string, args ...any) {
 	if format == "" {
 		go log.Panicln("[Logger] Error: empty format.")
 		return
