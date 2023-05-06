@@ -3,13 +3,13 @@ package handlers
 import (
 	"context"
 	"github.com/Elyart-Network/NyaBot/config"
-	"github.com/Elyart-Network/NyaBot/db"
+	"github.com/Elyart-Network/NyaBot/db/drivers"
 	"github.com/Elyart-Network/NyaBot/internal/logging/types"
 	"github.com/Elyart-Network/NyaBot/logger"
 )
 
 func Message(msg types.Message) {
-	mdb := db.MongoDB()
+	mdb := drivers.MongoDB()
 	if mdb == nil {
 		return
 	}

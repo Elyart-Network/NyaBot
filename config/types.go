@@ -48,11 +48,11 @@ type logging struct {
 
 // InMem or Redis
 type cache struct {
-	External  bool   `yaml:"external"`
-	Host      string `yaml:"host"`
-	IndexName string `yaml:"index_name"`
-	Username  string `yaml:"username"`
-	Password  string `yaml:"password"`
+	External bool     `yaml:"external"`
+	Hosts    []string `yaml:"hosts"`
+	Master   string   `yaml:"master"`
+	Username string   `yaml:"username"`
+	Password string   `yaml:"password"`
 }
 
 // Elasticsearch
