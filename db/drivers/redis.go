@@ -20,6 +20,10 @@ type RedisClient struct {
 }
 
 func Redis(dbn int) *RedisClient {
+	enable := config.Get("cache.enable").(bool)
+	if !enable {
+		return nil
+	}
 	rdb := redis.NewUniversalClient(&redis.UniversalOptions{
 		Addrs:      config.Get("cache.hosts").([]string),
 		MasterName: config.Get("cache.master").(string),
