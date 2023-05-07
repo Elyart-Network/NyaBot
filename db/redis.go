@@ -1,10 +1,10 @@
-package drivers
+package db
 
 import (
 	"context"
 	"github.com/Elyart-Network/NyaBot/config"
+	"github.com/Elyart-Network/NyaBot/logger"
 	"github.com/redis/go-redis/v9"
-	"log"
 )
 
 type RedisDSN struct {
@@ -16,22 +16,29 @@ type RedisDSN struct {
 }
 
 type RedisClient struct {
-	redis.UniversalClient
+	db redis.UniversalClient
 }
 
 func Redis(dbn int) *RedisClient {
+	// Convert []interface{} to []string
+	addrSlice := config.Get("cache.hosts").([]interface{})
+	var address []string
+	for _, v := range addrSlice {
+		address = append(address, v.(string))
+	}
+	// Connect to Redis
 	rdb := redis.NewUniversalClient(&redis.UniversalOptions{
-		Addrs:      config.Get("cache.hosts").([]string),
+		Addrs:      address,
 		MasterName: config.Get("cache.master").(string),
 		Username:   config.Get("cache.username").(string),
 		Password:   config.Get("cache.password").(string),
 		DB:         dbn,
 	})
 	ctx := context.Background()
-	ping, err := rdb.Ping(ctx).Result()
+	// Ping Redis
+	_, err := rdb.Ping(ctx).Result()
 	if err != nil {
-		log.Panicln("Redis ping error:", err)
+		logger.Errorf("Redis", "Failed to ping Redis", err)
 	}
-	log.Println("Redis ping:", ping)
-	return &RedisClient{rdb}
+	return &RedisClient{db: rdb}
 }

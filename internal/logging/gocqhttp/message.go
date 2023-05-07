@@ -1,8 +1,10 @@
 package gocqhttp
 
 import (
+	"context"
 	"github.com/Elyart-Network/NyaBot/config"
-	"github.com/Elyart-Network/NyaBot/db/actions"
+	"github.com/Elyart-Network/NyaBot/db"
+	"github.com/Elyart-Network/NyaBot/logger"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"strconv"
 )
@@ -22,22 +24,34 @@ func Message(ctx callback.Full) {
 		Raw:       ctx,
 	}
 	var collection string
-	switch msg.Raw.SubType {
+	switch msg.Raw.MessageType {
 	case "private":
-		collection = "cq_messages." + msg.Raw.SubType + "." + strconv.FormatInt(msg.Raw.UserID, 10)
+		collection = "cq_messages." + msg.Raw.MessageType + "." + strconv.FormatInt(msg.Raw.UserID, 10)
 	case "group":
-		collection = "cq_messages." + msg.Raw.SubType + "." + strconv.FormatInt(msg.Raw.GroupID, 10)
+		collection = "cq_messages." + msg.Raw.MessageType + "." + strconv.FormatInt(msg.Raw.GroupID, 10)
 	default:
-		collection = "cq_messages." + msg.Raw.SubType
+		collection = "cq_messages." + msg.Raw.MessageType
 	}
+	con := context.Background()
 	// Connect to Cache and insert message
 	cacheNum := config.Get("logging.cache_num").(int)
+	externalCache := config.Get("cache.external").(bool)
 	if cacheNum > 0 {
-		actions.CacheInsert(collection, msg)
+		switch externalCache {
+		case true:
+			db.Redis(0)
+		case false:
+			// TODO
+		}
 	}
 	// Connect to MongoDB and insert message
 	enableMDB := config.Get("logging.external").(bool)
 	if enableMDB {
-		actions.MongoInsert(collection, msg)
+		m := db.MongoDB()
+		m.Insert(con, collection, msg)
+		err := m.Disconnect(context.Background())
+		if err != nil {
+			logger.Warningf("MongoDB", "Failed to disconnect from MongoDB", err)
+		}
 	}
 }
