@@ -1,25 +1,25 @@
 package logger
 
 import (
-	"github.com/Elyart-Network/NyaBot/config"
 	"log"
 	"strconv"
 )
 
-func CheckDebug() bool {
-	enable := config.Get("server.debug_mode").(bool)
-	return enable
+var debug bool
+
+func SetDebug(b bool) {
+	debug = b
 }
 
 func Debug(err error) {
-	if !CheckDebug() || err == nil {
+	if !debug || err == nil {
 		return
 	}
 	go log.Println("[Logger] Debug: " + err.Error())
 }
 
 func DebugStr(err string) {
-	if !CheckDebug() || err == "" {
+	if !debug || err == "" {
 		go log.Println("[Logger] Debug: empty string.")
 		return
 	}
@@ -27,7 +27,7 @@ func DebugStr(err string) {
 }
 
 func Debugf(format string, args ...any) {
-	if !CheckDebug() || format == "" {
+	if !debug || format == "" {
 		go log.Println("[Logger] Debug: empty format.")
 		return
 	}

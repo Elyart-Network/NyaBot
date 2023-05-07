@@ -2,6 +2,7 @@ package gocqhttp
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/Elyart-Network/NyaBot/config"
 	"github.com/Elyart-Network/NyaBot/db"
 	"github.com/Elyart-Network/NyaBot/logger"
@@ -39,7 +40,17 @@ func Message(ctx callback.Full) {
 	if cacheNum > 0 {
 		switch externalCache {
 		case true:
-			db.Redis(0)
+			content, _ := json.Marshal(msg.Raw)
+			r := db.Redis(0)
+			clen := r.LLen(con, collection)
+			if clen.Val() >= int64(cacheNum) {
+				r.LPopCount(con, collection, 1)
+			}
+			r.RPush(con, collection, content)
+			err := r.Close()
+			if err != nil {
+				logger.Warningf("Redis", "Failed to disconnect from Redis", err)
+			}
 		case false:
 			// TODO
 		}
@@ -49,7 +60,7 @@ func Message(ctx callback.Full) {
 	if enableMDB {
 		m := db.MongoDB()
 		m.Insert(con, collection, msg)
-		err := m.Disconnect(context.Background())
+		err := m.Disconnect(con)
 		if err != nil {
 			logger.Warningf("MongoDB", "Failed to disconnect from MongoDB", err)
 		}

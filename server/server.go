@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/Elyart-Network/NyaBot/config"
+	"github.com/Elyart-Network/NyaBot/logger"
 	"github.com/gin-gonic/gin"
 	"io"
 	"log"
@@ -11,8 +12,8 @@ import (
 
 func Start() {
 	FileLogger := config.Get("server.file_logger").(bool)
-	DebugMode := config.Get("server.debug_mode").(bool)
 	ServerPort := config.Get("server.listen_port").(string)
+	DebugMode := config.Get("server.debug_mode").(bool)
 
 	if FileLogger {
 		gin.DisableConsoleColor()
@@ -25,8 +26,10 @@ func Start() {
 
 	if DebugMode {
 		gin.SetMode(gin.DebugMode)
+		logger.SetDebug(true)
 	} else {
 		gin.SetMode(gin.ReleaseMode)
+		logger.SetDebug(false)
 	}
 
 	engine := gin.Default()

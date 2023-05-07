@@ -16,7 +16,7 @@ type RedisDSN struct {
 }
 
 type RedisClient struct {
-	db redis.UniversalClient
+	redis.UniversalClient
 }
 
 func Redis(dbn int) *RedisClient {
@@ -40,5 +40,5 @@ func Redis(dbn int) *RedisClient {
 	if err != nil {
 		logger.Errorf("Redis", "Failed to ping Redis", err)
 	}
-	return &RedisClient{db: rdb}
+	return &RedisClient{rdb}
 }
