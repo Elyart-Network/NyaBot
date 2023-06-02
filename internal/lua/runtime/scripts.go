@@ -2,23 +2,22 @@ package runtime
 
 import (
 	"github.com/Elyart-Network/NyaBot/config"
-	"github.com/Elyart-Network/NyaBot/logger"
+	log "github.com/sirupsen/logrus"
 	"gopkg.in/ini.v1"
-	"log"
 	"os"
 )
 
 func init() {
 	_, err := os.Stat(luaDir)
 	if os.IsNotExist(err) {
-		logger.Warningf("Lua", "Scripts folder not found, creating one...")
+		log.Infoln("[Lua] Scripts folder not found, creating one...")
 		err := os.Mkdir(luaDir, os.ModePerm)
 		if err != nil {
-			logger.Warningf("Lua", "Error creating scripts folder", err)
+			log.Errorf("[Lua] Error creating scripts folder: %v", err)
 			return
 		}
 	} else if err != nil {
-		log.Println("[Lua] Error checking scripts folder: ", err)
+		log.Errorf("[Lua] Error checking scripts folder: %v", err)
 		return
 	}
 	_, err = os.Stat(luaDir + "/lua.ini")
@@ -27,18 +26,18 @@ func init() {
 		defer func(file *os.File) {
 			err := file.Close()
 			if err != nil {
-				logger.Warningf("Lua", "Error closing lua.ini", err)
+				log.Errorf("[Lua] Error closing lua.ini: %v", err)
 				return
 			}
 		}(file)
 		var defaultCnf = []byte("[example]\nenable = false\nscript = example.lua\n")
 		_, err = file.Write(defaultCnf)
 		if err != nil {
-			logger.Warningf("Lua", "Error writing lua.ini", err)
+			log.Errorf("[Lua] Error writing lua.ini: %v", err)
 			return
 		}
 	} else if err != nil {
-		logger.Warningf("Lua", "Error checking lua.ini", err)
+		log.Errorf("[Lua] Error checking lua.ini: %v", err)
 		return
 	}
 }
@@ -59,7 +58,7 @@ func GetScripts() {
 	clearScripts()
 	cfg, err := ini.Load(luaDir + "/lua.ini")
 	if err != nil {
-		logger.Warningf("Lua", "Error loading lua.ini", err)
+		log.Errorf("[Lua] Error loading lua.ini: %v", err)
 		return
 	}
 	for _, section := range cfg.Sections() {

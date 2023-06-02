@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/Elyart-Network/NyaBot/config"
+	"github.com/Elyart-Network/NyaBot/logger"
 	"github.com/Elyart-Network/NyaBot/pkg/plugin"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
@@ -12,7 +13,7 @@ import (
 
 func GinServer() http.Handler {
 	server := gin.New()
-	server.Use(gin.Recovery())
+	server.Use(logger.Gin(), gin.Recovery())
 	server.GET("/", func(c *gin.Context) {
 		c.JSON(404, gin.H{
 			"status": "Not Found",
@@ -43,7 +44,7 @@ func GinServer() http.Handler {
 func RPCServer() http.Handler {
 	server := gin.New()
 	rpc := grpc.NewServer()
-	server.Use(gin.Recovery())
+	server.Use(logger.Gin(), gin.Recovery())
 	server.Use(func(ctx *gin.Context) {
 		if ctx.Request.ProtoMajor == 2 &&
 			strings.HasPrefix(ctx.GetHeader("Content-Type"), "application/grpc") {

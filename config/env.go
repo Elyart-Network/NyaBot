@@ -1,8 +1,8 @@
 package config
 
 import (
-	"github.com/Elyart-Network/NyaBot/logger"
 	"github.com/joho/godotenv"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -28,7 +28,7 @@ func SetEnvConf(Type string, ConfKey string) {
 		case "int":
 			conv, err := strconv.Atoi(env)
 			if err != nil {
-				logger.Errorf("Config", "Error converting string to int", err)
+				log.Panicf("[Config] Error converting string to int: %v", err)
 			}
 			Set(ConfKey, conv)
 		case "bool":

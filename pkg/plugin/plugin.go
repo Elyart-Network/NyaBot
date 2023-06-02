@@ -3,7 +3,7 @@ package plugin
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/webhook"
-	"log"
+	log "github.com/sirupsen/logrus"
 )
 
 var plugins = make(map[string]any)
