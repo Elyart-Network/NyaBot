@@ -57,7 +57,7 @@ func EnvInit() {
 	var dict = map[string][]string{
 		"bool":   {"server.file_logger", "server.debug_mode", "search.enable", "mirai.enable", "logging.external", "logging.internal_log", "cache.external", "gocqhttp.enable", "gocqhttp.enable_ws", "plugin.lua_enable", "plugin.lua_sandbox"},
 		"int":    {"search.index_name", "logging.cache_num", "gocqhttp.delay"},
-		"string": {"search.host", "search.username", "search.password", "logging.mongo_uri", "logging.mongo_db", "cache.master", "cache.username", "cache.password", "database.type", "database.host", "database.name", "database.username", "database.password", "gocqhttp.host_url", "plugin.lua_script_dir"},
+		"string": {"server.listen_port", "server.rpc_port", "search.host", "search.username", "search.password", "logging.mongo_uri", "logging.mongo_db", "cache.master", "cache.username", "cache.password", "database.type", "database.host", "database.name", "database.username", "database.password", "gocqhttp.host_url", "plugin.lua_script_dir"},
 		"array":  {"cache.hosts"},
 	}
 	for key, value := range dict {

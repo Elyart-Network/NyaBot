@@ -2,6 +2,7 @@ package config
 
 var serverDef = server{
 	ListenPort: "3000",
+	RpcPort:    "3001",
 	DebugMode:  true,
 	FileLogger: false,
 }
