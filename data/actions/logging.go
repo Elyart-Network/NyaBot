@@ -46,10 +46,13 @@ func (l *Logging) Insert(ctx context.Context, collection string, content any) {
 			log.Warningf("[MongoDB] Failed to disconnect from MongoDB: %v", err)
 		}
 	} else {
+		// Return when internal_log is not enabled
 		internalLog := config.Get("logging.internal_log").(bool)
 		if !internalLog {
 			return
 		}
+
+		// Save Chat log to Database
 		dbType := config.Get("database.type").(string)
 		contentStr, err := json.Marshal(content)
 		if err != nil {
