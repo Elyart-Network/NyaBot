@@ -10,7 +10,7 @@ type Plugin struct{}
 
 func (p *Plugin) SaveConfig(PName string, PType string, PConfig any, PAdd string) {
 	cfg, _ := json.Marshal(PConfig)
-	data := models.PluginConfig{
+	data := models.Plugin{
 		Name:     PName,
 		Type:     PType,
 		Config:   string(cfg),
@@ -23,8 +23,8 @@ func (p *Plugin) SaveConfig(PName string, PType string, PConfig any, PAdd string
 	}
 }
 
-func (p *Plugin) GetConfig(PName string) models.PluginConfig {
-	data := models.PluginConfig{Name: PName}
+func (p *Plugin) GetConfig(PName string) models.Plugin {
+	data := models.Plugin{Name: PName}
 	dbType := config.Get("database.type").(string)
 	switch dbType {
 	case "sqlite":
@@ -34,7 +34,7 @@ func (p *Plugin) GetConfig(PName string) models.PluginConfig {
 }
 
 func (p *Plugin) DeleteConfig(PName string) {
-	data := models.PluginConfig{Name: PName}
+	data := models.Plugin{Name: PName}
 	dbType := config.Get("database.type").(string)
 	switch dbType {
 	case "sqlite":

@@ -36,8 +36,8 @@ func Message(ctx callback.Full) {
 	loggingComponent := actions.Logging{}
 	// Encode raw message to JSON
 	content, _ := json.Marshal(msg.Raw)
-	loggingComponent.Cache(con, collection, content)
 
-	// Connect to MongoDB and insert message
-	loggingComponent.Mongo(con, collection, content)
+	// Cache and Insert Message
+	loggingComponent.Cache(con, collection, content)
+	loggingComponent.Insert(con, collection, content)
 }

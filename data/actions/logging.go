@@ -2,7 +2,9 @@ package actions
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/Elyart-Network/NyaBot/config"
+	"github.com/Elyart-Network/NyaBot/data/models"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -15,9 +17,6 @@ func (l *Logging) Cache(ctx context.Context, collection string, content any) {
 	if cacheNum > 0 {
 		switch externalCache {
 		case true:
-			if handler.Redis == nil {
-				return
-			}
 			// Connect to Redis and insert message
 			r := handler.Redis
 			clen := r.LLen(ctx, collection)
@@ -36,10 +35,7 @@ func (l *Logging) Cache(ctx context.Context, collection string, content any) {
 	}
 }
 
-func (l *Logging) Mongo(ctx context.Context, collection string, content any) {
-	if handler.MongoDB == nil {
-		return
-	}
+func (l *Logging) Insert(ctx context.Context, collection string, content any) {
 	// Connect to MongoDB and insert message
 	enableMDB := config.Get("logging.external").(bool)
 	if enableMDB {
@@ -48,6 +44,17 @@ func (l *Logging) Mongo(ctx context.Context, collection string, content any) {
 		err = m.Disconnect(ctx)
 		if err != nil {
 			log.Warningf("[MongoDB] Failed to disconnect from MongoDB: %v", err)
+		}
+	} else {
+		dbType := config.Get("database.type").(string)
+		contentStr, _ := json.Marshal(content)
+		data := models.Logging{
+			Collection: collection,
+			Content:    string(contentStr),
+		}
+		switch dbType {
+		case "sqlite":
+			handler.Sqlite.Save(&data)
 		}
 	}
 }

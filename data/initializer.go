@@ -16,7 +16,7 @@ func init() {
 	case "sqlite":
 		dsn := drivers.SqliteDSN{DB: "database.db"}
 		handler.Sqlite = drivers.Sqlite(dsn)
-		handler.Sqlite.Init(&models.PluginConfig{})
+		handler.Sqlite.Init(&models.Plugin{}, &models.Logging{})
 	}
 
 	// Init redis
