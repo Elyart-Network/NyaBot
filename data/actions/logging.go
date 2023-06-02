@@ -46,8 +46,15 @@ func (l *Logging) Insert(ctx context.Context, collection string, content any) {
 			log.Warningf("[MongoDB] Failed to disconnect from MongoDB: %v", err)
 		}
 	} else {
+		internalLog := config.Get("logging.internal_log").(bool)
+		if !internalLog {
+			return
+		}
 		dbType := config.Get("database.type").(string)
-		contentStr, _ := json.Marshal(content)
+		contentStr, err := json.Marshal(content)
+		if err != nil {
+			log.Warningf("[Logging] Failed to Marshal content: %v", err)
+		}
 		data := models.Logging{
 			Collection: collection,
 			Content:    string(contentStr),
