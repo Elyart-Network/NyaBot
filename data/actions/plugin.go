@@ -20,15 +20,15 @@ func (p *Plugin) SaveConfig(PName string, PType string, PConfig any, PAdd string
 	log.Debug("[DBAct](SaveConfig) Saved! @PName:", PName, " @PType:", PType, " @PConfig", PConfig, " @PAdd:", PAdd)
 }
 
-func (p *Plugin) GetConfig(PName string) models.Plugin {
-	data := models.Plugin{Name: PName}
+func (p *Plugin) GetConfig(PName string, PType string) models.Plugin {
+	data := models.Plugin{Name: PName, Type: PType}
 	handler.DB.First(&data)
 	log.Debug("[DBAct](GetConfig) Get Config. @PName:", PName, " @Type:", data.Type, " @Config:", data.Config, " @Addition:", data.Addition)
 	return data
 }
 
-func (p *Plugin) DeleteConfig(PName string) {
-	data := models.Plugin{Name: PName}
+func (p *Plugin) DeleteConfig(PName string, PType string) {
+	data := models.Plugin{Name: PName, Type: PType}
 	handler.DB.Delete(&data)
 	log.Debug("[DBAct](DeleteConfig) Deleted! @PName:", PName)
 }
