@@ -28,7 +28,7 @@ func SetEnvConf(Type string, ConfKey string) {
 		case "int":
 			conv, err := strconv.Atoi(env)
 			if err != nil {
-				log.Panicf("[Config] Error converting string to int: %v", err)
+				log.Panic("[Config] Error converting string to int: ", err)
 			}
 			Set(ConfKey, conv)
 		case "bool":

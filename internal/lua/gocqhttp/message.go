@@ -15,7 +15,7 @@ type MessageFunc struct{}
 func (c *MessageFunc) SendMsg(Message string, Id int64, IsGroup bool) {
 	_, err := fastcq.SendMsg(Message, Id, IsGroup)
 	if err != nil {
-		log.Warningf("[Lua] SendMsg error: %v", err)
+		log.Warning("[Lua] SendMsg error: ", err)
 	}
 }
 
@@ -24,7 +24,7 @@ func (c *MessageFunc) Reply(Message string, Id int64, IsGroup bool, To int) {
 	ReplyCode := cqcode.Reply(ReplyCodeData)
 	_, err := fastcq.SendMsg(ReplyCode+Message, Id, IsGroup)
 	if err != nil {
-		log.Warningf("[Lua] Reply error: %v", err)
+		log.Warning("[Lua] Reply error: ", err)
 	}
 }
 
@@ -35,7 +35,7 @@ func (c *MessageFunc) SendPic(Url string, Type string, Id int64, IsGroup bool) {
 	}
 	_, err := fastcq.SendMsg(cqcode.Image(PicData), Id, IsGroup)
 	if err != nil {
-		log.Warningf("[Lua] SendPic error: %v", err)
+		log.Warning("[Lua] SendPic error: ", err)
 	}
 }
 
@@ -54,7 +54,7 @@ func (c *MessageFunc) SetCustomForward(Name string, Id string, Content string) {
 func (c *MessageFunc) SendForwardMsg(Id int64, IsGroup bool) {
 	_, err := fastcq.SendForwardMsg(ForwardMessages, Id, IsGroup)
 	if err != nil {
-		log.Warningf("[Lua] SendForwardMsg error: %v", err)
+		log.Warning("[Lua] SendForwardMsg error: ", err)
 	}
 	ForwardMessages = nil
 }
@@ -62,7 +62,7 @@ func (c *MessageFunc) SendForwardMsg(Id int64, IsGroup bool) {
 func (c *MessageFunc) DeleteMsg(MessageID int32) {
 	err := fastcq.DeleteMsg(MessageID)
 	if err != nil {
-		log.Warningf("[Lua] DeleteMsg error: %v", err)
+		log.Warning("[Lua] DeleteMsg error: ", err)
 	}
 }
 

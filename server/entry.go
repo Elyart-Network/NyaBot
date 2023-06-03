@@ -5,6 +5,7 @@ import (
 	"github.com/Elyart-Network/NyaBot/logger"
 	"github.com/Elyart-Network/NyaBot/pkg/plugin"
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"net/http"
 	"os"
@@ -20,6 +21,7 @@ func GinServer() http.Handler {
 		})
 	})
 	server.GET("/health", func(c *gin.Context) {
+		log.Debug("[Gin] Health Checked!")
 		c.JSON(200, gin.H{
 			"status": "OK",
 		})
@@ -61,6 +63,7 @@ func RPCServer() http.Handler {
 		})
 	})
 	server.GET("/health", func(c *gin.Context) {
+		log.Debug("[RPC] Health Checked!")
 		c.JSON(200, gin.H{
 			"status": "OK",
 		})

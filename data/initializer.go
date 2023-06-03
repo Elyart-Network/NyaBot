@@ -5,6 +5,7 @@ import (
 	"github.com/Elyart-Network/NyaBot/data/actions"
 	"github.com/Elyart-Network/NyaBot/data/drivers"
 	"github.com/Elyart-Network/NyaBot/data/models"
+	log "github.com/sirupsen/logrus"
 )
 
 func init() {
@@ -15,8 +16,8 @@ func init() {
 	switch dbType {
 	case "sqlite":
 		dsn := drivers.SqliteDSN{DB: "database.db"}
-		handler.Sqlite = drivers.Sqlite(dsn)
-		handler.Sqlite.Init(&models.Plugin{}, &models.Logging{})
+		Sqlite := drivers.Sqlite(dsn)
+		handler.DB = Sqlite.DB
 	}
 
 	// Init redis
@@ -42,9 +43,14 @@ func init() {
 	externalLogging := config.Get("logging.external").(bool)
 	if externalLogging {
 		dsn := drivers.MongoDSN{MongoUri: config.Get("logging.mongo_uri").(string)}
-		handler.MongoDB = drivers.MongoDB(dsn)
+		handler.Mongo = drivers.MongoDB(dsn)
 	}
 
 	// Initialize
+	err := handler.DB.AutoMigrate(&models.Plugin{}, &models.Logging{})
+	if err != nil {
+		log.Error("[Database] Error migrating database.")
+	}
 	actions.New(handler)
+	log.Debug("[Database] Data sources initialized!")
 }

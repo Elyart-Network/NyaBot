@@ -4,6 +4,7 @@ import (
 	"github.com/Elyart-Network/NyaBot/config"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/webhook"
+	log "github.com/sirupsen/logrus"
 	"strings"
 )
 
@@ -20,6 +21,7 @@ func LoadScript(data CallbackData) {
 		for _, script := range scripts {
 			if strings.HasSuffix(script.FileName, ".lua") && script.Enable {
 				LVM(luaDir+"/"+script.FileName, data)
+				log.Debug("[LuaVM] Executed lua script. @Name:", script.Name)
 			} else if script.Name == "DEFAULT" {
 				continue
 			}

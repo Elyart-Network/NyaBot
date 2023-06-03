@@ -16,7 +16,7 @@ func init() {
 		gin.DisableConsoleColor()
 		file, err := os.OpenFile("app.log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
 		if err != nil {
-			log.Panicln("Error opening log file: %v", err)
+			log.Panicln("Error opening log file: ", err)
 		}
 		log.SetFormatter(&log.JSONFormatter{})
 		log.SetOutput(file)

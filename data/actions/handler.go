@@ -1,13 +1,16 @@
 package actions
 
-import "github.com/Elyart-Network/NyaBot/data/drivers"
+import (
+	"github.com/Elyart-Network/NyaBot/data/drivers"
+	"gorm.io/gorm"
+)
 
 var handler Handler
 
 type Handler struct {
-	Sqlite  *drivers.SqliteClient
-	MongoDB *drivers.MongoClient
-	Redis   *drivers.RedisClient
+	DB    *gorm.DB
+	Mongo *drivers.MongoClient
+	Redis *drivers.RedisClient
 }
 
 func New(h Handler) {

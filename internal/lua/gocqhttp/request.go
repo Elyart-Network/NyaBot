@@ -12,14 +12,14 @@ type RequestFunc struct{}
 func (c *RequestFunc) FriendReq(Flag string, Approve bool, Remark string) {
 	err := fastcq.FriendReq(Flag, Approve, Remark)
 	if err != nil {
-		log.Warningf("[Lua] FriendReq error: %v", err)
+		log.Warning("[Lua] FriendReq error: ", err)
 	}
 }
 
 func (c *RequestFunc) GroupReq(Flag string, Type string, Approve bool, Reason string) {
 	err := fastcq.GroupReq(Flag, Type, Approve, Reason)
 	if err != nil {
-		log.Warningf("[Lua] GroupReq error: %v", err)
+		log.Warning("[Lua] GroupReq error: ", err)
 	}
 }
 

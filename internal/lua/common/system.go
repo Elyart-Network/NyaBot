@@ -30,14 +30,14 @@ func (s *SystemFunc) GetEnv(key string) string {
 func (s *SystemFunc) SetEnv(key, value string) {
 	err := os.Setenv(key, value)
 	if err != nil {
-		log.Warningf("[Lua] SetEnv error: %v", err)
+		log.Warning("[Lua] SetEnv error: ", err)
 	}
 }
 
 func (s *SystemFunc) UnsetEnv(key string) {
 	err := os.Unsetenv(key)
 	if err != nil {
-		log.Warningf("[Lua] UnsetEnv error: %v", err)
+		log.Warning("[Lua] UnsetEnv error: ", err)
 	}
 }
 

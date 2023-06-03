@@ -20,7 +20,7 @@ func init() {
 	if err := viper.ReadInConfig(); err != nil {
 		log.Println("Can't read config, trying to modify!")
 		if err := viper.WriteConfig(); err != nil {
-			log.Fatalf("[Config] Error writing config: %v", err)
+			log.Fatal("[Config] Error writing config: ", err)
 		}
 	}
 	if err := viper.Unmarshal(conf); err != nil {
@@ -31,7 +31,7 @@ func init() {
 func Get(key string) any {
 	viper.SetConfigFile("config.yaml")
 	if err := viper.ReadInConfig(); err != nil {
-		log.Fatalf("[Config] Error reading config: %v", err)
+		log.Fatal("[Config] Error reading config: ", err)
 	}
 	return viper.Get(key)
 }
@@ -39,7 +39,7 @@ func Get(key string) any {
 func Set(key string, value any) {
 	viper.SetConfigFile("config.yaml")
 	if err := viper.ReadInConfig(); err != nil {
-		log.Fatalf("[Config] Error reading config: %v", err)
+		log.Fatal("[Config] Error reading config: ", err)
 	}
 	viper.Set(key, value)
 }

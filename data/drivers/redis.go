@@ -31,7 +31,7 @@ func Redis(dsn RedisDSN) *RedisClient {
 	// Ping Redis
 	_, err := rdb.Ping(ctx).Result()
 	if err != nil {
-		log.Errorf("[Redis] Failed to ping Redis: %v", err)
+		log.Error("[Redis] Failed to ping Redis: ", err)
 	}
 	return &RedisClient{rdb}
 }

@@ -13,7 +13,7 @@ type GetDataFunc struct{}
 func (c *GetDataFunc) GetGroupMembers(GroupID int64) []types.GroupMemberInfoObject {
 	members, err := fastcq.GetGroupMembers(GroupID)
 	if err != nil {
-		log.Warningf("[Lua] GetGroupMembers error: %v", err)
+		log.Warning("[Lua] GetGroupMembers error: ", err)
 	}
 	return members.Data
 }

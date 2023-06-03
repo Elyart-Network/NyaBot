@@ -20,11 +20,11 @@ func MongoDB(dsn MongoDSN) *MongoClient {
 	ctx := context.Background()
 	conn, err := mongo.Connect(ctx, options.Client().ApplyURI(dsn.MongoUri))
 	if err != nil {
-		log.Errorf("[MongoDB] Failed to connect to MongoDB: %v", err)
+		log.Error("[MongoDB] Failed to connect to MongoDB: ", err)
 	}
 	err = conn.Ping(ctx, nil)
 	if err != nil {
-		log.Errorf("[MongoDB] Failed to ping MongoDB: %v", err)
+		log.Error("[MongoDB] Failed to ping MongoDB: ", err)
 	}
 	return &MongoClient{conn}
 }

@@ -27,8 +27,9 @@ func (l *Logging) Cache(ctx context.Context, collection string, content any) {
 			r.RPush(ctx, collection, content)
 			err := r.Close()
 			if err != nil {
-				log.Warningf("[Redis] Failed to disconnect from Redis: %v", err)
+				log.Warning("[Redis] Failed to disconnect from Redis: ", err)
 			}
+			log.Debug("[Redis] Pushed message to cache.")
 		case false:
 			// TODO
 		}
@@ -39,12 +40,13 @@ func (l *Logging) Insert(ctx context.Context, collection string, content any) {
 	// Connect to MongoDB and insert message
 	enableMDB := config.Get("logging.external").(bool)
 	if enableMDB {
-		m := handler.MongoDB
+		m := handler.Mongo
 		_, err := m.Database("NyaBot").Collection(collection).InsertOne(ctx, content)
 		err = m.Disconnect(ctx)
 		if err != nil {
-			log.Warningf("[MongoDB] Failed to disconnect from MongoDB: %v", err)
+			log.Warning("[MongoDB] Failed to disconnect from MongoDB: ", err)
 		}
+		log.Debug("[MongoDB] Inserted message to doc database.")
 	} else {
 		// Return when internal_log is not enabled
 		internalLog := config.Get("logging.internal_log").(bool)
@@ -53,18 +55,15 @@ func (l *Logging) Insert(ctx context.Context, collection string, content any) {
 		}
 
 		// Save Chat log to Database
-		dbType := config.Get("database.type").(string)
 		contentStr, err := json.Marshal(content)
 		if err != nil {
-			log.Warningf("[Logging] Failed to Marshal content: %v", err)
+			log.Warning("[Logging] Failed to Marshal content: ", err)
 		}
 		data := models.Logging{
 			Collection: collection,
 			Content:    string(contentStr),
 		}
-		switch dbType {
-		case "sqlite":
-			handler.Sqlite.Save(&data)
-		}
+		handler.DB.Save(&data)
+		log.Debug("[InternalLog] Inserted message to database.")
 	}
 }

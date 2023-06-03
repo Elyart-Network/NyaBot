@@ -5,6 +5,7 @@ import (
 	"github.com/Elyart-Network/NyaBot/config"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/websocket"
 	"github.com/Elyart-Network/NyaBot/utils"
+	log "github.com/sirupsen/logrus"
 	"math/rand"
 	"time"
 )
@@ -26,6 +27,7 @@ func GetRequest(Endpoint string, RespStruct any) (err error) {
 	if err != nil {
 		return err
 	}
+	log.Debug("[GoCqHttp] HTTP GET REQUEST sent! @Endpoint:", Endpoint, " @Response:", RespStruct)
 	return
 }
 
@@ -46,5 +48,6 @@ func PostRequest(Endpoint string, Params any, RespStruct any) (err error) {
 	if err != nil {
 		return err
 	}
+	log.Debug("[GoCqHttp] HTTP POST REQUEST sent! @Endpoint:", Endpoint, " @Params:", Params, " @Response:", RespStruct)
 	return
 }

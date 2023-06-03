@@ -13,11 +13,11 @@ func init() {
 		log.Infoln("[Lua] Scripts folder not found, creating one...")
 		err := os.Mkdir(luaDir, os.ModePerm)
 		if err != nil {
-			log.Errorf("[Lua] Error creating scripts folder: %v", err)
+			log.Error("[Lua] Error creating scripts folder: ", err)
 			return
 		}
 	} else if err != nil {
-		log.Errorf("[Lua] Error checking scripts folder: %v", err)
+		log.Error("[Lua] Error checking scripts folder: ", err)
 		return
 	}
 	_, err = os.Stat(luaDir + "/lua.ini")
@@ -26,18 +26,18 @@ func init() {
 		defer func(file *os.File) {
 			err := file.Close()
 			if err != nil {
-				log.Errorf("[Lua] Error closing lua.ini: %v", err)
+				log.Error("[Lua] Error closing lua.ini: ", err)
 				return
 			}
 		}(file)
 		var defaultCnf = []byte("[example]\nenable = false\nscript = example.lua\n")
 		_, err = file.Write(defaultCnf)
 		if err != nil {
-			log.Errorf("[Lua] Error writing lua.ini: %v", err)
+			log.Error("[Lua] Error writing lua.ini: ", err)
 			return
 		}
 	} else if err != nil {
-		log.Errorf("[Lua] Error checking lua.ini: %v", err)
+		log.Error("[Lua] Error checking lua.ini: ", err)
 		return
 	}
 }
@@ -58,7 +58,7 @@ func GetScripts() {
 	clearScripts()
 	cfg, err := ini.Load(luaDir + "/lua.ini")
 	if err != nil {
-		log.Errorf("[Lua] Error loading lua.ini: %v", err)
+		log.Error("[Lua] Error loading lua.ini: ", err)
 		return
 	}
 	for _, section := range cfg.Sections() {
