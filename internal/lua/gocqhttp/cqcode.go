@@ -13,6 +13,10 @@ func (c CqCodeFunc) Decode(str string) any {
 	return cqcode.Decode(str)
 }
 
+func (c CqCodeFunc) DecodeOne(code string, key string) string {
+	return cqcode.Decode(code)[key]
+}
+
 func (c CqCodeFunc) Face(id string) string {
 	data := types.FaceData{ID: id}
 	return cqcode.Face(data)

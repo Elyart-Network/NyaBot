@@ -5,11 +5,11 @@ import (
 	"strings"
 )
 
-func Decode(code string) any {
-	// Return empty string if code is not a CQ code
+func Decode(code string) map[string]string {
+	// Return nil if code is not a CQ code
 	if !strings.HasPrefix(code, "[CQ:") {
 		log.Debug("[CqCode] Error compiling CQ code: " + code)
-		return ""
+		return nil
 	}
 
 	// Trim prefix and suffix then split key-value pairs
@@ -21,7 +21,7 @@ func Decode(code string) any {
 	// Read type and store in map
 	if strings.Contains(splitKV[0], "=") {
 		log.Debug("[CqCode] Error reading CQ code type: " + code)
-		return ""
+		return nil
 	}
 	codeMap["code-type"] = splitKV[0] // type
 
@@ -33,7 +33,7 @@ func Decode(code string) any {
 		split := strings.Split(v, "=")
 		if len(split) != 2 {
 			log.Debug("[CqCode] Error splitting CQ code key-value pairs: " + code)
-			return ""
+			return nil
 		}
 		codeMap[split[0]] = split[1]
 	}
