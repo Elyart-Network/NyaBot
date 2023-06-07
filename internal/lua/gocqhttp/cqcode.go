@@ -9,6 +9,10 @@ import (
 
 type CqCodeFunc struct{}
 
+func (c CqCodeFunc) Decode(str string) any {
+	return cqcode.Decode(str)
+}
+
 func (c CqCodeFunc) Face(id string) string {
 	data := types.FaceData{ID: id}
 	return cqcode.Face(data)
