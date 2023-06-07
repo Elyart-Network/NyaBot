@@ -2,8 +2,19 @@ package cqcode
 
 import (
 	log "github.com/sirupsen/logrus"
+	"regexp"
 	"strings"
 )
+
+func Find(msg string) []string {
+	regex := regexp.MustCompile(`\[CQ:.*?]`)
+	if regex == nil {
+		log.Debug("[CqCode] Error compiling CQ code regex")
+		return nil
+	}
+	result := regex.FindAllString(msg, -1)
+	return result
+}
 
 func Decode(code string) map[string]string {
 	// Return nil if code is not a CQ code

@@ -9,6 +9,10 @@ import (
 
 type CqCodeFunc struct{}
 
+func (c CqCodeFunc) Find(msg string) []string {
+	return cqcode.Find(msg)
+}
+
 func (c CqCodeFunc) Decode(str string) any {
 	return cqcode.Decode(str)
 }
