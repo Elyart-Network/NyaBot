@@ -13,32 +13,29 @@ func GetEnv(Key string) string {
 	return os.Getenv(Key)
 }
 
-func SetEnvConf(Type string, ConfKey string) {
-	ConfSplit := strings.Split(ConfKey, ".")
-	var UpConfSplit []string
-	for _, v := range ConfSplit {
-		UpConfSplit = append(UpConfSplit, strings.ToUpper(v))
-	}
-	var EnvKey = strings.Join(UpConfSplit, "_")
+func SetEnvConf(ConfKey string, ConfSub string) {
+	var Config = []string{ConfKey, ConfSub}
+	var EnvKey = strings.Join(Config, "_")
 	env := GetEnv(EnvKey)
+	var orig = Get(ConfKey + "." + ConfSub)
 	if env != "" {
-		switch Type {
-		case "string":
+		switch orig.(type) {
+		case string:
 			Set(ConfKey, env)
-		case "int":
+		case int:
 			conv, err := strconv.Atoi(env)
 			if err != nil {
 				log.Panic("[Config] Error converting string to int: ", err)
 			}
 			Set(ConfKey, conv)
-		case "bool":
+		case bool:
 			switch env {
 			case "true":
 				Set(ConfKey, true)
 			case "false":
 				Set(ConfKey, false)
 			}
-		case "array":
+		case []string:
 			trim := strings.TrimSpace(env)
 			trim = strings.TrimPrefix(trim, "[")
 			trim = strings.TrimSuffix(trim, "]")
@@ -55,14 +52,26 @@ func SetEnvConf(Type string, ConfKey string) {
 
 func EnvInit() {
 	var dict = map[string][]string{
-		"bool":   {"server.file_logger", "server.debug_mode", "search.enable", "mirai.enable", "logging.external", "logging.internal_log", "cache.external", "gocqhttp.enable", "gocqhttp.enable_ws", "plugin.lua_enable", "plugin.lua_sandbox"},
-		"int":    {"search.index_name", "logging.cache_num", "gocqhttp.delay"},
-		"string": {"server.listen_port", "server.rpc_port", "search.host", "search.username", "search.password", "logging.mongo_uri", "logging.mongo_db", "cache.master", "cache.username", "cache.password", "database.type", "database.host", "database.name", "database.username", "database.password", "gocqhttp.host_url", "plugin.lua_script_dir"},
-		"array":  {"cache.hosts"},
+		"server":   {"listen_port", "rpc_port", "debug_mode", "file_logger"},
+		"mirai":    {"enable"},
+		"gocqhttp": {"enable", "host_url", "delay", "enable_ws"},
+		"database": {"type", "host", "name", "username", "password"},
+		"logging":  {"external", "mongo_uri", "mongo_db", "cache_num", "internal_log"},
+		"cache":    {"external", "hosts", "master", "username", "password"},
+		"search":   {"enable", "host", "index_name", "username", "password"},
+		"plugin":   {"lua_enable", "lua_script_dir", "lua_sandbox"},
 	}
 	for key, value := range dict {
 		for _, sub := range value {
 			SetEnvConf(key, sub)
 		}
 	}
+}
+
+func TZ() string {
+	tz := GetEnv("TZ")
+	if tz == "" {
+		return "Asia/Shanghai"
+	}
+	return tz
 }

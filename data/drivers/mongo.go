@@ -2,29 +2,14 @@ package drivers
 
 import (
 	"context"
-	log "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type MongoDSN struct {
-	MongoUri string
-}
-
-type MongoClient struct {
-	*mongo.Client
-}
-
-func MongoDB(dsn MongoDSN) *MongoClient {
+func MongoDB(dsn MongoDSN) (*MongoClient, error) {
 	// Connect to MongoDB
 	ctx := context.Background()
 	conn, err := mongo.Connect(ctx, options.Client().ApplyURI(dsn.MongoUri))
-	if err != nil {
-		log.Error("[MongoDB] Failed to connect to MongoDB: ", err)
-	}
 	err = conn.Ping(ctx, nil)
-	if err != nil {
-		log.Error("[MongoDB] Failed to ping MongoDB: ", err)
-	}
-	return &MongoClient{conn}
+	return &MongoClient{conn}, err
 }
