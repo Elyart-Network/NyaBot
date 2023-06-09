@@ -67,3 +67,11 @@ func EnvInit() {
 		}
 	}
 }
+
+func TZ() string {
+	tz := GetEnv("TZ")
+	if tz == "" {
+		return "Asia/Shanghai"
+	}
+	return tz
+}
