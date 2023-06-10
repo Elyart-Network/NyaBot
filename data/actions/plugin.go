@@ -8,27 +8,30 @@ import (
 
 type Plugin struct{}
 
-func (p *Plugin) SaveConfig(PName string, PType string, PConfig any, PAdd string) {
+func (p *Plugin) SaveConfig(UID int64, PName string, PType string, PConfig any, PAdd string) error {
 	cfg, _ := json.Marshal(PConfig)
 	data := models.Plugin{
+		ID:       UID,
 		Name:     PName,
 		Type:     PType,
 		Config:   string(cfg),
 		Addition: PAdd,
 	}
-	handler.DB.Save(&data)
+	err := handler.DB.Save(&data).Error
 	log.Debug("[DBAct](SaveConfig) Saved! @PName:", PName, " @PType:", PType, " @PConfig", PConfig, " @PAdd:", PAdd)
+	return err
 }
 
-func (p *Plugin) GetConfig(PName string, PType string) models.Plugin {
+func (p *Plugin) GetConfig(PName string, PType string) (models.Plugin, error) {
 	data := models.Plugin{Name: PName, Type: PType}
-	handler.DB.First(&data)
+	err := handler.DB.First(&data).Error
 	log.Debug("[DBAct](GetConfig) Get Config. @PName:", PName, " @Type:", data.Type, " @Config:", data.Config, " @Addition:", data.Addition)
-	return data
+	return data, err
 }
 
-func (p *Plugin) DeleteConfig(PName string, PType string) {
+func (p *Plugin) DeleteConfig(PName string, PType string) error {
 	data := models.Plugin{Name: PName, Type: PType}
-	handler.DB.Delete(&data)
+	err := handler.DB.Where("name = ? AND type = ?", PName, PType).Delete(&data).Error
 	log.Debug("[DBAct](DeleteConfig) Deleted! @PName:", PName)
+	return err
 }

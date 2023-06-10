@@ -2,6 +2,7 @@ package runtime
 
 import (
 	"github.com/Elyart-Network/NyaBot/internal/lua/common"
+	"github.com/Elyart-Network/NyaBot/internal/lua/database"
 	"github.com/Elyart-Network/NyaBot/internal/lua/gocqhttp"
 	log "github.com/sirupsen/logrus"
 	lua "github.com/yuin/gopher-lua"
@@ -20,6 +21,7 @@ func LVM(path string, data CallbackData) {
 	gocqhttp.Request(L)
 	gocqhttp.Action(L)
 	gocqhttp.GetData(L)
+	database.DBPlugin(L)
 	// load and run the script
 	if err := L.DoFile(path); err != nil {
 		log.Error("[Lua] Error running lua script: ", err)
