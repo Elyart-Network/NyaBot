@@ -48,9 +48,9 @@ func init() {
 		}
 		dsn := drivers.RedisDSN{
 			Hosts:    rdbAddress,
-			Master:   config.Get("redis.master").(string),
-			Username: config.Get("redis.username").(string),
-			Password: config.Get("redis.password").(string),
+			Master:   config.Get("cache.master").(string),
+			Username: config.Get("cache.username").(string),
+			Password: config.Get("cache.password").(string),
 			DB:       0,
 		}
 		conn, err := drivers.Redis(dsn)
