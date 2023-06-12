@@ -20,6 +20,10 @@ func (p *DBPluginFunc) DelConfig(PName string, CKey string) {
 	database.DelConfig(PName, "Lua", CKey)
 }
 
+func (p *DBPluginFunc) DelPlugin(PName string) {
+	database.DelPlugin(PName, "Lua")
+}
+
 func DBPlugin(L *lua.LState) {
 	var DBPluginFunc = &DBPluginFunc{}
 	L.SetGlobal("DBPlug", luar.New(L, DBPluginFunc))
