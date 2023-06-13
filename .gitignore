@@ -17,3 +17,5 @@ scripts/*
 !scripts/.gitkeep
 database.db
 app.log
+dist
+.release-env
