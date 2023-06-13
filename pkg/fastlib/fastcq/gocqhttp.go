@@ -100,7 +100,7 @@ func GenCustomForward(Name string, Id string, Content string) types.ForwardCusto
 // Message: Message to send.
 // ID: Group ID or User ID.
 // IsGroup: true for group, false for user.
-func SendForwardMsg(Messages interface{}, Id int64, IsGroup bool) (int64, error) {
+func SendForwardMsg(Messages any, Id int64, IsGroup bool) (int64, error) {
 	switch IsGroup {
 	case true:
 		data := types.SendGroupForwardMsgData{

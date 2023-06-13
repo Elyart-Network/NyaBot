@@ -15,3 +15,5 @@ plugins/*
 scripts/*
 !plugins/.gitkeep
 !scripts/.gitkeep
+database.db
+app.log

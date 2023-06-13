@@ -4,9 +4,9 @@ import (
 	"github.com/Elyart-Network/NyaBot/pkg/fastlib/fastcq"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/cqcode"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/types"
+	log "github.com/sirupsen/logrus"
 	lua "github.com/yuin/gopher-lua"
 	luar "layeh.com/gopher-luar"
-	"log"
 	"strconv"
 )
 
@@ -15,7 +15,7 @@ type MessageFunc struct{}
 func (c *MessageFunc) SendMsg(Message string, Id int64, IsGroup bool) {
 	_, err := fastcq.SendMsg(Message, Id, IsGroup)
 	if err != nil {
-		log.Println("[Lua] SendMsg error: ", err)
+		log.Warning("[Lua] SendMsg error: ", err)
 	}
 }
 
@@ -24,7 +24,7 @@ func (c *MessageFunc) Reply(Message string, Id int64, IsGroup bool, To int) {
 	ReplyCode := cqcode.Reply(ReplyCodeData)
 	_, err := fastcq.SendMsg(ReplyCode+Message, Id, IsGroup)
 	if err != nil {
-		log.Println("[Lua] SendMsgWithAt error: ", err)
+		log.Warning("[Lua] Reply error: ", err)
 	}
 }
 
@@ -35,11 +35,11 @@ func (c *MessageFunc) SendPic(Url string, Type string, Id int64, IsGroup bool) {
 	}
 	_, err := fastcq.SendMsg(cqcode.Image(PicData), Id, IsGroup)
 	if err != nil {
-		log.Println("[Lua] SendPic error: ", err)
+		log.Warning("[Lua] SendPic error: ", err)
 	}
 }
 
-var ForwardMessages []interface{}
+var ForwardMessages []any
 
 func (c *MessageFunc) SetIdForward(MessageID string) {
 	data := fastcq.GenIdForward(MessageID)
@@ -54,7 +54,7 @@ func (c *MessageFunc) SetCustomForward(Name string, Id string, Content string) {
 func (c *MessageFunc) SendForwardMsg(Id int64, IsGroup bool) {
 	_, err := fastcq.SendForwardMsg(ForwardMessages, Id, IsGroup)
 	if err != nil {
-		log.Println("[Lua] SendForwardMsg error: ", err)
+		log.Warning("[Lua] SendForwardMsg error: ", err)
 	}
 	ForwardMessages = nil
 }
@@ -62,7 +62,7 @@ func (c *MessageFunc) SendForwardMsg(Id int64, IsGroup bool) {
 func (c *MessageFunc) DeleteMsg(MessageID int32) {
 	err := fastcq.DeleteMsg(MessageID)
 	if err != nil {
-		log.Println("[Lua] DeleteMsg error: ", err)
+		log.Warning("[Lua] DeleteMsg error: ", err)
 	}
 }
 

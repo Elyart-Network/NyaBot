@@ -23,8 +23,8 @@ type MarkMsgAsReadData struct {
 }
 
 type SendGroupForwardMsgData struct {
-	GroupID  int64       `json:"group_id"`
-	Messages interface{} `json:"messages"`
+	GroupID  int64 `json:"group_id"`
+	Messages any   `json:"messages"`
 }
 
 type SendGroupMsgData struct {
@@ -34,8 +34,8 @@ type SendGroupMsgData struct {
 }
 
 type SendPrivateForwardMsgData struct {
-	UserID   int64       `json:"user_id"`
-	Messages interface{} `json:"messages"`
+	UserID   int64 `json:"user_id"`
+	Messages any   `json:"messages"`
 }
 
 type SendPrivateMsgData struct {
@@ -55,7 +55,7 @@ type GetForwardMsgResp struct {
 type GetGroupMsgHistoryResp struct {
 	Response
 	Data struct {
-		Messages []interface{} `json:"messages"`
+		Messages []any `json:"messages"`
 	} `json:"data"`
 }
 
@@ -69,8 +69,8 @@ type GetMsgResp struct {
 		MessageType string       `json:"message_type"`
 		Sender      SenderObject `json:"sender"`
 		Time        int          `json:"time"`
-		Message     interface{}  `json:"message"`
-		RawMessage  interface{}  `json:"raw_message"`
+		Message     any          `json:"message"`
+		RawMessage  any          `json:"raw_message"`
 	} `json:"data"`
 }
 

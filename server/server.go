@@ -1,27 +1,20 @@
 package server
 
 import (
-	"github.com/Elyart-Network/NyaBot/internal/config"
+	"github.com/Elyart-Network/NyaBot/config"
 	"github.com/gin-gonic/gin"
-	"io"
-	"log"
+	log "github.com/sirupsen/logrus"
+	"golang.org/x/sync/errgroup"
 	"net/http"
-	"os"
+	"time"
 )
 
-func Start() {
-	FileLogger := config.Get("server.file_logger").(bool)
-	DebugMode := config.Get("server.debug_mode").(bool)
-	ServerPort := config.Get("server.listen_port").(string)
+var g errgroup.Group
 
-	if FileLogger {
-		gin.DisableConsoleColor()
-		file, err := os.Create("app.log")
-		if err != nil {
-			log.Panicln(err)
-		}
-		gin.DefaultWriter = io.MultiWriter(file)
-	}
+func Start() {
+	ServerPort := config.Get("server.listen_port").(string)
+	RpcPort := config.Get("server.rpc_port").(string)
+	DebugMode := config.Get("server.debug_mode").(bool)
 
 	if DebugMode {
 		gin.SetMode(gin.DebugMode)
@@ -29,12 +22,32 @@ func Start() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
-	engine := gin.Default()
-	engine.Use(gin.Recovery())
-	Entry(engine)
+	gs := &http.Server{
+		Addr:         ":" + ServerPort,
+		Handler:      GinServer(),
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
 
-	err := http.ListenAndServe(":"+ServerPort, engine)
-	if err != nil {
+	rpc := &http.Server{
+		Addr:         ":" + RpcPort,
+		Handler:      RPCServer(),
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	g.Go(func() error {
+		return gs.ListenAndServe()
+	})
+
+	g.Go(func() error {
+		if RpcPort != "" {
+			return rpc.ListenAndServe()
+		}
+		return nil
+	})
+
+	if err := g.Wait(); err != nil {
 		log.Panicln(err)
 	}
 }

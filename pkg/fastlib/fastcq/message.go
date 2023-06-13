@@ -15,8 +15,8 @@ type MessageFunc struct {
 	Msg     string
 	MsgId   int32
 	IsGroup bool
-	SMsg    []interface{}
-	SFwd    []interface{}
+	SMsg    []any
+	SFwd    []any
 	Errors  []error
 }
 

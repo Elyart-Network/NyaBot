@@ -2,9 +2,9 @@ package common
 
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/fastlib/system"
+	log "github.com/sirupsen/logrus"
 	lua "github.com/yuin/gopher-lua"
 	luar "layeh.com/gopher-luar"
-	"log"
 	"os"
 	"time"
 )
@@ -30,14 +30,14 @@ func (s *SystemFunc) GetEnv(key string) string {
 func (s *SystemFunc) SetEnv(key, value string) {
 	err := os.Setenv(key, value)
 	if err != nil {
-		log.Println("SetEnv error:", err)
+		log.Warning("[Lua] SetEnv error: ", err)
 	}
 }
 
 func (s *SystemFunc) UnsetEnv(key string) {
 	err := os.Unsetenv(key)
 	if err != nil {
-		log.Println("UnsetEnv error:", err)
+		log.Warning("[Lua] UnsetEnv error: ", err)
 	}
 }
 

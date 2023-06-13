@@ -10,8 +10,8 @@ type Data struct {
 
 type Source struct {
 	// "GoCqHttp"/"Mirai"/"OneBot"/"Telegram"/"Discord"/"Slack"
-	Platform string      `json:"platform"`
-	Addition interface{} `json:"addition"`
+	Platform string `json:"platform"`
+	Addition any    `json:"addition"`
 }
 
 type Target struct {
@@ -26,7 +26,7 @@ type GoCqHttp struct {
 }
 
 type Message struct {
-	Type     string      `json:"type"`
-	Content  string      `json:"content"`
-	Addition interface{} `json:"addition"`
+	Type     string `json:"type"`
+	Content  string `json:"content"`
+	Addition any    `json:"addition"`
 }

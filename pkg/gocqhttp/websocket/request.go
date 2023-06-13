@@ -2,7 +2,7 @@ package websocket
 
 import (
 	"encoding/json"
-	"github.com/Elyart-Network/NyaBot/internal/config"
+	"github.com/Elyart-Network/NyaBot/config"
 	"log"
 	"strconv"
 	"strings"
@@ -10,14 +10,14 @@ import (
 )
 
 type wsRequestData struct {
-	Action string      `json:"action"`
-	Params interface{} `json:"params"`
-	Echo   string      `json:"echo"`
+	Action string `json:"action"`
+	Params any    `json:"params"`
+	Echo   string `json:"echo"`
 }
 
 var requestChan = make(chan wsRequestData)
 
-func WsSendRequest(Endpoint string, Params interface{}, RespStruct interface{}) bool {
+func WsSendRequest(Endpoint string, Params any, RespStruct any) bool {
 	if !config.Get("gocqhttp.enable").(bool) || !config.Get("gocqhttp.enable_ws").(bool) {
 		return false
 	}

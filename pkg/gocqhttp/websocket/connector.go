@@ -1,7 +1,7 @@
 package websocket
 
 import (
-	"github.com/Elyart-Network/NyaBot/internal/config"
+	"github.com/Elyart-Network/NyaBot/config"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/gorilla/websocket"
 	"log"

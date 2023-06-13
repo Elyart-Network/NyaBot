@@ -2,14 +2,15 @@ package gocqhttp
 
 import (
 	"encoding/json"
-	"github.com/Elyart-Network/NyaBot/internal/config"
-	"github.com/Elyart-Network/NyaBot/internal/utils"
+	"github.com/Elyart-Network/NyaBot/config"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/websocket"
+	"github.com/Elyart-Network/NyaBot/utils"
+	log "github.com/sirupsen/logrus"
 	"math/rand"
 	"time"
 )
 
-func GetRequest(Endpoint string, RespStruct interface{}) (err error) {
+func GetRequest(Endpoint string, RespStruct any) (err error) {
 	// Delay
 	time.Sleep(time.Duration(rand.Intn(config.Get("gocqhttp.delay").(int))) * time.Millisecond)
 	// Websocket Reverse
@@ -26,10 +27,11 @@ func GetRequest(Endpoint string, RespStruct interface{}) (err error) {
 	if err != nil {
 		return err
 	}
+	log.Debug("[GoCqHttp] HTTP GET REQUEST sent! @Endpoint:", Endpoint, " @Response:", RespStruct)
 	return
 }
 
-func PostRequest(Endpoint string, Params interface{}, RespStruct interface{}) (err error) {
+func PostRequest(Endpoint string, Params any, RespStruct any) (err error) {
 	// Delay
 	time.Sleep(time.Duration(rand.Intn(config.Get("gocqhttp.delay").(int))) * time.Millisecond)
 	// Websocket Reverse
@@ -46,5 +48,6 @@ func PostRequest(Endpoint string, Params interface{}, RespStruct interface{}) (e
 	if err != nil {
 		return err
 	}
+	log.Debug("[GoCqHttp] HTTP POST REQUEST sent! @Endpoint:", Endpoint, " @Params:", Params, " @Response:", RespStruct)
 	return
 }

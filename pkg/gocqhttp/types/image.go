@@ -33,7 +33,7 @@ type OcrImageResp struct {
 }
 
 type TextDetectionObject struct {
-	Text        string        `json:"text"`
-	Confidence  int32         `json:"confidence"`
-	Coordinates []interface{} `json:"coordinates"`
+	Text        string `json:"text"`
+	Confidence  int32  `json:"confidence"`
+	Coordinates []any  `json:"coordinates"`
 }

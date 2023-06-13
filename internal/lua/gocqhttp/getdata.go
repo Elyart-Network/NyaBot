@@ -3,9 +3,9 @@ package gocqhttp
 import (
 	"github.com/Elyart-Network/NyaBot/pkg/fastlib/fastcq"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/types"
+	log "github.com/sirupsen/logrus"
 	lua "github.com/yuin/gopher-lua"
 	luar "layeh.com/gopher-luar"
-	"log"
 )
 
 type GetDataFunc struct{}
@@ -13,7 +13,7 @@ type GetDataFunc struct{}
 func (c *GetDataFunc) GetGroupMembers(GroupID int64) []types.GroupMemberInfoObject {
 	members, err := fastcq.GetGroupMembers(GroupID)
 	if err != nil {
-		log.Println("[Lua] GetGroupMembers error: ", err)
+		log.Warning("[Lua] GetGroupMembers error: ", err)
 	}
 	return members.Data
 }

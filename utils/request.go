@@ -25,7 +25,7 @@ func GetRequest(url string, params string) ([]byte, error) {
 	return Context, nil
 }
 
-func PostRequest(url string, params interface{}) ([]byte, error) {
+func PostRequest(url string, params any) ([]byte, error) {
 	ByteSlice, err := json.Marshal(params)
 	Request, err := http.Post(url, "application/json", bytes.NewBuffer(ByteSlice))
 	if err != nil {
