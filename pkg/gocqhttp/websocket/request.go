@@ -3,7 +3,7 @@ package websocket
 import (
 	"encoding/json"
 	"github.com/Elyart-Network/NyaBot/config"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"strconv"
 	"strings"
 	"time"
@@ -39,7 +39,7 @@ func WsSendRequest(Endpoint string, Params any, RespStruct any) bool {
 			jsonData, err := json.Marshal(data)
 			err = json.Unmarshal(jsonData, &RespStruct)
 			if err != nil {
-				log.Println("[WebSocket] ws response decode error: ", err)
+				log.Error("[WebSocket] ws response decode error: ", err)
 				return true
 			}
 			return true

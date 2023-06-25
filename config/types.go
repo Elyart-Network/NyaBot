@@ -14,7 +14,7 @@ type config struct {
 type server struct {
 	ListenPort string `yaml:"listen_port"`
 	RpcPort    string `yaml:"rpc_port"`
-	DebugMode  bool   `yaml:"debug_mode"`
+	LogLevel   string `yaml:"log_level"`
 	FileLogger bool   `yaml:"file_logger"`
 }
 

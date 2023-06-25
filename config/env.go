@@ -52,7 +52,7 @@ func SetEnvConf(ConfKey string, ConfSub string) {
 
 func EnvInit() {
 	var dict = map[string][]string{
-		"server":   {"listen_port", "rpc_port", "debug_mode", "file_logger"},
+		"server":   {"listen_port", "rpc_port", "log_level", "file_logger"},
 		"mirai":    {"enable"},
 		"gocqhttp": {"enable", "host_url", "delay", "enable_ws"},
 		"database": {"type", "host", "name", "username", "password"},

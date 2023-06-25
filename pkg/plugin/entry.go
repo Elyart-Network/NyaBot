@@ -6,6 +6,7 @@ import (
 	"github.com/Elyart-Network/NyaBot/pkg/webhook"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"time"
 )
 
 func WhEntry(ctx *gin.Context) {
@@ -27,6 +28,15 @@ func CqEntry(ctx *gin.Context) {
 	}
 	log.Debug("[Entry] Received CoolQ Callback. @Data:", data)
 	CqCallBack(ctx, data)
+
+	select {
+	case <-time.After(5 * time.Second):
+		log.Warn("[Entry] CoolQ callback timeout.")
+		return
+	case <-ctx.Done():
+		log.Warn("[Entry] CoolQ callback canceled.")
+		return
+	}
 }
 func CqWebSocketForward() {
 	go websocket.Client(CqCallBack)

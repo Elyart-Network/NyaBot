@@ -6,7 +6,7 @@ import (
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -23,20 +23,20 @@ func wsHandler(ws *websocket.Conn, call CqCallback) {
 		// Read Message
 		_, wsContext, err := ws.ReadMessage()
 		if err != nil {
-			log.Println("[WebSocket] ws read error: ", err)
+			log.Error("[WebSocket] ws read error: ", err)
 			break
 		}
 		// Encode Message to wsActionData.
 		resp, isResp, err := wsResponseEncode(wsContext)
 		if err != nil {
-			log.Println("[WebSocket] ws response encode error: ", err)
+			log.Error("[WebSocket] ws response encode error: ", err)
 			break
 		}
 		// Send callback to plugin functions.
 		if !isResp {
 			data, err := callback.Encode(wsContext, true)
 			if err != nil {
-				log.Println("[WebSocket] callback encode error: ", err)
+				log.Error("[WebSocket] callback encode error: ", err)
 				break
 			}
 			ctx := context.Background()
@@ -47,7 +47,7 @@ func wsHandler(ws *websocket.Conn, call CqCallback) {
 			for data := range requestChan {
 				err := ws.WriteJSON(data)
 				if err != nil {
-					log.Println("[WebSocket] ws write json error: ", err)
+					log.Error("[WebSocket] ws write json error: ", err)
 					break
 				}
 			}
@@ -64,13 +64,13 @@ func Client(callback CqCallback) {
 	wsHost := config.Get("gocqhttp.host_url").(string)
 	ws, _, err := dialer.Dial(wsHost, nil)
 	if err != nil {
-		log.Println("[WebSocket] ws dial error: ", err)
+		log.Error("[WebSocket] ws dial error: ", err)
 		return
 	}
 	defer func(ws *websocket.Conn) {
 		err := ws.Close()
 		if err != nil {
-			log.Println("[WebSocket] ws close error: ", err)
+			log.Error("[WebSocket] ws close error: ", err)
 			return
 		}
 	}(ws)
@@ -80,13 +80,13 @@ func Client(callback CqCallback) {
 func Server(ctx *gin.Context, callback CqCallback) {
 	ws, err := up.Upgrade(ctx.Writer, ctx.Request, nil)
 	if err != nil {
-		log.Println("[WebSocket] ws upgrade error: ", err)
+		log.Error("[WebSocket] ws upgrade error: ", err)
 		return
 	}
 	defer func(ws *websocket.Conn) {
 		err := ws.Close()
 		if err != nil {
-			log.Println("[WebSocket] ws close error: ", err)
+			log.Error("[WebSocket] ws close error: ", err)
 			return
 		}
 	}(ws)

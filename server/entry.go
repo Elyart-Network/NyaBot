@@ -2,10 +2,10 @@ package server
 
 import (
 	"github.com/Elyart-Network/NyaBot/config"
+	"github.com/Elyart-Network/NyaBot/health"
 	"github.com/Elyart-Network/NyaBot/logger"
 	"github.com/Elyart-Network/NyaBot/pkg/plugin"
 	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"net/http"
 	"strings"
@@ -19,12 +19,7 @@ func GinServer() http.Handler {
 			"status": "Not Found",
 		})
 	})
-	server.GET("/health", func(c *gin.Context) {
-		log.Debug("[Gin] Health Checked!")
-		c.JSON(200, gin.H{
-			"status": "OK",
-		})
-	})
+	server.GET("/health", health.Gin)
 	server.POST("/webhook", plugin.WhEntry)
 	if config.Get("gocqhttp.enable").(bool) {
 		if config.Get("gocqhttp.enable_ws").(bool) {
@@ -59,11 +54,6 @@ func RPCServer() http.Handler {
 			"status": "Not Found",
 		})
 	})
-	server.GET("/health", func(c *gin.Context) {
-		log.Debug("[RPC] Health Checked!")
-		c.JSON(200, gin.H{
-			"status": "OK",
-		})
-	})
+	server.GET("/health", health.Gin)
 	return server
 }

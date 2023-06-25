@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var handler Handler
+var CONN Handler
 
 type Handler struct {
 	DB    *gorm.DB
@@ -14,5 +14,5 @@ type Handler struct {
 }
 
 func New(h Handler) {
-	handler = h
+	CONN = h
 }

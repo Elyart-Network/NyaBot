@@ -2,7 +2,6 @@ package server
 
 import (
 	"github.com/Elyart-Network/NyaBot/config"
-	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/sync/errgroup"
 	"net/http"
@@ -14,13 +13,6 @@ var g errgroup.Group
 func Start() {
 	ServerPort := config.Get("server.listen_port").(string)
 	RpcPort := config.Get("server.rpc_port").(string)
-	DebugMode := config.Get("server.debug_mode").(bool)
-
-	if DebugMode {
-		gin.SetMode(gin.DebugMode)
-	} else {
-		gin.SetMode(gin.ReleaseMode)
-	}
 
 	gs := &http.Server{
 		Addr:         ":" + ServerPort,

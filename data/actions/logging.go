@@ -18,7 +18,7 @@ func (l *Logging) Cache(ctx context.Context, collection string, content any) {
 		switch externalCache {
 		case true:
 			// Connect to Redis and insert message
-			r := handler.Redis
+			r := CONN.Redis
 			clen := r.LLen(ctx, collection)
 			if clen.Val() >= int64(cacheNum) {
 				// Remove oldest message
@@ -40,7 +40,7 @@ func (l *Logging) Insert(ctx context.Context, collection string, content any) {
 	// Connect to MongoDB and insert message
 	enableMDB := config.Get("logging.external").(bool)
 	if enableMDB {
-		m := handler.Mongo
+		m := CONN.Mongo
 		_, err := m.Database("NyaBot").Collection(collection).InsertOne(ctx, content)
 		err = m.Disconnect(ctx)
 		if err != nil {
@@ -63,7 +63,7 @@ func (l *Logging) Insert(ctx context.Context, collection string, content any) {
 			Collection: collection,
 			Content:    string(contentStr),
 		}
-		handler.DB.Save(&data)
+		CONN.DB.Save(&data)
 		log.Debug("[InternalLog] Inserted message to database.")
 	}
 }
