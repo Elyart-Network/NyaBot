@@ -32,7 +32,7 @@ func convert(i any) any {
 	case map[any]any:
 		m2 := map[string]any{}
 		for k, v := range x {
-			reg := regexp.MustCompile(`.*name|pass|uri|host|dir|db.*`)
+			reg := regexp.MustCompile(`.*name|pass|uri|host|dir|_db.*`)
 			if reg == nil {
 				return nil
 			}
