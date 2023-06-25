@@ -27,31 +27,33 @@ func starGen(str any) string {
 	return res
 }
 
-func convert(i any) any {
+func convert(i any, enc bool) any {
 	switch x := i.(type) {
 	case map[any]any:
 		m2 := map[string]any{}
 		for k, v := range x {
-			reg := regexp.MustCompile(`.*name|pass|uri|host|dir|_db.*`)
-			if reg == nil {
-				return nil
+			if enc {
+				reg := regexp.MustCompile(`.*name|pass|uri|host|dir|_db.*`)
+				if reg == nil {
+					return nil
+				}
+				if reg.MatchString(k.(string)) {
+					m2[k.(string)] = starGen(v)
+					continue
+				}
 			}
-			if reg.MatchString(k.(string)) {
-				m2[k.(string)] = starGen(v)
-				continue
-			}
-			m2[k.(string)] = convert(v)
+			m2[k.(string)] = convert(v, enc)
 		}
 		return m2
 	case []any:
 		for i, v := range x {
-			x[i] = convert(v)
+			x[i] = convert(v, enc)
 		}
 	}
 	return i
 }
 
-func Config() any {
+func Config(enc bool) any {
 	// Read config file
 	cfg, err := os.ReadFile("config.yaml")
 	if err != nil {
@@ -63,7 +65,7 @@ func Config() any {
 	if err := yaml.Unmarshal(cfg, &body); err != nil {
 		return nil
 	}
-	body = convert(body)
+	body = convert(body, enc)
 
 	return body
 }
