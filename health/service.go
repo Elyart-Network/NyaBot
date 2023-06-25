@@ -35,7 +35,12 @@ func Raw(ctx context.Context, enc bool) Response {
 }
 
 func Gin(ctx *gin.Context) {
-	resp, _ := json.Marshal(Raw(ctx, true))
+	raw := Raw(ctx, true)
+	resp, _ := json.Marshal(raw)
 	ctx.Writer.Header().Set("Content-Type", "application/json")
-	ctx.String(200, string(resp))
+	if raw.Health {
+		ctx.String(200, string(resp))
+	} else {
+		ctx.String(500, string(resp))
+	}
 }
