@@ -1,14 +1,16 @@
 package websocket
 
 import (
+	"context"
 	"github.com/Elyart-Network/NyaBot/config"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
+	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
 )
 
-type CqCallback func(callback callback.Full)
+type CqCallback func(ctx context.Context, callback callback.Full)
 
 var up = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
@@ -37,7 +39,8 @@ func wsHandler(ws *websocket.Conn, call CqCallback) {
 				log.Println("[WebSocket] callback encode error: ", err)
 				break
 			}
-			call(data)
+			ctx := context.Background()
+			call(ctx, data)
 		}
 		// Send request.
 		go func() {
@@ -74,8 +77,8 @@ func Client(callback CqCallback) {
 	wsHandler(ws, callback)
 }
 
-func Server(w http.ResponseWriter, r *http.Request, callback CqCallback) {
-	ws, err := up.Upgrade(w, r, nil)
+func Server(ctx *gin.Context, callback CqCallback) {
+	ws, err := up.Upgrade(ctx.Writer, ctx.Request, nil)
 	if err != nil {
 		log.Println("[WebSocket] ws upgrade error: ", err)
 		return

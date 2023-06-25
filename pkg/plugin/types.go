@@ -1,6 +1,7 @@
 package plugin
 
 import (
+	"context"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/webhook"
 )
@@ -27,8 +28,8 @@ type WhPlugin interface {
 
 type CqPlugin interface {
 	CommonInfo
-	Message(callback callback.Full)
-	Request(callback callback.Full)
-	Notice(callback callback.Full)
-	MetaEvent(callback callback.Full)
+	Message(ctx context.Context, callback callback.Full)
+	Request(ctx context.Context, callback callback.Full)
+	Notice(ctx context.Context, callback callback.Full)
+	MetaEvent(ctx context.Context, callback callback.Full)
 }

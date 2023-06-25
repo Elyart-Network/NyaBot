@@ -26,13 +26,13 @@ func CqEntry(ctx *gin.Context) {
 		return
 	}
 	log.Debug("[Entry] Received CoolQ Callback. @Data:", data)
-	CqCallBack(data)
+	CqCallBack(ctx, data)
 }
 func CqWebSocketForward() {
 	go websocket.Client(CqCallBack)
 }
 func CqWebSocketReverse(ctx *gin.Context) {
-	go websocket.Server(ctx.Writer, ctx.Request, CqCallBack)
+	go websocket.Server(ctx, CqCallBack)
 }
 func DiscordEntry(ctx *gin.Context)  {}
 func TelegramEntry(ctx *gin.Context) {}

@@ -1,6 +1,7 @@
 package plugin
 
 import (
+	"context"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/webhook"
 	log "github.com/sirupsen/logrus"
@@ -30,7 +31,7 @@ func WhCallBack(callback webhook.Data) {
 	}
 }
 
-func CqCallBack(callback callback.Full) {
+func CqCallBack(ctx context.Context, callback callback.Full) {
 	// Send callback to plugin functions.
 	for _, value := range plugins {
 		value := value
@@ -39,16 +40,16 @@ func CqCallBack(callback callback.Full) {
 				switch callback.PostType {
 				case "message":
 					log.Debug("[Plugin]", "(GoCqHttp)", "{"+value.(CommonInfo).Info().Name+"}", " Message Event Received.")
-					value.(CqPlugin).Message(callback)
+					value.(CqPlugin).Message(ctx, callback)
 				case "request":
 					log.Debug("[Plugin]", "(GoCqHttp)", "{"+value.(CommonInfo).Info().Name+"}", " Request Event Received.")
-					value.(CqPlugin).Request(callback)
+					value.(CqPlugin).Request(ctx, callback)
 				case "notice":
 					log.Debug("[Plugin]", "(GoCqHttp)", "{"+value.(CommonInfo).Info().Name+"}", " Notice Event Received.")
-					value.(CqPlugin).Notice(callback)
+					value.(CqPlugin).Notice(ctx, callback)
 				case "meta_event":
 					log.Debug("[Plugin]", "(GoCqHttp)", "{"+value.(CommonInfo).Info().Name+"}", " Meta Event Received.")
-					value.(CqPlugin).MetaEvent(callback)
+					value.(CqPlugin).MetaEvent(ctx, callback)
 				}
 			}
 		}()

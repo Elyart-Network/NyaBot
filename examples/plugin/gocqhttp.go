@@ -1,6 +1,7 @@
 package plugin
 
 import (
+	"context"
 	"github.com/Elyart-Network/NyaBot/pkg/gocqhttp/callback"
 	"github.com/Elyart-Network/NyaBot/pkg/plugin"
 	"log"
@@ -24,22 +25,22 @@ func (p *CqPlugin) Info() plugin.InfoStruct {
 }
 
 // Message process message event from callback. (required)
-func (p *CqPlugin) Message(ctx callback.Full) {
+func (p *CqPlugin) Message(ctx context.Context, callback callback.Full) {
 	log.Println("Message")
 }
 
 // Request process request event from callback. (required)
-func (p *CqPlugin) Request(ctx callback.Full) {
+func (p *CqPlugin) Request(ctx context.Context, callback callback.Full) {
 	log.Println("Request")
 }
 
 // Notice process notice event from callback. (required)
-func (p *CqPlugin) Notice(ctx callback.Full) {
+func (p *CqPlugin) Notice(ctx context.Context, callback callback.Full) {
 	log.Println("Notice")
 }
 
 // MetaEvent process meta event from callback. (required)
-func (p *CqPlugin) MetaEvent(ctx callback.Full) {
+func (p *CqPlugin) MetaEvent(ctx context.Context, callback callback.Full) {
 	log.Println("MetaEvent")
 }
 
