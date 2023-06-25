@@ -17,7 +17,15 @@ type Response struct {
 func Raw(ctx context.Context, enc bool) Response {
 	status, errors := Check(ctx)
 	config := Config(enc)
-	log.Debug("[Gin] Health Checked!")
+
+	// Log
+	if len(errors) > 0 {
+		log.Debug("[WatchDog] Health Check Failed!")
+	} else {
+		log.Debug("[WatchDog] Health Check Succeed!")
+	}
+
+	// Return
 	return Response{
 		Health: len(errors) == 0,
 		Status: status,

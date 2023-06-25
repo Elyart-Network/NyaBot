@@ -32,10 +32,11 @@ func init() {
 	case "postgres":
 		db, err = drivers.Postgres(exDSN)
 	}
-	if err != nil {
-		log.Fatal("["+dbType+"] Error connecting to database: ", err)
-	}
 	handler.DB = db.DB
+	if err != nil {
+		log.Error("["+dbType+"] Error connecting to database: ", err)
+		handler.DB = nil
+	}
 
 	// Init redis
 	externalCache := config.Get("cache.external").(bool)
@@ -54,10 +55,11 @@ func init() {
 			DB:       0,
 		}
 		conn, err := drivers.Redis(dsn)
-		if err != nil {
-			log.Fatal("[Redis] Error connecting to Redis: ", err)
-		}
 		handler.Redis = conn
+		if err != nil {
+			log.Error("[Redis] Error connecting to Redis: ", err)
+			handler.Redis = nil
+		}
 	}
 
 	// Init MongoDB
@@ -65,17 +67,22 @@ func init() {
 	if externalLogging {
 		dsn := drivers.MongoDSN{MongoUri: config.Get("logging.mongo_uri").(string)}
 		conn, err := drivers.MongoDB(dsn)
-		if err != nil {
-			log.Fatal("[MongoDB] Error connecting to MongoDB: ", err)
-		}
 		handler.Mongo = conn
+		if err != nil {
+			log.Error("[MongoDB] Error connecting to MongoDB: ", err)
+			handler.Mongo = nil
+		}
+	}
+
+	// Migrate database
+	if handler.DB != nil {
+		err = handler.DB.AutoMigrate(&models.Plugin{}, &models.Logging{})
+		if err != nil {
+			log.Error("[Database] Error migrating database: ", err)
+		}
 	}
 
 	// Initialize
-	err = handler.DB.AutoMigrate(&models.Plugin{}, &models.Logging{})
-	if err != nil {
-		log.Error("[Database] Error migrating database: ", err)
-	}
 	actions.New(handler)
 	log.Debug("[Database] Data sources initialized!")
 }
