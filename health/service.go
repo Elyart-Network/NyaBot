@@ -13,16 +13,20 @@ type Response struct {
 	Config any               `json:"config,omitempty"`
 }
 
-func Gin(ctx *gin.Context) {
-	status, errors := Check(ctx)
+func Raw() Response {
+	status, errors := Check(nil)
 	config := Config()
-	resp, _ := json.Marshal(Response{
+	log.Debug("[Gin] Health Checked!")
+	return Response{
 		Health: len(errors) == 0,
 		Status: status,
 		Errors: errors,
 		Config: config,
-	})
+	}
+}
+
+func Gin(ctx *gin.Context) {
+	resp, _ := json.Marshal(Raw())
 	ctx.Writer.Header().Set("Content-Type", "application/json")
 	ctx.String(200, string(resp))
-	log.Debug("[Gin] Health Checked!")
 }
